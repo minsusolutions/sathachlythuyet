@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sathach/l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<StatefulWidget> createState() => _HomeScreenState();
 }
@@ -10,6 +10,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(height: 200.0, color: Colors.red);
+    return Scaffold(
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.home_title)),
+    );
   }
 }
