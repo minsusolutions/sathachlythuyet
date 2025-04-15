@@ -1,8 +1,12 @@
+import 'package:logging/logging.dart';
 import 'package:sathach/domain/models/home/home_item.dart';
 
 import '../../routing/router.dart';
 
 class LocalDataService {
+  final _logger = Logger("LocalDataService");
+
+
   List<HomeItem> getHomeItems() {
     return [
       HomeItem(

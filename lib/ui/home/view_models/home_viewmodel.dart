@@ -8,6 +8,7 @@ class HomeViewModel extends ChangeNotifier {
   HomeViewModel({required HomeRepository homeRepository})
     : _homeRepository = homeRepository {
     loadHomeItems();
+
   }
 
   final _log = Logger('HomeViewModel');
@@ -18,7 +19,7 @@ class HomeViewModel extends ChangeNotifier {
   List<HomeItem> get homeItems => _homeItems;
 
   loadHomeItems() {
-    _log.finer("loadHomeItems");
+    _log.info("loadHomeItems");
     _homeItems = _homeRepository.getHomeItems();
   }
 }
