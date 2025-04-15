@@ -82,5 +82,5 @@ ThemeData get lightTheme {
 
 ///Expand darkTheme to meet your needs
 ThemeData get darkTheme {
-  return ThemeData();
+  return ThemeData.dark();
 }

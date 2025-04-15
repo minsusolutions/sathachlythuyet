@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:sathach/ui/exam/widgets/exam_screen.dart';
 import 'package:sathach/ui/exam_sets/widgets/exam_sets_screen.dart';
+import 'package:sathach/ui/home/view_models/home_viewmodel.dart';
 import 'package:sathach/ui/home/widgets/home_screen.dart';
 import 'package:sathach/ui/revise/widgets/revise_screen.dart';
 import 'package:sathach/ui/signs/widgets/signs_screen.dart';
@@ -15,6 +19,8 @@ abstract final class Routes {
   static const signs = '/signs';
   static const tips = '/tips';
   static const wrongAnswers = '/wrong';
+  static const top50WrongAnswers = '/top50';
+  static const deadQuestions = '/dead';
 }
 
 GoRouter router() => GoRouter(
@@ -24,7 +30,8 @@ GoRouter router() => GoRouter(
     GoRoute(
       path: Routes.home,
       builder: (context, state) {
-        return HomeScreen();
+        final viewModel = HomeViewModel(homeRepository: context.read());
+        return HomeScreen(viewModel: viewModel);
       },
       routes: [
         GoRoute(

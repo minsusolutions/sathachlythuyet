@@ -106,6 +106,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Okkkkkkkkkkkk'**
   String get welcomeMessage;
+
+  /// No description provided for @randomAssestmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Đề ngẫu nhiên'**
+  String get randomAssestmentTitle;
+
+  /// No description provided for @assestmentSetsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thi theo bộ đề'**
+  String get assestmentSetsTitle;
+
+  /// No description provided for @wrongAnswersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Xem câu bị sai'**
+  String get wrongAnswersTitle;
+
+  /// No description provided for @reviseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ôn tập câu hỏi'**
+  String get reviseTitle;
+
+  /// No description provided for @signsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Các biển báo'**
+  String get signsTitle;
+
+  /// No description provided for @tipsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mẹo ghi nhớ'**
+  String get tipsTitle;
+
+  /// No description provided for @a60DeadQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'60 câu điểm liệt'**
+  String get a60DeadQuestions;
+
+  /// No description provided for @top50WrongQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Top 50 câu sai'**
+  String get top50WrongQuestions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

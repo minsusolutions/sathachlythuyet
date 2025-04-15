@@ -13,4 +13,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeMessage => 'Okkkkkkkkkkkk';
+
+  @override
+  String get randomAssestmentTitle => 'Đề ngẫu nhiên';
+
+  @override
+  String get assestmentSetsTitle => 'Thi theo bộ đề';
+
+  @override
+  String get wrongAnswersTitle => 'Xem câu bị sai';
+
+  @override
+  String get reviseTitle => 'Ôn tập câu hỏi';
+
+  @override
+  String get signsTitle => 'Các biển báo';
+
+  @override
+  String get tipsTitle => 'Mẹo ghi nhớ';
+
+  @override
+  String get a60DeadQuestions => '60 câu điểm liệt';
+
+  @override
+  String get top50WrongQuestions => 'Top 50 câu sai';
 }

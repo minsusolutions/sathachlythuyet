@@ -1,4 +1,13 @@
 {
   "home_title": "Sat hach lai xe",
-  "welcomeMessage": "Okkkkkkkkkkkk"
+  "welcomeMessage": "Okkkkkkkkkkkk",
+
+  "randomAssestmentTitle": "Đề ngẫu nhiên",
+  "assestmentSetsTitle": "Thi theo bộ đề",
+  "wrongAnswersTitle": "Xem câu bị sai",
+  "reviseTitle": "Ôn tập câu hỏi",
+  "signsTitle": "Các biển báo",
+  "tipsTitle": "Mẹo ghi nhớ",
+  "a60DeadQuestions": "60 câu điểm liệt",
+  "top50WrongQuestions": "Top 50 câu sai"
 }
