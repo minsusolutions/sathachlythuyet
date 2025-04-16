@@ -98,14 +98,20 @@ abstract class AppLocalizations {
   /// No description provided for @home_title.
   ///
   /// In en, this message translates to:
-  /// **'Sat hach lai xe'**
+  /// **'Sát hạch lái xe'**
   String get home_title;
 
-  /// No description provided for @welcomeMessage.
+  /// No description provided for @setting_title.
   ///
   /// In en, this message translates to:
-  /// **'Okkkkkkkkkkkk'**
-  String get welcomeMessage;
+  /// **'Thiết lập'**
+  String get setting_title;
+
+  /// No description provided for @app_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Phiên bản ứng dụng: '**
+  String get app_version;
 
   /// No description provided for @randomAssestmentTitle.
   ///
@@ -154,6 +160,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Top 50 câu sai'**
   String get top50WrongQuestions;
+
+  /// No description provided for @chooseLicienseType.
+  ///
+  /// In en, this message translates to:
+  /// **'Chọn bằng lái xe'**
+  String get chooseLicienseType;
+
+  /// No description provided for @a1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng A1'**
+  String get a1Title;
+
+  /// No description provided for @a1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe mô tô hai bánh có dung tích xi-lanh đến 125cm3 hoặc có công suất động cơ điện đến 11kW.'**
+  String get a1Desc;
+
+  /// No description provided for @aTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng A'**
+  String get aTitle;
+
+  /// No description provided for @aDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe mô tô hai bánh có dung tích xi-lanh trên 125cm3 hoặc có công suất động cơ điện trên 11kw và lái xe hạng A1.'**
+  String get aDesc;
+
+  /// No description provided for @b1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng B1'**
+  String get b1Title;
+
+  /// No description provided for @b1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe mô tô ba bánh và lái xe hạng A1.'**
+  String get b1Desc;
+
+  /// No description provided for @bTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng B'**
+  String get bTitle;
+
+  /// No description provided for @bDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe ô tô chở người đến 8 chỗ ngồi (không kể chỗ lái xe); xe ô tô tải và chuyên dùng đến 3.500km; xe có kéo rơ moóc đến 750kg.'**
+  String get bDesc;
+
+  /// No description provided for @c1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng C1'**
+  String get c1Title;
+
+  /// No description provided for @c1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe ô tô tải và chuyên dùng trên 3.500kg đến 7.500kg; xe có kéo rơ moóc đến 750kg; và lái xe hạng B.'**
+  String get c1Desc;
+
+  /// No description provided for @cTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng C'**
+  String get cTitle;
+
+  /// No description provided for @cDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe ô tô tải và chuyên dùng trên 7.500kg; xe có kéo rơ moóc đến 750kg; và lái xe hạng B và C1.'**
+  String get cDesc;
+
+  /// No description provided for @d1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng D1'**
+  String get d1Title;
+
+  /// No description provided for @d1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe ô tô chở người trên 08 chỗ đến 16 chỗ (không kể chỗ lãi xe), xe kéo rơ moóc đến 750kg; và lái xe các hạng B, C1, C.'**
+  String get d1Desc;
+
+  /// No description provided for @d2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng D2'**
+  String get d2Title;
+
+  /// No description provided for @d2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe ô tô chở người (kể cả xe buýt) trên 16 chỗ đến 29 chỗ (không kể chỗ lái xe), xe kéo rơ moóc đến 750kg; và lái xe các hạng B, C1, C, D1.'**
+  String get d2Desc;
+
+  /// No description provided for @dTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng D'**
+  String get dTitle;
+
+  /// No description provided for @dDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe ô tô chở người (kể cả xe buýt) trên 29 chỗ (không kể chỗ lái xe); xe giường nằm; xe kéo rơ moóc đến 750kg; và lái xe các hạng B, C1, C, D1, D2.'**
+  String get dDesc;
+
+  /// No description provided for @beTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng BE'**
+  String get beTitle;
+
+  /// No description provided for @beDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lãi xe hạng B kéo rơ moóc trên 750kg.'**
+  String get beDesc;
+
+  /// No description provided for @c1eTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng C1E'**
+  String get c1eTitle;
+
+  /// No description provided for @c1eDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe hạng C1 kéo rơ moóc trên 750kg.'**
+  String get c1eDesc;
+
+  /// No description provided for @ceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng CE'**
+  String get ceTitle;
+
+  /// No description provided for @ceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe hạng C kéo rơ moóc trên 750kg, xe ô tô đầu kéo kéo sơ mi rơ moóc.'**
+  String get ceDesc;
+
+  /// No description provided for @deTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng DE'**
+  String get deTitle;
+
+  /// No description provided for @deDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe hạng D kéo rơ moóc trên 750kg; xe ô tô chở khách nối toa.'**
+  String get deDesc;
+
+  /// No description provided for @d1eTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng D1E'**
+  String get d1eTitle;
+
+  /// No description provided for @d1eDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe hạng D1 kéo rơ moóc trên 750kg.'**
+  String get d1eDesc;
+
+  /// No description provided for @d2eTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hạng D2E'**
+  String get d2eTitle;
+
+  /// No description provided for @d2eDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lái xe hạng D2 kéo rơ moóc trên 750kg.'**
+  String get d2eDesc;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

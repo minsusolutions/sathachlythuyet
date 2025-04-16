@@ -26,12 +26,12 @@ ThemeData get lightTheme {
       centerTitle: false,
       titleTextStyle: TextStyle(
         color: MyColors.white,
-        fontSize: 30,
+        fontSize: 24,
         fontFamily: Font.montserrat,
         fontWeight: FontWeight.w600,
       ),
     ),
-    scaffoldBackgroundColor: MyColors.grey,
+    scaffoldBackgroundColor: MyColors.white.withValues(alpha: 0.95),
 
     ///Elevated button theme
     elevatedButtonTheme: ElevatedButtonThemeData(

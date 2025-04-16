@@ -7,6 +7,8 @@ import 'package:sathach/ui/exam_sets/widgets/exam_sets_screen.dart';
 import 'package:sathach/ui/home/view_models/home_viewmodel.dart';
 import 'package:sathach/ui/home/widgets/home_screen.dart';
 import 'package:sathach/ui/revise/widgets/revise_screen.dart';
+import 'package:sathach/ui/setting/view_models/setting_view_model.dart';
+import 'package:sathach/ui/setting/widgets/setting_screen.dart';
 import 'package:sathach/ui/signs/widgets/signs_screen.dart';
 import 'package:sathach/ui/tips/widgets/tips_screen.dart';
 import 'package:sathach/ui/wrong_answers/widgets/wrong_answers_screen.dart';
@@ -21,6 +23,7 @@ abstract final class Routes {
   static const wrongAnswers = '/wrong';
   static const top50WrongAnswers = '/top50';
   static const deadQuestions = '/dead';
+  static const setting = '/setting';
 }
 
 GoRouter router() => GoRouter(
@@ -68,6 +71,15 @@ GoRouter router() => GoRouter(
           path: Routes.wrongAnswers,
           builder: (context, state) {
             return WrongAnswersScreen();
+          },
+        ),
+        GoRoute(
+          path: Routes.setting,
+          builder: (context, state) {
+            final viewModel = SettingViewModel(
+              settingRepository: context.read(),
+            );
+            return SettingScreen(viewModel: viewModel);
           },
         ),
       ],
