@@ -20,6 +20,9 @@ class SettingList extends StatelessWidget {
         return LicienseCard(
           liciense: licienseList[position],
           isSelected: viewModel.selectedIndex == position,
+          onTap: () {
+            viewModel.saveCurrentLicense(position);
+          },
         );
       },
       separatorBuilder: (context, index) {
@@ -35,9 +38,11 @@ class LicienseCard extends StatelessWidget {
     super.key,
     required this.liciense,
     required this.isSelected,
+    required this.onTap,
   });
   final Liciense liciense;
   final bool isSelected;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +57,10 @@ class LicienseCard extends StatelessWidget {
             isSelected == true ? BorderRadius.circular(8) : BorderRadius.zero,
       ),
       child: InkWell(
+        onTap: onTap,
         child: ListTile(
-          title: Text(getLicienseTitle(context, liciense.licienseType)),
-          subtitle: Text(getLicienseDesc(context, liciense.licienseType)),
+          title: Text(getLicenseTitle(context, liciense.licienseType)),
+          subtitle: Text(getLicenseDesc(context, liciense.licienseType)),
           leading: SvgPicture.asset(
             leadingIcon(context, liciense.vehicleType),
             height: 30,
@@ -65,7 +71,7 @@ class LicienseCard extends StatelessWidget {
     );
   }
 
-  String getLicienseTitle(BuildContext context, LicienseType licienseType) {
+  String getLicenseTitle(BuildContext context, LicienseType licienseType) {
     String? data = "";
     switch (licienseType) {
       case LicienseType.a1:
@@ -120,7 +126,7 @@ class LicienseCard extends StatelessWidget {
     return data ?? "";
   }
 
-  String getLicienseDesc(BuildContext context, LicienseType licienseType) {
+  String getLicenseDesc(BuildContext context, LicienseType licienseType) {
     String? data = "";
     switch (licienseType) {
       case LicienseType.a1:

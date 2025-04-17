@@ -4,11 +4,14 @@ import 'package:sathach/data/repositories/home/home_repository.dart';
 import 'package:sathach/data/repositories/setting/setting_repository.dart';
 import 'package:sathach/data/services/local_data_service.dart';
 
+import '../data/shared_preferences_service.dart';
+
 List<SingleChildWidget> _sharedProviders = [];
 
 List<SingleChildWidget> get providers {
   return [
     Provider.value(value: LocalDataService()),
+    Provider(create: (context) => SharedPreferenceService()),
     Provider(
       create:
           (context) =>
@@ -18,7 +21,10 @@ List<SingleChildWidget> get providers {
     Provider(
       create:
           (context) =>
-              SettingRepositoryImpl(localDataService: context.read())
+              SettingRepositoryImpl(
+                    localDataService: context.read(),
+                    sharedPreferenceService: context.read(),
+                  )
                   as SettingRepository,
     ),
     ..._sharedProviders,

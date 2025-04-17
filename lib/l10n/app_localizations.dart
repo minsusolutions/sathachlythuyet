@@ -104,7 +104,7 @@ abstract class AppLocalizations {
   /// No description provided for @setting_title.
   ///
   /// In en, this message translates to:
-  /// **'Thiết lập'**
+  /// **'Chọn bằng lái xe'**
   String get setting_title;
 
   /// No description provided for @app_version.

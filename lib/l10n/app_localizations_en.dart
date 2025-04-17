@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_title => 'Sát hạch lái xe';
 
   @override
-  String get setting_title => 'Thiết lập';
+  String get setting_title => 'Chọn bằng lái xe';
 
   @override
   String get app_version => 'Phiên bản ứng dụng: ';

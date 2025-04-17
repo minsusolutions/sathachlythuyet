@@ -69,7 +69,7 @@ class LocalDataService {
     ];
   }
 
-  List<Liciense> getLicienseList() {
+  List<Liciense> getLicenseList() {
     return [
       Liciense(licienseType: LicienseType.a1, vehicleType: VehicleType.motor),
       Liciense(licienseType: LicienseType.a, vehicleType: VehicleType.motor),
