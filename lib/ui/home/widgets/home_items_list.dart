@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sathach/domain/models/home/home_item.dart';
 import 'package:sathach/l10n/app_localizations.dart';
+import 'package:sathach/routing/router.dart';
 import 'package:sathach/styles/colors.dart';
 import 'package:sathach/ui/home/view_models/home_viewmodel.dart';
 
@@ -17,7 +19,6 @@ class HomeItemsList extends StatelessWidget {
     final double itemHeight =
         (height - kToolbarHeight - 30 - (homeItems.length - 1) * 8) /
         (homeItems.length / 2);
-
     final double itemWidth = (width - 8 * 2) / 2;
 
     return GridView.count(
@@ -26,15 +27,19 @@ class HomeItemsList extends StatelessWidget {
       mainAxisSpacing: 8,
       childAspectRatio: itemWidth / itemHeight,
       children: List.generate(homeItems.length, (index) {
-        return HomeItemCard(homeItem: homeItems[index]);
+        return HomeItemCard(
+          homeItem: homeItems[index],
+          onTap: () => context.go(Routes.exam),
+        );
       }),
     );
   }
 }
 
 class HomeItemCard extends StatelessWidget {
-  const HomeItemCard({super.key, required this.homeItem});
+  const HomeItemCard({super.key, required this.homeItem, required this.onTap});
   final HomeItem homeItem;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +49,7 @@ class HomeItemCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap: () {
-          print('hello world');
-        },
+        onTap: () => onTap.call(),
         splashColor: Colors.grey.withValues(alpha: 0.8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

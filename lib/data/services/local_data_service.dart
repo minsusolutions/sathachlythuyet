@@ -71,21 +71,96 @@ class LocalDataService {
 
   List<Liciense> getLicenseList() {
     return [
-      Liciense(licienseType: LicienseType.a1, vehicleType: VehicleType.motor),
-      Liciense(licienseType: LicienseType.a, vehicleType: VehicleType.motor),
-      Liciense(licienseType: LicienseType.b1, vehicleType: VehicleType.sideCar),
-      Liciense(licienseType: LicienseType.b, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.c1, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.c, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.d1, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.d2, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.d, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.be, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.c1e, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.ce, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.d1e, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.d2e, vehicleType: VehicleType.car),
-      Liciense(licienseType: LicienseType.de, vehicleType: VehicleType.car),
+      Liciense(
+        licienseType: LicienseType.a1,
+        vehicleType: VehicleType.motor,
+        examCode: 1,
+        examSetCode: ExamSetCode.s200,
+      ),
+      Liciense(
+        licienseType: LicienseType.a,
+        vehicleType: VehicleType.motor,
+        examCode: 10,
+        examSetCode: ExamSetCode.s450,
+      ),
+      Liciense(
+        licienseType: LicienseType.b1,
+        vehicleType: VehicleType.sideCar,
+        examCode: 11,
+        examSetCode: ExamSetCode.s500,
+      ),
+      Liciense(
+        licienseType: LicienseType.b,
+        vehicleType: VehicleType.car,
+        examCode: 6,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.c1,
+        vehicleType: VehicleType.car,
+        examCode: 12,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.c,
+        vehicleType: VehicleType.car,
+        examCode: 7,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.d1,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.d2,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.d,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.be,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.c1e,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.ce,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.d1e,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.d2e,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
+      Liciense(
+        licienseType: LicienseType.de,
+        vehicleType: VehicleType.car,
+        examCode: 8,
+        examSetCode: ExamSetCode.s600,
+      ),
     ];
   }
 }
