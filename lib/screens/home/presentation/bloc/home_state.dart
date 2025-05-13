@@ -1,42 +1,21 @@
 part of 'home_bloc.dart';
 
-enum HomeViewStatus { initial, loading, completed }
-
 class HomeState extends Equatable {
-  HomeState({
-    this.status = HomeViewStatus.initial,
-    this.currentLiciense,
-    this.incorrecQuestions,
-    this.passPercent,
-    this.daOn,
-    this.homeItems,
-  });
+  const HomeState({required this.homeItems, required this.loadingResult});
 
-  final Liciense? currentLiciense;
-  final HomeViewStatus status;
-  final int? incorrecQuestions;
-  final double? passPercent;
-  final int? daOn;
-  List<HomeItem>? homeItems = [];
+  final List<HomeItem> homeItems;
+  final DelayedResult<void> loadingResult;
 
   HomeState copyWith({
-    HomeViewStatus? status,
-    Liciense? currentLiciense,
-    int? incorrecQuestions,
-    double? passPercent,
-    int? daOn,
     List<HomeItem>? homeItems,
+    DelayedResult<void>? loadingResult,
   }) {
     return HomeState(
-      status: status ?? this.status,
-      currentLiciense: currentLiciense ?? this.currentLiciense,
-      incorrecQuestions: incorrecQuestions ?? this.incorrecQuestions,
-      passPercent: passPercent ?? this.passPercent,
-      daOn: daOn ?? this.daOn,
-      homeItems: HomeItem.getList(),
+      homeItems: homeItems ?? this.homeItems,
+      loadingResult: loadingResult ?? this.loadingResult,
     );
   }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [homeItems, loadingResult];
 }

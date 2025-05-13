@@ -1,45 +1,52 @@
-// import 'package:bloc/bloc.dart';
-// import 'package:equatable/equatable.dart';
-// import 'package:exam_repository/exam_repository.dart';
-// import 'package:logging/logging.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:logging/logging.dart';
+import 'package:sathachlaixe/commons/model/delayed_result.dart';
+import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
+import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
 
-// part 'setting_event.dart';
-// part 'setting_state.dart';
+part 'setting_event.dart';
+part 'setting_state.dart';
 
-// class SettingBloc extends Bloc<SettingEvent, SettingState> {
-//   SettingBloc({required LicienseRepository licienseRepository})
-//     : _licienseRepository = licienseRepository,
-//       super(SettingInitial()) {
-//     on<LoadAllLicienseRequest>(_loadAllLicienseRequest);
-//     on<LicienseSelected>(_onLicienseSelected);
-//   }
+class SettingBloc extends Bloc<SettingEvent, SettingState> {
+  SettingBloc({required SettingRepository settingRepository})
+    : _settingRepository = settingRepository,
+      super(
+        const SettingState(
+          licienses: [],
+          currentLiciense: SettingLiciense(
+            title: '',
+            description: '',
+            image: '',
+          ),
+          loadingResult: DelayedResult.idle(),
+        ),
+      ) {
+    on<LoadSetingEvent>(_loadSetting);
+    on<SelectLicienseEvent>(_onLicienseSelected);
+  }
 
-//   final LicienseRepository _licienseRepository;
+  final SettingRepository _settingRepository;
 
-//   final _log = Logger('SettingBlocs');
+  final _log = Logger('SettingBlocs');
 
-//   _loadAllLicienseRequest(
-//     LoadAllLicienseRequest event,
-//     Emitter<SettingState> emit,
-//   ) async {
-//     await emit.forEach(
-//       _licienseRepository.getCurrLicienseStream(),
-//       onData: (currLiciense) {
-//         _log.info('Hanh + $currLiciense');
-//         return SettingLoaded(
-//           licienses: _licienseRepository.getLicienses(),
-//           currentLiciense: currLiciense,
-//         );
-//       },
-//       onError: (error, stackTrace) => SettingLoadError(),
-//     );
-//   }
+  _loadSetting(LoadSetingEvent event, Emitter<SettingState> emit) async {
+    _log.info('Load Setting');
+    var listLicienses = await _settingRepository.listLicienses;
+    var currentLiciense = await _settingRepository.currentLiciense;
+    emit(
+      state.copyWith(
+        licienses: listLicienses,
+        currentLiciense: currentLiciense,
+      ),
+    );
+  }
 
-//   _onLicienseSelected(
-//     LicienseSelected event,
-//     Emitter<SettingState> emit,
-//   ) async {
-//     final selectedLiciense = event.liciense;
-//     await _licienseRepository.saveCurrentLiciense(selectedLiciense.id);
-//   }
-// }
+  _onLicienseSelected(
+    SelectLicienseEvent event,
+    Emitter<SettingState> emit,
+  ) async {
+    final selectedLiciense = event.liciense;
+    //await _licienseRepository.saveCurrentLiciense(selectedLiciense.id);
+  }
+}

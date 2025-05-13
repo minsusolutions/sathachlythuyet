@@ -43,4 +43,3 @@ flutter:
 
   assets:
     - assets/drawables/
-    - packages/exam_local_data/assets/bank/

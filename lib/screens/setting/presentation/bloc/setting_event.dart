@@ -1,18 +1,20 @@
-// part of 'setting_bloc.dart';
+part of 'setting_bloc.dart';
 
-// sealed class SettingEvent extends Equatable {
-//   const SettingEvent();
+sealed class SettingEvent extends Equatable {
+  const SettingEvent();
 
-//   @override
-//   List<Object> get props => [];
-// }
+  @override
+  List<Object> get props => [];
+}
 
-// final class LoadAllLicienseRequest extends SettingEvent {}
+final class LoadSetingEvent extends SettingEvent {
+  const LoadSetingEvent();
+}
 
-// final class LicienseSelected extends SettingEvent {
-//   final Liciense liciense;
+final class SelectLicienseEvent extends SettingEvent {
+  final SettingLiciense liciense;
 
-//   const LicienseSelected({required this.liciense});
-//   @override
-//   List<Object> get props => [liciense];
-// }
+  const SelectLicienseEvent({required this.liciense});
+  @override
+  List<Object> get props => [liciense];
+}

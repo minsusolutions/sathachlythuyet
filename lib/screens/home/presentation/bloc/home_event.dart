@@ -4,11 +4,10 @@ sealed class HomeEvent {
   const HomeEvent();
 }
 
-final class HomeSubscriptionReqeusted extends HomeEvent {
-  HomeSubscriptionReqeusted();
+final class LoadHomeEvent extends HomeEvent {
+  const LoadHomeEvent();
 }
 
-final class HomeRandomExamToggled extends HomeEvent {
-  final Liciense currentLiciense;
-  HomeRandomExamToggled({required this.currentLiciense});
+final class ItemToggleHomeEvent extends HomeEvent {
+  const ItemToggleHomeEvent();
 }

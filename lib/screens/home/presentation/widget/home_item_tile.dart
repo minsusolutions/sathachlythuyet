@@ -1,4 +1,4 @@
-part of 'home_screen.dart';
+part of '../view/home_screen.dart';
 
 class HomeItemCard extends StatelessWidget {
   const HomeItemCard({super.key, required this.homeItem, required this.onTap});
@@ -9,7 +9,7 @@ class HomeItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: getItemColor(homeItem.order),
+        color: Color(homeItem.backgroundColor),
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
@@ -23,32 +23,11 @@ class HomeItemCard extends StatelessWidget {
               height: 50,
               colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(homeItem.itemTitle, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),
     );
-  }
-
-  Color getItemColor(int index) {
-    switch (index) {
-      case 0:
-        return Colors.red;
-      case 1:
-        return Colors.green;
-      case 2:
-        return Colors.orange;
-      case 3:
-        return Colors.brown;
-      case 4:
-        return Colors.indigo;
-      case 5:
-        return Colors.deepPurple;
-      case 6:
-        return Colors.orange;
-      default:
-        return Colors.green;
-    }
   }
 }

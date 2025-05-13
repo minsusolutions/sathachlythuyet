@@ -1,15 +1,13 @@
-import 'package:exam_repository/exam_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
-import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
+import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
-import 'package:sathachlaixe/screens/setting/setting.dart';
-import '../screens/exam/exam.dart';
 
 import 'package:sathachlaixe/routing/router_utils.dart';
 import 'package:sathachlaixe/routing/screen/not_found_page.dart';
+import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
+import 'package:sathachlaixe/screens/setting/setting.dart';
 
 export 'router_utils.dart';
 export './screen/not_found_page.dart';
@@ -27,12 +25,34 @@ class AppRouter {
         builder:
             (context, state) => BlocProvider(
               create:
-                  (context) => HomeBloc(
-                    licienseRepository: context.read<LicienseRepository>(),
-                  )..add(HomeSubscriptionReqeusted()),
+                  (context) =>
+                      HomeBloc(homeRepository: context.read<HomeRepository>()),
               child: HomeScreen(),
             ),
         routes: [
+          GoRoute(
+            path: PAGES.setting.screenPath,
+            name: PAGES.setting.name,
+            builder:
+                (context, state) => BlocProvider(
+                  create:
+                      (context) => SettingBloc(
+                        settingRepository: context.read<SettingRepository>(),
+                      ),
+                  child: SettingScreen(title: PAGES.setting.ScreenTitle),
+                ),
+          ),
+        ],
+      ),
+    ],
+    errorBuilder: (context, state) => const NotFoundPage(),
+  );
+
+  static GoRouter get router => _router;
+}
+
+
+ // routes: [
           // GoRoute(
           //   path: PAGES.setting.screenPath,
           //   name: PAGES.setting.name,
@@ -70,11 +90,4 @@ class AppRouter {
           //         child: ExamSetScreen(),
           //       ),
           // ),
-        ],
-      ),
-    ],
-    errorBuilder: (context, state) => const NotFoundPage(),
-  );
-
-  static GoRouter get router => _router;
-}
+        // ],

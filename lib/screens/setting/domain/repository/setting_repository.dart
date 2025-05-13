@@ -1,10 +1,6 @@
-// abstract class SettingRepository {
-//   late final Liciense currentLiciense;
+import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
 
-//   Liciense get curLiciense => currentLiciense;
-
-//   Stream<Liciense> getCurrLiciense();
-//   List<Liciense> getAllLicienses();
-//   Future<void> saveCurrentLiciense(int id);
-//   void dispose();
-// }
+abstract interface class SettingRepository {
+  Future<List<SettingLiciense>> get listLicienses;
+  Future<SettingLiciense> get currentLiciense;
+}

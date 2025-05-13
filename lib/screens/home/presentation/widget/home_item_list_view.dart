@@ -1,4 +1,4 @@
-part of 'home_screen.dart';
+part of '../view/home_screen.dart';
 
 class HomeItemListView extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class HomeItemListView extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
-          childAspectRatio: 2 / 1,
+          childAspectRatio: 3 / 2,
           children: List.generate(lists!.length, (index) {
             return HomeItemCard(
               homeItem: lists[index],

@@ -1,31 +1,31 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:exam_repository/exam_repository.dart'
-    show Liciense, LicienseRepository;
+import 'package:logging/logging.dart';
+import 'package:sathachlaixe/commons/model/delayed_result.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
+import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required LicienseRepository licienseRepository})
-    : _licienseRepository = licienseRepository,
-      super(HomeState(status: HomeViewStatus.initial)) {
-    on<HomeSubscriptionReqeusted>(_onHomeSubcriptionRequested);
-    on<HomeRandomExamToggled>(_onHomeRandomExamToggled);
+  final _logger = Logger('HomeBloc');
+
+  HomeBloc({required HomeRepository homeRepository})
+    : _homeRepository = homeRepository,
+      super(HomeState(homeItems: [], loadingResult: DelayedResult.idle())) {
+    on<LoadHomeEvent>(_loadHome);
+    on<ItemToggleHomeEvent>(_itemToggle);
   }
 
-  final LicienseRepository _licienseRepository;
+  final HomeRepository _homeRepository;
 
-  void _onHomeSubcriptionRequested(
-    HomeSubscriptionReqeusted event,
-    Emitter<HomeState> emit,
-  ) {
-    emit(state.copyWith());
+  void _loadHome(LoadHomeEvent event, Emitter<HomeState> emit) async {
+    _logger.info('_loadHome called');
+    // emit(state.copyWith(loadingResult: const DelayedResult.inProgress()));
+    emit(state.copyWith(homeItems: await _homeRepository.listHomeItems));
+    // emit(state.copyWith(loadingResult: const DelayedResult.idle()));
   }
 
-  void _onHomeRandomExamToggled(
-    HomeRandomExamToggled event,
-    Emitter<HomeState> emit,
-  ) {}
+  void _itemToggle(ItemToggleHomeEvent event, Emitter<HomeState> emit) {}
 }

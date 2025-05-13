@@ -1,21 +1,28 @@
-// part of 'setting_bloc.dart';
+part of 'setting_bloc.dart';
 
-// sealed class SettingState extends Equatable {
-//   const SettingState();
+class SettingState extends Equatable {
+  final List<SettingLiciense> licienses;
+  final SettingLiciense currentLiciense;
+  final DelayedResult<void> loadingResult;
 
-//   @override
-//   List<Object> get props => [];
-// }
+  const SettingState({
+    required this.licienses,
+    required this.currentLiciense,
+    required this.loadingResult,
+  });
 
-// final class SettingInitial extends SettingState {}
+  SettingState copyWith({
+    List<SettingLiciense>? licienses,
+    SettingLiciense? currentLiciense,
+    DelayedResult<void>? loadingResult,
+  }) {
+    return SettingState(
+      licienses: licienses ?? this.licienses,
+      currentLiciense: currentLiciense ?? this.currentLiciense,
+      loadingResult: loadingResult ?? this.loadingResult,
+    );
+  }
 
-// final class SettingLoaded extends SettingState {
-//   final List<Liciense> licienses;
-//   final Liciense currentLiciense;
-
-//   const SettingLoaded({required this.licienses, required this.currentLiciense});
-//   @override
-//   List<Object> get props => [licienses, currentLiciense];
-// }
-
-// final class SettingLoadError extends SettingState {}
+  @override
+  List<Object> get props => [licienses, currentLiciense, loadingResult];
+}

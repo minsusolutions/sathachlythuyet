@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sathachlaixe/commons/base_app_bar.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sathachlaixe/screens/home/presentation/bloc/home_bloc.dart';
 
 part 'home_page.dart';
-part 'home_item_tile.dart';
+part '../widget/home_item_tile.dart';
 part 'home_status_view.dart';
-part 'home_item_list_view.dart';
+part '../widget/home_item_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: HomePage(),
+      body: HomePage.withBloc(),
     );
   }
 }
