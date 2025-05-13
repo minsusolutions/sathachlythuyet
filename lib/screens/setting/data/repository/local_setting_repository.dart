@@ -1,20 +1,20 @@
+import 'package:hive/hive.dart';
 import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
 import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
 
 class LocalSettingRepository implements SettingRepository {
+  LocalSettingRepository();
+
+  // final Box<SettingLiciense> _settingLicienseBox;
+
   @override
-  // TODO : HanhNV Need to implement method to get current Liciense
-  Future<SettingLiciense> get currentLiciense => Future.value(allLicienses[0]);
-  //   String leadingIcon(BuildContext context, Liciense liciense) {
-  //     switch (liciense.vehicleType) {
-  //       case VehicleType.motor:
-  //         return 'assets/drawables/ic_motor.svg';
-  //       case VehicleType.tricycle:
-  //         return 'assets/drawables/ic_sidecar.svg';
-  //       default:
-  //         return 'assets/drawables/ic_car.svg';
-  //     }
-  //   }
+  Future<SettingLiciense> get currentLiciense =>
+      Future.value(allLicienses.first);
+
+  // @override
+  // Future<SettingLiciense> get currentLiciense async {
+  //   return _settingLicienseBox.values.first;
+  // }
 
   @override
   Future<List<SettingLiciense>> get listLicienses => Future.value(allLicienses);

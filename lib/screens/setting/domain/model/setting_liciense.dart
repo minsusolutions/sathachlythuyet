@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'setting_liciense.freezed.dart';
+part 'setting_liciense.g.dart';
 
-class SettingLiciense extends Equatable {
-  final String title;
-  final String description;
-  final String image;
-
+@freezed
+@JsonSerializable()
+class SettingLiciense with _$SettingLiciense {
   const SettingLiciense({
     required this.title,
     required this.description,
@@ -12,6 +12,16 @@ class SettingLiciense extends Equatable {
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [title, description, image];
+  final String title;
+
+  @override
+  final String description;
+
+  @override
+  final String image;
+
+  factory SettingLiciense.fromJson(Map<String, Object> json) =>
+      _$SettingLicienseFromJson(json);
+
+  Map<String, Object?> toJson() => _$SettingLicienseToJson(this);
 }
