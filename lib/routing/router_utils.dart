@@ -1,4 +1,4 @@
-enum PAGES { home, exam, setting }
+enum PAGES { home, exam, setting, exam_set }
 
 extension AppPageExtension on PAGES {
   String get screenPath {
@@ -9,6 +9,8 @@ extension AppPageExtension on PAGES {
         return '/setting';
       case PAGES.exam:
         return '/exam';
+      case PAGES.exam_set:
+        return '/exam_set';
     }
   }
 
@@ -20,6 +22,8 @@ extension AppPageExtension on PAGES {
         return "EXAM";
       case PAGES.setting:
         return "Setting";
+      case PAGES.exam_set:
+        return "ExamSet";
     }
   }
 
@@ -31,6 +35,8 @@ extension AppPageExtension on PAGES {
         return "Đổi hạng giấy phép";
       case PAGES.exam:
         return "Exam";
+      case PAGES.exam_set:
+        return "Đề thi hạng ";
     }
   }
 }

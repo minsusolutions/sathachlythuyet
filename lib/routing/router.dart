@@ -2,12 +2,14 @@ import 'package:exam_repository/exam_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sathachlaixe/screens/home/bloc/home_bloc.dart';
-import 'package:sathachlaixe/screens/home/view/home_screen.dart';
+import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
+import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
+import 'package:sathachlaixe/screens/home/home.dart';
+import 'package:sathachlaixe/screens/setting/setting.dart';
+import '../screens/exam/exam.dart';
+
 import 'package:sathachlaixe/routing/router_utils.dart';
 import 'package:sathachlaixe/routing/screen/not_found_page.dart';
-import 'package:sathachlaixe/screens/setting/bloc/setting_bloc.dart';
-import 'package:sathachlaixe/screens/setting/view/setting_screen.dart';
 
 export 'router_utils.dart';
 export './screen/not_found_page.dart';
@@ -31,17 +33,43 @@ class AppRouter {
               child: HomeScreen(),
             ),
         routes: [
-          GoRoute(
-            path: PAGES.setting.screenPath,
-            builder:
-                (context, state) => BlocProvider(
-                  create:
-                      (context) => SettingBloc(
-                        licienseRepository: context.read<LicienseRepository>(),
-                      )..add(LoadAllLicienseRequest()),
-                  child: SettingScreen(),
-                ),
-          ),
+          // GoRoute(
+          //   path: PAGES.setting.screenPath,
+          //   name: PAGES.setting.name,
+          //   builder:
+          //       (context, state) => BlocProvider(
+          //         create:
+          //             (context) => SettingBloc(
+          //               licienseRepository: context.read<LicienseRepository>(),
+          //             )..add(LoadAllLicienseRequest()),
+          //         child: SettingScreen(title: PAGES.setting.ScreenTitle),
+          //       ),
+          // ),
+          // GoRoute(
+          //   path: PAGES.exam.screenPath,
+          //   name: PAGES.exam.name,
+          //   builder:
+          //       (context, state) => BlocProvider(
+          //         create:
+          //             (context) => SettingBloc(
+          //               licienseRepository: context.read<LicienseRepository>(),
+          //             )..add(LoadAllLicienseRequest()),
+          //         child: ExamScreen(),
+          //       ),
+          // ),
+          // GoRoute(
+          //   path: PAGES.exam_set.screenPath,
+          //   name: PAGES.exam_set.name,
+          //   builder:
+          //       (context, state) => BlocProvider(
+          //         create:
+          //             (context) => ExamSetBloc(
+          //               licienseRepository: context.read<LicienseRepository>(),
+          //               examRepository: context.read<ExamRepository>(),
+          //             )..add(ExamSetStarted()),
+          //         child: ExamSetScreen(),
+          //       ),
+          // ),
         ],
       ),
     ],
