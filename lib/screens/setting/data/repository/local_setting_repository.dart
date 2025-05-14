@@ -3,18 +3,18 @@ import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart'
 import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
 
 class LocalSettingRepository implements SettingRepository {
-  LocalSettingRepository();
+  LocalSettingRepository(this._settingLicienseBox);
 
-  // final Box<SettingLiciense> _settingLicienseBox;
-
-  @override
-  Future<SettingLiciense> get currentLiciense =>
-      Future.value(allLicienses.first);
+  final Box<SettingLiciense> _settingLicienseBox;
 
   // @override
-  // Future<SettingLiciense> get currentLiciense async {
-  //   return _settingLicienseBox.values.first;
-  // }
+  // Future<SettingLiciense> get currentLiciense =>
+  //     Future.value(allLicienses.first);
+
+  @override
+  Future<SettingLiciense> get currentLiciense async {
+    return _settingLicienseBox.values.first;
+  }
 
   @override
   Future<List<SettingLiciense>> get listLicienses => Future.value(allLicienses);
