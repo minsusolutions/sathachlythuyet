@@ -1,11 +1,21 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:logging/logging.dart';
 import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
 
 class SettingLicienseHiveService {
+  final _logger = Logger('SettingLicienseHiveService');
   Future<void> initializeHive() async {
+    _logger.info('begin initializeHive()');
+
+    _logger.info('await Hive.initFlutter()');
     await Hive.initFlutter();
+    _logger.info('registerAdapter');
+
     Hive.registerAdapter(SettingLicienseAdapter());
+    _logger.info('openBox');
+
     await Hive.openBox('setting_liciense');
+    _logger.info('initializeHive done');
   }
 
   Box<SettingLiciense> getSettingLicienseBox() {

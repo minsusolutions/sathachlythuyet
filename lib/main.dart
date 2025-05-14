@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logging/logging.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:sathachlaixe/screens/home/data/repository/local_home_repository.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
@@ -8,24 +9,27 @@ import 'package:sathachlaixe/screens/setting/domain/repository/setting_repositor
 import 'package:sathachlaixe/screens/setting/service/hive_service.dart';
 
 Future<void> _setupDependencies() async {
+  Logger.root.level = Level.ALL;
+  final _logger = Logger('_setupDependencies');
   final getIt = GetIt.instance;
 
+  _logger.info('dkm');
   getIt.registerSingleton<HomeRepository>(LocalHomeRepository());
-  // getIt.registerLazySingleton<SettingRepository>(
-  //   () => LocalSettingRepository(),
-  // );
 
   getIt.registerSingletonAsync<SettingRepository>(() async {
+    _logger.info('register Singleteon Async');
     final settingLicienseHiveSevice = SettingLicienseHiveService();
     await settingLicienseHiveSevice.initializeHive();
+    _logger.info('initializeHive completed Singleteon Async');
+
     return LocalSettingRepository(
       settingLicienseHiveSevice.getSettingLicienseBox(),
     );
   });
-  return await getIt.allReady();
+  //await getIt.allReady();
 }
 
-void main() async {
+Future<void> main() async {
   await _setupDependencies();
   runApp(const SatHachLaiXeApp());
 }

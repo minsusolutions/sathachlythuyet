@@ -5,7 +5,6 @@ part 'setting_liciense.g.dart';
 
 @freezed
 @JsonSerializable()
-@HiveType(typeId: 0)
 class SettingLiciense with _$SettingLiciense {
   const SettingLiciense({
     required this.title,
@@ -14,15 +13,12 @@ class SettingLiciense with _$SettingLiciense {
   });
 
   @override
-  @HiveField(0)
   final String title;
 
   @override
-  @HiveField(1)
   final String description;
 
   @override
-  @HiveField(2)
   final String image;
 
   factory SettingLiciense.fromJson(Map<String, Object> json) =>

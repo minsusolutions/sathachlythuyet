@@ -25,7 +25,7 @@ class _SettingPageState extends State<SettingPage> {
   void initState() {
     super.initState();
     _settingBloc = context.read<SettingBloc>();
-    _settingBloc.add(const LoadSetingEvent());
+    _settingBloc.add(const LoadSettingEvent());
   }
 
   @override

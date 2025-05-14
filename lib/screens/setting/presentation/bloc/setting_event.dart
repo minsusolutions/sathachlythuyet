@@ -7,8 +7,8 @@ sealed class SettingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class LoadSetingEvent extends SettingEvent {
-  const LoadSetingEvent();
+final class LoadSettingEvent extends SettingEvent {
+  const LoadSettingEvent();
 }
 
 final class SelectLicienseEvent extends SettingEvent {

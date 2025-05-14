@@ -22,7 +22,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
           loadingResult: DelayedResult.idle(),
         ),
       ) {
-    on<LoadSetingEvent>(_loadSetting);
+    on<LoadSettingEvent>(_loadSetting);
     on<SelectLicienseEvent>(_onLicienseSelected);
   }
 
@@ -30,7 +30,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
 
   final _log = Logger('SettingBlocs');
 
-  _loadSetting(LoadSetingEvent event, Emitter<SettingState> emit) async {
+  _loadSetting(LoadSettingEvent event, Emitter<SettingState> emit) async {
     _log.info('Load Setting');
     var listLicienses = await _settingRepository.listLicienses;
     var currentLiciense = await _settingRepository.currentLiciense;
