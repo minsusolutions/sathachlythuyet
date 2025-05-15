@@ -1,19 +1,23 @@
 import 'package:hive/hive.dart';
 import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
 import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
+import 'package:sathachlaixe/screens/setting/service/hive_service.dart';
 
 class LocalSettingRepository implements SettingRepository {
-  LocalSettingRepository(this._settingLicienseBox);
+  LocalSettingRepository({required this.hiveService});
 
-  final Box<SettingLiciense> _settingLicienseBox;
-
+  final SettingLicienseHiveService hiveService;
   // @override
   // Future<SettingLiciense> get currentLiciense =>
   //     Future.value(allLicienses.first);
 
   @override
   Future<SettingLiciense> get currentLiciense async {
-    return _settingLicienseBox.values.first;
+    return SettingLiciense(
+      title: 'title',
+      description: 'description',
+      image: 'image',
+    );
   }
 
   @override

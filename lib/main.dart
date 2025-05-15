@@ -16,17 +16,16 @@ Future<void> _setupDependencies() async {
   _logger.info('dkm');
   getIt.registerSingleton<HomeRepository>(LocalHomeRepository());
 
-  getIt.registerSingletonAsync<SettingRepository>(() async {
-    _logger.info('register Singleteon Async');
+  getIt.registerLazySingletonAsync<SettingLicienseHiveService>(() async {
     final settingLicienseHiveSevice = SettingLicienseHiveService();
     await settingLicienseHiveSevice.initializeHive();
-    _logger.info('initializeHive completed Singleteon Async');
-
-    return LocalSettingRepository(
-      settingLicienseHiveSevice.getSettingLicienseBox(),
-    );
+    return settingLicienseHiveSevice;
   });
-  //await getIt.allReady();
+
+  getIt.registerLazySingleton<SettingRepository>(
+    () => LocalSettingRepository(hiveService: getIt()),
+  );
+  await getIt.allReady();
 }
 
 Future<void> main() async {
