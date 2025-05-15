@@ -34,6 +34,8 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     _log.info('Load Setting');
     var listLicienses = await _settingRepository.listLicienses;
     var currentLiciense = await _settingRepository.currentLiciense;
+    _log.info(' load current liciense: $currentLiciense');
+
     emit(
       state.copyWith(
         licienses: listLicienses,

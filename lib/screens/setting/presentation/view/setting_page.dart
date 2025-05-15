@@ -7,13 +7,6 @@ import 'package:sathachlaixe/screens/setting/presentation/widget/liciense_tile.d
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
 
-  static Widget withBloc() {
-    return BlocProvider(
-      create: (context) => SettingBloc(settingRepository: GetIt.I.get()),
-      child: SettingPage(),
-    );
-  }
-
   @override
   State<StatefulWidget> createState() => _SettingPageState();
 }

@@ -10,7 +10,7 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(title: Text(title), appBar: AppBar(), widgets: []),
-      body: SettingPage.withBloc(),
+      body: SettingPage(),
     );
   }
 }

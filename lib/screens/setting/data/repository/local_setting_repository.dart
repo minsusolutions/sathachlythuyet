@@ -13,6 +13,10 @@ class LocalSettingRepository implements SettingRepository {
 
   @override
   Future<SettingLiciense> get currentLiciense async {
+    await hiveService.initializeHive();
+
+    var settingBox = await hiveService.getSettingLicienseBox;
+
     return SettingLiciense(
       title: 'title',
       description: 'description',
