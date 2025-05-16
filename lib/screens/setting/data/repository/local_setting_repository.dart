@@ -4,9 +4,9 @@ import 'package:sathachlaixe/screens/setting/domain/repository/setting_repositor
 import 'package:sathachlaixe/screens/setting/service/hive_service.dart';
 
 class LocalSettingRepository implements SettingRepository {
-  LocalSettingRepository({required this.hiveService});
+  LocalSettingRepository({required this.settingBox});
 
-  final SettingLicienseHiveService hiveService;
+  final Box<dynamic> settingBox;
   // @override
   // Future<SettingLiciense> get currentLiciense =>
   //     Future.value(allLicienses.first);

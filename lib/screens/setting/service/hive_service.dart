@@ -14,7 +14,7 @@ class SettingLicienseHiveService {
     Hive.registerAdapter(SettingLicienseAdapter());
     _logger.info('openBox');
 
-    await Hive.openBox('setting_liciense');
+    await Hive.openBox<SettingLiciense>('setting_liciense');
     _logger.info('initializeHive done');
   }
 
