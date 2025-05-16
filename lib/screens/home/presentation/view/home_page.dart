@@ -1,21 +1,7 @@
 part of 'home_screen.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late final HomeBloc _homeBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _homeBloc = context.read<HomeBloc>();
-    _homeBloc.add(const LoadHomeEvent());
-  }
 
   @override
   Widget build(BuildContext context) {

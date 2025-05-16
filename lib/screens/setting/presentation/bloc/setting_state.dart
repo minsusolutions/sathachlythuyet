@@ -2,7 +2,7 @@ part of 'setting_bloc.dart';
 
 class SettingState extends Equatable {
   final List<SettingLiciense> licienses;
-  final SettingLiciense currentLiciense;
+  final SettingLiciense? currentLiciense;
   final DelayedResult<void> loadingResult;
 
   const SettingState({
@@ -24,5 +24,5 @@ class SettingState extends Equatable {
   }
 
   @override
-  List<Object> get props => [licienses, currentLiciense, loadingResult];
+  List<Object> get props => [licienses, loadingResult];
 }

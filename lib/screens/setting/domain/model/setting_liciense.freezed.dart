@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SettingLiciense {
 
- String get title; String get description; String get image;
+ int get id; String get title; String get description; String get image;
 /// Create a copy of SettingLiciense
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,16 +27,16 @@ $SettingLicienseCopyWith<SettingLiciense> get copyWith => _$SettingLicienseCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingLiciense&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.image, image) || other.image == image));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingLiciense&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.image, image) || other.image == image));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,description,image);
+int get hashCode => Object.hash(runtimeType,id,title,description,image);
 
 @override
 String toString() {
-  return 'SettingLiciense(title: $title, description: $description, image: $image)';
+  return 'SettingLiciense(id: $id, title: $title, description: $description, image: $image)';
 }
 
 
@@ -47,7 +47,7 @@ abstract mixin class $SettingLicienseCopyWith<$Res>  {
   factory $SettingLicienseCopyWith(SettingLiciense value, $Res Function(SettingLiciense) _then) = _$SettingLicienseCopyWithImpl;
 @useResult
 $Res call({
- String title, String description, String image
+ int id, String title, String description, String image
 });
 
 
@@ -64,9 +64,10 @@ class _$SettingLicienseCopyWithImpl<$Res>
 
 /// Create a copy of SettingLiciense
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = null,Object? image = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? image = null,}) {
   return _then(SettingLiciense(
-title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,

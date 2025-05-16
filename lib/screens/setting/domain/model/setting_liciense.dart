@@ -6,10 +6,14 @@ part 'setting_liciense.g.dart';
 @JsonSerializable()
 class SettingLiciense with _$SettingLiciense {
   const SettingLiciense({
+    required this.id,
     required this.title,
     required this.description,
     required this.image,
   });
+
+  @override
+  final int id;
 
   @override
   final String title;

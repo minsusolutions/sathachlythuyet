@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
@@ -26,7 +27,8 @@ class AppRouter {
             (context, state) => BlocProvider(
               create:
                   (context) =>
-                      HomeBloc(homeRepository: context.read<HomeRepository>()),
+                      HomeBloc(homeRepository: GetIt.I.get())
+                        ..add(LoadHomeEvent()),
               child: HomeScreen(),
             ),
         routes: [
@@ -36,9 +38,8 @@ class AppRouter {
             builder:
                 (context, state) => BlocProvider(
                   create:
-                      (context) => SettingBloc(
-                        settingRepository: context.read<SettingRepository>(),
-                      ),
+                      (context) =>
+                          SettingBloc(settingRepository: GetIt.I.get()),
                   child: SettingScreen(title: PAGES.setting.ScreenTitle),
                 ),
           ),

@@ -1,7 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:logging/logging.dart';
 import 'package:sathachlaixe/screens/home/data/repository/local_home_repository.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 import 'package:sathachlaixe/screens/setting/data/repository/local_setting_repository.dart';
@@ -9,18 +7,14 @@ import 'package:sathachlaixe/screens/setting/domain/repository/setting_repositor
 import 'package:sathachlaixe/screens/setting/service/hive_service.dart';
 
 Future<void> setupDependencies() async {
-  Logger.root.level = Level.ALL;
-  final _logger = Logger('_setupDependencies');
   final getIt = GetIt.instance;
 
-  _logger.info('dkm');
   getIt.registerSingleton<HomeRepository>(LocalHomeRepository());
 
   getIt.registerSingletonAsync<SettingRepository>(() async {
-    final settingLicienseHiveSevice = HiveLocator();
-    await settingLicienseHiveSevice.initializeHive();
+    await HiveLocator.initializeHive();
     return LocalSettingRepository(
-      settingBox: settingLicienseHiveSevice.getSettingLicienseBox(),
+      settingBox: HiveLocator.getSettingLicienseBox(),
     );
   });
 
@@ -28,22 +22,17 @@ Future<void> setupDependencies() async {
 }
 
 class HiveLocator {
-  final _logger = Logger('SettingLicienseHiveService');
-  Future<void> initializeHive() async {
-    _logger.info('begin initializeHive()');
-
-    _logger.info('await Hive.initFlutter()');
+  static Future<void> initializeHive() async {
     await Hive.initFlutter();
-    _logger.info('registerAdapter');
-
-    Hive.registerAdapter(SettingLicienseAdapter());
-    _logger.info('openBox');
-
-    await Hive.openBox('setting_liciense');
-    _logger.info('initializeHive done');
+    _registerAdapter();
+    await Hive.openBox<dynamic>(LocalSettingRepository.settingBoxKey);
   }
 
-  Box<dynamic> getSettingLicienseBox() {
-    return Hive.box('setting_liciense');
+  static Box<dynamic> getSettingLicienseBox() {
+    return Hive.box<dynamic>(LocalSettingRepository.settingBoxKey);
+  }
+
+  static void _registerAdapter() {
+    Hive.registerAdapter(SettingLicienseAdapter());
   }
 }

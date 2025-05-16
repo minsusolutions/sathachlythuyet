@@ -30,6 +30,7 @@ class SettingLicienseAdapter extends TypeAdapter<SettingLiciense> {
   @override
   SettingLiciense read(BinaryReader reader) {
     return SettingLiciense(
+      id: reader.read(),
       title: reader.read(),
       description: reader.read(),
       image: reader.read(),
@@ -38,6 +39,7 @@ class SettingLicienseAdapter extends TypeAdapter<SettingLiciense> {
 
   @override
   void write(BinaryWriter writer, SettingLiciense obj) {
+    writer.write(obj.id);
     writer.write(obj.title);
     writer.write(obj.image);
     writer.write(obj.description);

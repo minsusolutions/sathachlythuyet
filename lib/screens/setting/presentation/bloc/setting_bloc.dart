@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/delayed_result.dart';
+import 'package:sathachlaixe/screens/setting/data/repository/licienses_data.dart';
 import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
 import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
 
@@ -14,12 +15,8 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       super(
         const SettingState(
           licienses: [],
-          currentLiciense: SettingLiciense(
-            title: '',
-            description: '',
-            image: '',
-          ),
-          loadingResult: DelayedResult.idle(),
+          currentLiciense: null,
+          loadingResult: DelayedResult.inProgress(),
         ),
       ) {
     on<LoadSettingEvent>(_loadSetting);
@@ -31,6 +28,8 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   final _log = Logger('SettingBlocs');
 
   _loadSetting(LoadSettingEvent event, Emitter<SettingState> emit) async {
+    emit(state.copyWith(loadingResult: DelayedResult.inProgress()));
+
     _log.info('Load Setting');
     var listLicienses = await _settingRepository.listLicienses;
     var currentLiciense = await _settingRepository.currentLiciense;
@@ -42,13 +41,20 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         currentLiciense: currentLiciense,
       ),
     );
+    emit(state.copyWith(loadingResult: DelayedResult.idle()));
   }
 
   _onLicienseSelected(
     SelectLicienseEvent event,
     Emitter<SettingState> emit,
   ) async {
-    final selectedLiciense = event.liciense;
-    //await _licienseRepository.saveCurrentLiciense(selectedLiciense.id);
+    emit(state.copyWith(loadingResult: DelayedResult.inProgress()));
+    await _settingRepository.saveCurrentLiciense(event.liciense);
+    emit(
+      state.copyWith(
+        currentLiciense: event.liciense,
+        loadingResult: DelayedResult.idle(),
+      ),
+    );
   }
 }
