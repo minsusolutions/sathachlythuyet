@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Container(height: 150, child: HomeStatusView()),
+        Container(height: 150, child: HomeStatusView()),
         Expanded(child: HomeItemListView()),
         // Container(
         //   height: 100,

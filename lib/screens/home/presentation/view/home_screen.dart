@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/base_app_bar.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +7,7 @@ import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sathachlaixe/screens/home/presentation/bloc/home_bloc.dart';
+import 'package:sathachlaixe/screens/home/presentation/widget/first_status.dart';
 
 part 'home_page.dart';
 part '../widget/home_item_tile.dart';
