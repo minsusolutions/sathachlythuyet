@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
+import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/styles/styles.dart';
 
 class LicienseTile extends StatelessWidget {
-  final SettingLiciense liciense;
+  final Liciense liciense;
   final bool isSelected;
   final Function()? onTap;
 
@@ -30,7 +30,7 @@ class LicienseTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: ListTile(
-          title: Text('Hạng ${liciense.title.toUpperCase()}'),
+          title: Text('Hạng ${liciense.licienseType.name.toUpperCase()}'),
           subtitle: Text(liciense.description),
           leading: SvgPicture.asset(liciense.image, height: 30, width: 30),
         ),

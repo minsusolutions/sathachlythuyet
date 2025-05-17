@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/delayed_result.dart';
-import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
+import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
 
 part 'setting_event.dart';
@@ -14,11 +14,15 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       super(
         const SettingState(
           licienses: [],
-          currentLiciense: SettingLiciense(
+          currentLiciense: Liciense(
             id: -1,
-            title: '',
-            description: '',
+            licienseType: LicienseType.a,
+            examCode: -1,
             image: '',
+            noOfQuestions: NoOfQuestions.q200,
+            questionsPerExam: -1,
+            noOfExamSet: -1,
+            description: '-',
           ),
           loadingResult: DelayedResult.inProgress(),
         ),

@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
 
 import 'package:sathachlaixe/routing/router_utils.dart';
 import 'package:sathachlaixe/routing/screen/not_found_page.dart';
-import 'package:sathachlaixe/screens/setting/domain/repository/setting_repository.dart';
-import 'package:sathachlaixe/screens/setting/setting.dart';
+
+import '../screens/setting/setting.dart';
 
 export 'router_utils.dart';
 export './screen/not_found_page.dart';

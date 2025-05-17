@@ -12,7 +12,7 @@ final class LoadSettingEvent extends SettingEvent {
 }
 
 final class SelectLicienseEvent extends SettingEvent {
-  final SettingLiciense liciense;
+  final Liciense liciense;
 
   const SelectLicienseEvent({required this.liciense});
   @override

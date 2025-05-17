@@ -1,10 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 part 'setting_liciense.freezed.dart';
 part 'setting_liciense.g.dart';
 
 @freezed
 @JsonSerializable()
 class SettingLiciense with _$SettingLiciense {
+  static const settingBoxKey = '_settingBoxKey';
+  static const currentLicienseKey = '_currentLicienseKey';
+
   const SettingLiciense({
     required this.id,
     required this.title,
@@ -29,3 +33,5 @@ class SettingLiciense with _$SettingLiciense {
 
   Map<String, Object?> toJson() => _$SettingLicienseToJson(this);
 }
+
+

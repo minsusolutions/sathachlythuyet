@@ -1,8 +1,8 @@
-import 'package:sathachlaixe/screens/setting/domain/model/setting_liciense.dart';
+import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 
 abstract interface class SettingRepository {
-  Future<List<SettingLiciense>> get listLicienses;
-  Future<SettingLiciense> get currentLiciense;
+  Future<List<Liciense>> get listLicienses;
+  Future<Liciense> get currentLiciense;
 
-  Future<void> saveCurrentLiciense(SettingLiciense current);
+  Future<void> saveCurrentLiciense(Liciense current);
 }
