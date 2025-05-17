@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:sathachlaixe/screens/setting/presentation/bloc/setting_bloc.dart';
 import 'package:sathachlaixe/screens/setting/presentation/widget/liciense_tile.dart';
@@ -12,6 +15,8 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  final ScrollController scrollController = ScrollController();
+
   late final SettingBloc _settingBloc;
 
   @override
@@ -23,56 +28,75 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController scrollController = ScrollController();
+    var shouldPopToHome = false;
 
-    return BlocListener<SettingBloc, SettingState>(
+    return BlocConsumer<SettingBloc, SettingState>(
       listenWhen: (previous, current) {
-        if (current.loadingResult.isInProgress) return false;
-        print('previous  ${previous.currentLiciense}');
-        print('current ${current.currentLiciense}');
-        return previous.currentLiciense != current.currentLiciense;
+        if (previous.currentLiciense.id == -1) return false;
+        shouldPopToHome =
+            previous.currentLiciense.id != current.currentLiciense.id;
+        return shouldPopToHome;
       },
       listener: (context, state) {
-        print('liciense changed to ${state.currentLiciense}');
         AppRouter.router.pop();
       },
-      child: BlocBuilder<SettingBloc, SettingState>(
-        builder: (context, state) {
-          if (state.loadingResult.isInProgress) {
-            return const CircularProgressIndicator();
-          }
-          if (state.loadingResult.isError) {
-            return const Text('Something went wrong');
-          }
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: ListView.separated(
-              controller: scrollController,
-              itemBuilder: (context, position) {
-                return LicienseTile(
-                  liciense: state.licienses[position],
-                  isSelected:
-                      state.currentLiciense == state.licienses[position],
-                  onTap: () {
-                    if (state.currentLiciense?.id !=
-                        state.licienses[position].id) {
-                      context.read<SettingBloc>().add(
-                        SelectLicienseEvent(
-                          liciense: state.licienses[position],
-                        ),
-                      );
-                    }
-                  },
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider(color: Colors.blueGrey, thickness: 1);
-              },
-              itemCount: state.licienses.length,
-            ),
-          );
-        },
-      ),
+      buildWhen: (previous, current) {
+        return !shouldPopToHome;
+      },
+
+      builder: (context, state) {
+        if (state.loadingResult.isInProgress) {
+          return const CircularProgressIndicator();
+        }
+        if (state.loadingResult.isError) {
+          return const Text('Something went wrong');
+        }
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: ListView.separated(
+            controller: scrollController,
+            itemBuilder: (context, position) {
+              if (scrollController.hasClients) {
+                if (state.currentLiciense.id == state.licienses[position].id &&
+                    state.currentLiciense.id > 5) {
+                  if (state.currentLiciense.id < state.licienses.length - 5 &&
+                      scrollController.position.hasContentDimensions) {
+                    scrollController.animateTo(
+                      scrollController.position.maxScrollExtent,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.ease,
+                    );
+                  } else {
+                    scrollController.animateTo(
+                      state.currentLiciense.id * 70,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.ease,
+                    );
+                  }
+                }
+              }
+
+              return LicienseTile(
+                liciense: state.licienses[position],
+                isSelected:
+                    state.currentLiciense.id == state.licienses[position].id,
+                onTap: () {
+                  if (state.currentLiciense?.id !=
+                      state.licienses[position].id) {
+                    context.read<SettingBloc>().add(
+                      SelectLicienseEvent(liciense: state.licienses[position]),
+                    );
+                  }
+                },
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Divider(color: Colors.blueGrey, thickness: 1);
+            },
+            itemCount: state.licienses.length,
+          ),
+        );
+      },
     );
   }
 }
