@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+
 part 'liciense.freezed.dart';
+//part 'liciense.g.dart';
 
 enum LicienseType { a1, a, b1, b, c1, c, d1, d2, d, be, c1e, ce, d1e, d2e, de }
 
@@ -9,14 +11,23 @@ enum VehicleType { motor, tricycle, sedan, truck, bus }
 enum NoOfQuestions { q200, q450, q500, q600 }
 
 @freezed
+//@JsonSerializable()
 class Liciense with _$Liciense {
+  @override
   final int id;
+  @override
   final LicienseType licienseType;
+  @override
   final int examCode;
+  @override
   final String image;
+  @override
   final NoOfQuestions noOfQuestions;
+  @override
   final int noOfExamSet;
+  @override
   final int questionsPerExam;
+  @override
   final String description;
 
   const Liciense({
@@ -29,6 +40,11 @@ class Liciense with _$Liciense {
     required this.noOfExamSet,
     required this.description,
   });
+
+  //factory Liciense.fromJson(Map<String, Object> json) =>
+  //    _$LicienseFromJson(json);
+
+  //Map<String, Object?> toJson() => _$LicienseToJson(this);
 }
 
 class LicienseAdapter extends TypeAdapter<Liciense> {

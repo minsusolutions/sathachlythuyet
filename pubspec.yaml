@@ -37,12 +37,16 @@ dependencies:
   syncfusion_flutter_gauges: ^29.2.4
   intl: ^0.20.2
 
+  freezed: ^3.0.6
+  freezed_annotation: ^3.0.0
+  
+  json_annotation: ^4.9.0
+  json_serializable: ^6.9.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  freezed: ^3.0.6
   build_runner: ^2.4.15
 
 

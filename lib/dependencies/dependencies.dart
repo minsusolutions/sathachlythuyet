@@ -33,5 +33,32 @@ class HiveLocator {
 
   static void _registerAdapter() {
     Hive.registerAdapter(LicienseAdapter());
+
+    Hive.registerAdapter<LicienseType>(
+      EnumClassAdapter(1, LicienseType.values),
+    );
+    Hive.registerAdapter<NoOfQuestions>(
+      EnumClassAdapter(2, NoOfQuestions.values),
+    );
+  }
+}
+
+class EnumClassAdapter<T extends Enum> extends TypeAdapter<T> {
+  EnumClassAdapter(this.typeId, this.values);
+
+  @override
+  final int typeId;
+
+  final List<T> values;
+
+  @override
+  T read(BinaryReader reader) {
+    final enumString = reader.read() as String;
+    return values.firstWhere((e) => e.name == enumString);
+  }
+
+  @override
+  void write(BinaryWriter writer, T obj) {
+    writer.write(obj.name);
   }
 }

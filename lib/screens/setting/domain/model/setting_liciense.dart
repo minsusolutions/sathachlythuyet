@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 part 'setting_liciense.freezed.dart';
 part 'setting_liciense.g.dart';
 
@@ -33,5 +32,3 @@ class SettingLiciense with _$SettingLiciense {
 
   Map<String, Object?> toJson() => _$SettingLicienseToJson(this);
 }
-
-
