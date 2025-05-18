@@ -18,3 +18,7 @@ final class SelectLicienseEvent extends SettingEvent {
   @override
   List<Object> get props => [liciense];
 }
+
+final class CloseSettingEvent extends SettingEvent {
+  const CloseSettingEvent();
+}

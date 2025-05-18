@@ -15,10 +15,15 @@ part 'home_status_view.dart';
 part '../widget/home_item_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.shouldReloadPage});
+  final bool shouldReloadPage;
 
   @override
   Widget build(BuildContext context) {
+    if (shouldReloadPage) {
+      context.read<HomeBloc>().add(LoadHomeEvent());
+    }
+
     return Scaffold(
       appBar: BaseAppBar(
         title: Text('Sat hach lai xe'),

@@ -22,14 +22,17 @@ class AppRouter {
       GoRoute(
         path: PAGES.home.screenPath,
         name: PAGES.home.screenName,
-        builder:
-            (context, state) => BlocProvider(
-              create:
-                  (context) =>
-                      HomeBloc(homeRepository: GetIt.I.get())
-                        ..add(LoadHomeEvent()),
-              child: HomeScreen(),
-            ),
+        builder: (context, state) {
+          var shouldReloadPage = state.extra as bool? ?? false;
+
+          return BlocProvider(
+            create:
+                (context) =>
+                    HomeBloc(homeRepository: GetIt.I.get())
+                      ..add(LoadHomeEvent()),
+            child: HomeScreen(shouldReloadPage: shouldReloadPage),
+          );
+        },
         routes: [
           GoRoute(
             path: PAGES.setting.screenPath,
@@ -38,13 +41,15 @@ class AppRouter {
                 (context, state) => BlocProvider(
                   create:
                       (context) =>
-                          SettingBloc(settingRepository: GetIt.I.get()),
+                          SettingBloc(settingRepository: GetIt.I.get())
+                            ..add(LoadSettingEvent()),
                   child: SettingScreen(title: PAGES.setting.ScreenTitle),
                 ),
           ),
         ],
       ),
     ],
+
     errorBuilder: (context, state) => const NotFoundPage(),
   );
 

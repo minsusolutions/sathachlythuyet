@@ -18,13 +18,7 @@ class _SettingPageState extends State<SettingPage> {
   final ScrollController scrollController = ScrollController();
 
   late final SettingBloc _settingBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _settingBloc = context.read<SettingBloc>();
-    _settingBloc.add(const LoadSettingEvent());
-  }
+  final _logger = Logger('SettingPage');
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,7 @@ class _SettingPageState extends State<SettingPage> {
         return shouldPopToHome;
       },
       listener: (context, state) {
-        AppRouter.router.pop();
+        AppRouter.router.go(PAGES.home.screenPath, extra: true);
       },
       buildWhen: (previous, current) {
         return !shouldPopToHome;
@@ -98,5 +92,10 @@ class _SettingPageState extends State<SettingPage> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/delayed_result.dart';
+import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
+import 'package:sathachlaixe/commons/model/liciense/licienses_data.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 
@@ -13,7 +15,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc({required HomeRepository homeRepository})
     : _homeRepository = homeRepository,
-      super(HomeState(homeItems: [], loadingResult: DelayedResult.idle())) {
+      super(
+        HomeState(
+          homeItems: [],
+          loadingResult: DelayedResult.idle(),
+          currentLiciense: LiciensesData.licienses.first,
+        ),
+      ) {
     on<LoadHomeEvent>(_loadHome);
     on<ItemToggleHomeEvent>(_itemToggle);
   }
@@ -23,7 +31,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _loadHome(LoadHomeEvent event, Emitter<HomeState> emit) async {
     _logger.info('_loadHome called');
     // emit(state.copyWith(loadingResult: const DelayedResult.inProgress()));
-    emit(state.copyWith(homeItems: await _homeRepository.listHomeItems));
+    emit(
+      state.copyWith(
+        homeItems: await _homeRepository.listHomeItems,
+        currentLiciense: await _homeRepository.currentLiciense,
+      ),
+    );
     // emit(state.copyWith(loadingResult: const DelayedResult.idle()));
   }
 

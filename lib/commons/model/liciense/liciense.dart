@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
@@ -13,6 +14,9 @@ enum NoOfQuestions { q200, q450, q500, q600 }
 @freezed
 //@JsonSerializable()
 class Liciense with _$Liciense {
+  static const settingBoxKey = '_settingBoxKey';
+  static const currentLicienseKey = '_currentLicienseKey';
+
   @override
   final int id;
   @override

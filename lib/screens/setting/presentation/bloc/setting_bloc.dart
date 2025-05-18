@@ -29,6 +29,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       ) {
     on<LoadSettingEvent>(_loadSetting);
     on<SelectLicienseEvent>(_onLicienseSelected);
+    on<CloseSettingEvent>(_onCloseSetting);
   }
 
   final SettingRepository _settingRepository;
@@ -63,5 +64,9 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         loadingResult: DelayedResult.idle(),
       ),
     );
+  }
+
+  _onCloseSetting(CloseSettingEvent event, Emitter<SettingState> emit) async {
+    await _settingRepository.onClose();
   }
 }

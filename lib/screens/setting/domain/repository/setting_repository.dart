@@ -5,4 +5,5 @@ abstract interface class SettingRepository {
   Future<Liciense> get currentLiciense;
 
   Future<void> saveCurrentLiciense(Liciense current);
+  Future<void> onClose();
 }
