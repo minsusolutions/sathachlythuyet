@@ -1,16 +1,16 @@
-// part of 'exam_set_bloc.dart';
+part of 'exam_set_bloc.dart';
 
-// sealed class ExamSetEvent extends Equatable {
-//   const ExamSetEvent();
 
-//   @override
-//   List<Object> get props => [];
-// }
+sealed class ExamSetEvent extends Equatable {
+  const ExamSetEvent();
 
-// final class ExamSetStarted extends ExamSetEvent {}
+  @override
+  List<Object> get props => [];
+}
 
-// final class ExamSetSelected extends ExamSetEvent {
-//   final int examSetCode;
+final class LoadExamSetEvent extends ExamSetEvent {}
 
-//   const ExamSetSelected({required this.examSetCode});
-// }
+final class SelectExamSetEvent extends ExamSetEvent {
+  final int examSetCode;
+  const SelectExamSetEvent({required this.examSetCode});
+}

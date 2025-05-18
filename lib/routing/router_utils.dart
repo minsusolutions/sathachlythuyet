@@ -27,7 +27,7 @@ extension AppPageExtension on PAGES {
     }
   }
 
-  String get ScreenTitle {
+  String get screenTitle {
     switch (this) {
       case PAGES.home:
         return "Sát hạch lái xe";

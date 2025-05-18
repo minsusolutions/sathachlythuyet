@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
+import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
 
 import 'package:sathachlaixe/routing/router_utils.dart';
@@ -43,7 +45,19 @@ class AppRouter {
                       (context) =>
                           SettingBloc(settingRepository: GetIt.I.get())
                             ..add(LoadSettingEvent()),
-                  child: SettingScreen(title: PAGES.setting.ScreenTitle),
+                  child: SettingScreen(title: PAGES.setting.screenTitle),
+                ),
+          ),
+          GoRoute(
+            path: PAGES.exam_set.screenPath,
+            name: PAGES.exam_set.name,
+            builder:
+                (context, state) => BlocProvider(
+                  create:
+                      (context) =>
+                          ExamSetBloc(examSetRepository: GetIt.I.get())
+                            ..add(LoadExamSetEvent()),
+                  child: ExamSetScreen(title: PAGES.exam_set.screenTitle),
                 ),
           ),
         ],

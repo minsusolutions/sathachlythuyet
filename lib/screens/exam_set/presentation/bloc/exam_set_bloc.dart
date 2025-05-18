@@ -1,29 +1,18 @@
-// import 'package:bloc/bloc.dart';
-// import 'package:equatable/equatable.dart';
-// import 'package:exam_repository/exam_repository.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:sathachlaixe/screens/exam_set/domain/repository/exam_set_repository.dart';
 
-// part 'exam_set_event.dart';
-// part 'exam_set_state.dart';
+part 'exam_set_event.dart';
+part 'exam_set_state.dart';
 
-// class ExamSetBloc extends Bloc<ExamSetEvent, ExamSetState> {
-//   ExamSetBloc({
-//     required LicienseRepository licienseRepository,
-//     required ExamRepository examRepository,
-//   }) : _licienseRepository = licienseRepository,
-//        _examRepository = examRepository,
-//        super(ExamSetInitial()) {
-//     on<ExamSetStarted>(_examSetStarted);
-//     on<ExamSetSelected>(_onExamSetSelected);
-//   }
+class ExamSetBloc extends Bloc<ExamSetEvent, ExamSetState> {
+  ExamSetBloc({required ExamSetRepository examSetRepository})
+    : _examSetRepository = examSetRepository,
+      super(ExamSetStateInitial()) {
+    on<LoadExamSetEvent>(_loadExamSet);
+  }
 
-//   final LicienseRepository _licienseRepository;
-//   final ExamRepository _examRepository;
+  final ExamSetRepository _examSetRepository;
 
-//   _examSetStarted(ExamSetStarted event, Emitter<ExamSetState> emit) async {
-//     var currentLiciense = _licienseRepository.getCurLiciense();
-//     var listExam = _examRepository.getExamByExamCode(currentLiciense.examCode);
-
-//   }
-
-//   _onExamSetSelected(ExamSetSelected event, Emitter<ExamSetState> emit) {}
-// }
+  _loadExamSet(LoadExamSetEvent event, Emitter<ExamSetState> emit) async {}
+}
