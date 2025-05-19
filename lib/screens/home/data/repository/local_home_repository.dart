@@ -15,9 +15,9 @@ class LocalHomeRepository implements HomeRepository {
   final _logger = Logger('LocalHomeRepository');
 
   final Box<dynamic> settingBox;
-  final Box<ExamBank> examSetBox;
+  final Box<ExamBank> examBankBox;
 
-  LocalHomeRepository({required this.settingBox, required this.examSetBox});
+  LocalHomeRepository({required this.settingBox, required this.examBankBox});
 
   @override
   Future<List<HomeItem>> get listHomeItems => Future.value(HomeList.homeItems);
@@ -50,7 +50,7 @@ class LocalHomeRepository implements HomeRepository {
               .toList();
 
       for (var exam in allExams) {
-        examSetBox.add(exam);
+        examBankBox.add(exam);
       }
       // examSetBox.put(ExamSet.allExamSetKey, allExams);
       settingBox.put(_examCSVLoaded, true);

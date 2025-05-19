@@ -1,10 +1,14 @@
 part of 'exam_set_bloc.dart';
 
 class ExamSetState extends Equatable {
-  const ExamSetState({required this.listSetItem});
+  const ExamSetState({required this.listExamSet});
 
-  final List<ExamSet> listSetItem;
+  final List<ExamSet> listExamSet;
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [listExamSet];
+
+  ExamSetState copyWith({List<ExamSet>? listExamSet}) {
+    return ExamSetState(listExamSet: listExamSet ?? this.listExamSet);
+  }
 }

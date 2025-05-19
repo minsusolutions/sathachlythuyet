@@ -1,6 +1,5 @@
 part of 'exam_set_bloc.dart';
 
-
 sealed class ExamSetEvent extends Equatable {
   const ExamSetEvent();
 

@@ -10,7 +10,7 @@ class ExamSetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(title: Text(title), appBar: AppBar(), widgets: []),
-      body: ExamSetPage(),
+      body: const ExamSetPage(),
     );
   }
 }

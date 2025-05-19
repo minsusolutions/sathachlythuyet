@@ -7,22 +7,23 @@ import 'package:sathachlaixe/screens/exam_set/domain/model/exam_set.dart';
 import 'package:sathachlaixe/screens/exam_set/domain/repository/exam_set_repository.dart';
 
 class LocalExamSetRepository implements ExamSetRepository {
-  final Box<ExamBank> examSetBox;
+  final Box<ExamBank> examBankBox;
   final Box<dynamic> settingBox;
 
   final _logger = Logger('LocalExamSetRepository');
 
-  LocalExamSetRepository({required this.examSetBox, required this.settingBox});
+  LocalExamSetRepository({required this.examBankBox, required this.settingBox});
 
   @override
   Future<List<ExamSet>> getExamSetByExamCode(int examCode, int numberOfSet) {
     try {
-      List<ExamBank>? allExams = examSetBox.values.toList();
+      List<ExamBank>? allExams = examBankBox.values.toList();
       if (allExams.isNotEmpty == true) {
         var listByExamCode = allExams.where(
           (examSet) => examSet.examCode == examCode,
         );
 
+        List<ExamSet> result = [];
         for (int i = 1; i <= numberOfSet; i++) {
           var listIds =
               listByExamCode
@@ -38,10 +39,10 @@ class LocalExamSetRepository implements ExamSetRepository {
             numberOfSucceed: 0,
             licienseId: 1,
           );
-
+          result.add(setItem);
           print('setItem with examSetId = $i is $setItem');
         }
-
+        return Future.value(result);
       }
     } on Exception {
       print('co loi');

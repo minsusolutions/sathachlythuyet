@@ -25,7 +25,7 @@ Future<void> setupDependencies() async {
     await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
     return LocalHomeRepository(
       settingBox: HiveLocator.getSettingLicienseBox(),
-      examSetBox: HiveLocator.getExamSetBox(),
+      examBankBox: HiveLocator.getExamBankBox(),
     );
   });
 
@@ -33,7 +33,7 @@ Future<void> setupDependencies() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
     return LocalExamSetRepository(
-      examSetBox: HiveLocator.getExamSetBox(),
+      examBankBox: HiveLocator.getExamBankBox(),
       settingBox: HiveLocator.getSettingLicienseBox(),
     );
   });
@@ -51,7 +51,7 @@ class HiveLocator {
     return Hive.box<dynamic>(Liciense.settingBoxKey);
   }
 
-  static Box<ExamBank> getExamSetBox() {
+  static Box<ExamBank> getExamBankBox() {
     return Hive.box<ExamBank>(ExamBank.examSetBoxKey);
   }
 
