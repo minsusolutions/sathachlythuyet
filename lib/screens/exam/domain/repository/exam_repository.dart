@@ -1,9 +1,11 @@
-// abstract class ExamRepository {
-//   Stream<Exam> getExam();
+import 'package:sathachlaixe/commons/model/exam.dart';
 
-//   List<Exam> getAllExamsByExamCode(int examCode);
+abstract class ExamRepository {
+  Stream<Exam> getExam();
 
-//   void getExamByExamCodeAndSetCode(int examCode, int examSet);
+  List<Exam> getAllExamsByExamCode(int examCode);
 
-//   Future<void> close();
-// }
+  void getExamByExamCodeAndSetCode(int examCode, int examSet);
+
+  Future<void> close();
+}

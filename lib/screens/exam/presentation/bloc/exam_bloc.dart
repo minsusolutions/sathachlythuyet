@@ -1,21 +1,21 @@
-// import 'package:equatable/equatable.dart';
-// import 'package:exam_repository/exam_repository.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 
-// part 'exam_event.dart';
-// part 'exam_state.dart';
+part 'exam_event.dart';
+part 'exam_state.dart';
 
-// class ExamBloc extends Bloc<ExamEvent, ExamState> {
-//   ExamBloc({required ExamRepository examRepository})
-//     : _examRepository = examRepository,
-//       super(const ExamState()) {
-//     on<ExamSubscriptionRequested>(_onSubscriptionRequested);
-//   }
+class ExamBloc extends Bloc<ExamEvent, ExamState> {
+  ExamBloc({required ExamRepository examRepository})
+    : _examRepository = examRepository,
+      super(const ExamState()) {
+    on<ExamSubscriptionRequested>(_onSubscriptionRequested);
+  }
 
-//   Future<void> _onSubscriptionRequested(
-//     ExamSubscriptionRequested event,
-//     Emitter<ExamState> emit,
-//   ) async {}
+  Future<void> _onSubscriptionRequested(
+    ExamSubscriptionRequested event,
+    Emitter<ExamState> emit,
+  ) async {}
 
-//   final ExamRepository _examRepository;
-// }
+  final ExamRepository _examRepository;
+}

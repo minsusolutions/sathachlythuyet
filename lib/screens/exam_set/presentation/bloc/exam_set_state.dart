@@ -1,7 +1,10 @@
 part of 'exam_set_bloc.dart';
 
-sealed class ExamSetState {
-  const ExamSetState();
-}
+class ExamSetState extends Equatable {
+  const ExamSetState({required this.listSetItem});
 
-class ExamSetStateInitial extends ExamSetState {}
+  final List<ExamSet> listSetItem;
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}

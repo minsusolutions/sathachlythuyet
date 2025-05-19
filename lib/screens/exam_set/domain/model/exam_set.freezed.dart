@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExamSet {
 
- int get examSetID; int get examSetCode; int get examSetName; int get numberOfFailed; int get numberOFSuccedd; int get questionId;
+ int get licienseId; int get examCode; int get setId; List<int> get questionIds; int get numberOfFailed; int get numberOfSucceed;
 /// Create a copy of ExamSet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $ExamSetCopyWith<ExamSet> get copyWith => _$ExamSetCopyWithImpl<ExamSet>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExamSet&&(identical(other.examSetID, examSetID) || other.examSetID == examSetID)&&(identical(other.examSetCode, examSetCode) || other.examSetCode == examSetCode)&&(identical(other.examSetName, examSetName) || other.examSetName == examSetName)&&(identical(other.numberOfFailed, numberOfFailed) || other.numberOfFailed == numberOfFailed)&&(identical(other.numberOFSuccedd, numberOFSuccedd) || other.numberOFSuccedd == numberOFSuccedd)&&(identical(other.questionId, questionId) || other.questionId == questionId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExamSet&&(identical(other.licienseId, licienseId) || other.licienseId == licienseId)&&(identical(other.examCode, examCode) || other.examCode == examCode)&&(identical(other.setId, setId) || other.setId == setId)&&const DeepCollectionEquality().equals(other.questionIds, questionIds)&&(identical(other.numberOfFailed, numberOfFailed) || other.numberOfFailed == numberOfFailed)&&(identical(other.numberOfSucceed, numberOfSucceed) || other.numberOfSucceed == numberOfSucceed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,examSetID,examSetCode,examSetName,numberOfFailed,numberOFSuccedd,questionId);
+int get hashCode => Object.hash(runtimeType,licienseId,examCode,setId,const DeepCollectionEquality().hash(questionIds),numberOfFailed,numberOfSucceed);
 
 @override
 String toString() {
-  return 'ExamSet(examSetID: $examSetID, examSetCode: $examSetCode, examSetName: $examSetName, numberOfFailed: $numberOfFailed, numberOFSuccedd: $numberOFSuccedd, questionId: $questionId)';
+  return 'ExamSet(licienseId: $licienseId, examCode: $examCode, setId: $setId, questionIds: $questionIds, numberOfFailed: $numberOfFailed, numberOfSucceed: $numberOfSucceed)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $ExamSetCopyWith<$Res>  {
   factory $ExamSetCopyWith(ExamSet value, $Res Function(ExamSet) _then) = _$ExamSetCopyWithImpl;
 @useResult
 $Res call({
- int examSetID, int examSetCode, int examSetName, int numberOfFailed, int numberOFSuccedd, int questionId
+ int licienseId, int examCode, int setId, List<int> questionIds, int numberOfFailed, int numberOfSucceed
 });
 
 
@@ -63,14 +63,14 @@ class _$ExamSetCopyWithImpl<$Res>
 
 /// Create a copy of ExamSet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? examSetID = null,Object? examSetCode = null,Object? examSetName = null,Object? numberOfFailed = null,Object? numberOFSuccedd = null,Object? questionId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? licienseId = null,Object? examCode = null,Object? setId = null,Object? questionIds = null,Object? numberOfFailed = null,Object? numberOfSucceed = null,}) {
   return _then(ExamSet(
-examSetID: null == examSetID ? _self.examSetID : examSetID // ignore: cast_nullable_to_non_nullable
-as int,examSetCode: null == examSetCode ? _self.examSetCode : examSetCode // ignore: cast_nullable_to_non_nullable
-as int,examSetName: null == examSetName ? _self.examSetName : examSetName // ignore: cast_nullable_to_non_nullable
-as int,numberOfFailed: null == numberOfFailed ? _self.numberOfFailed : numberOfFailed // ignore: cast_nullable_to_non_nullable
-as int,numberOFSuccedd: null == numberOFSuccedd ? _self.numberOFSuccedd : numberOFSuccedd // ignore: cast_nullable_to_non_nullable
-as int,questionId: null == questionId ? _self.questionId : questionId // ignore: cast_nullable_to_non_nullable
+licienseId: null == licienseId ? _self.licienseId : licienseId // ignore: cast_nullable_to_non_nullable
+as int,examCode: null == examCode ? _self.examCode : examCode // ignore: cast_nullable_to_non_nullable
+as int,setId: null == setId ? _self.setId : setId // ignore: cast_nullable_to_non_nullable
+as int,questionIds: null == questionIds ? _self.questionIds : questionIds // ignore: cast_nullable_to_non_nullable
+as List<int>,numberOfFailed: null == numberOfFailed ? _self.numberOfFailed : numberOfFailed // ignore: cast_nullable_to_non_nullable
+as int,numberOfSucceed: null == numberOfSucceed ? _self.numberOfSucceed : numberOfSucceed // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

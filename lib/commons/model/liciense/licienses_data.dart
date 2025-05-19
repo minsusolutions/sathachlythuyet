@@ -9,7 +9,7 @@ class LiciensesData {
       image: 'assets/drawables/ic_motor.svg',
       noOfQuestions: NoOfQuestions.q200,
       questionsPerExam: 25,
-      noOfExamSet: 18,
+      noOfExamSet: 8,
       description:
           "Lái xe mô tô hai bánh có dung tích xi-lanh đến 125cm3 hoặc có công suất động cơ điện đến 11kW.",
     ),

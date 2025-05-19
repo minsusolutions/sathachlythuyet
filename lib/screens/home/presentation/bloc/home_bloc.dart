@@ -37,6 +37,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         currentLiciense: await _homeRepository.currentLiciense,
       ),
     );
+
+    _homeRepository.loadExamSetFromCsv();
     // emit(state.copyWith(loadingResult: const DelayedResult.idle()));
   }
 

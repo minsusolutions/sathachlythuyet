@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sathachlaixe/commons/model/exam_bank/exam_bank.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/commons/utils/enum_adapter.dart';
 import 'package:sathachlaixe/screens/exam_set/data/repository/local_exam_set_repository.dart';
@@ -21,10 +22,21 @@ Future<void> setupDependencies() async {
 
   getIt.registerSingletonAsync<HomeRepository>(() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
-    return LocalHomeRepository(settingBox: HiveLocator.getSettingLicienseBox());
+    await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
+    return LocalHomeRepository(
+      settingBox: HiveLocator.getSettingLicienseBox(),
+      examSetBox: HiveLocator.getExamSetBox(),
+    );
   });
 
-  getIt.registerSingleton<ExamSetRepository>(LocalExamSetRepository());
+  getIt.registerSingletonAsync<ExamSetRepository>(() async {
+    await Hive.openBox<dynamic>(Liciense.settingBoxKey);
+    await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
+    return LocalExamSetRepository(
+      examSetBox: HiveLocator.getExamSetBox(),
+      settingBox: HiveLocator.getSettingLicienseBox(),
+    );
+  });
 
   await getIt.allReady();
 }
@@ -39,6 +51,10 @@ class HiveLocator {
     return Hive.box<dynamic>(Liciense.settingBoxKey);
   }
 
+  static Box<ExamBank> getExamSetBox() {
+    return Hive.box<ExamBank>(ExamBank.examSetBoxKey);
+  }
+
   static void _registerAdapter() {
     Hive.registerAdapter(LicienseAdapter());
 
@@ -48,5 +64,6 @@ class HiveLocator {
     Hive.registerAdapter<NoOfQuestions>(
       EnumClassAdapter(2, NoOfQuestions.values),
     );
+    Hive.registerAdapter(ExamBankAdapter());
   }
 }
