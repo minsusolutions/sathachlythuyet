@@ -6,4 +6,5 @@ abstract interface class HomeRepository {
 
   Future<Liciense> get currentLiciense;
   Future<void> loadExamSetFromCsv();
+  Future<void> loadQuestionsFromCsv();
 }

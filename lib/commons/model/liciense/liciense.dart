@@ -1,8 +1,8 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'liciense.freezed.dart';
-//part 'liciense.g.dart';
+part 'liciense.g.dart';
 
 enum LicienseType { a1, a, b1, b, c1, c, d1, d2, d, be, c1e, ce, d1e, d2e, de }
 
@@ -10,27 +10,27 @@ enum VehicleType { motor, tricycle, sedan, truck, bus }
 
 enum NoOfQuestions { q200, q450, q500, q600 }
 
-@freezed
-//@JsonSerializable()
-class Liciense with _$Liciense {
+@JsonSerializable()
+@HiveType(typeId: 0)
+class Liciense {
   static const settingBoxKey = '_settingBoxKey';
   static const currentLicienseKey = '_currentLicienseKey';
 
-  @override
+  @HiveField(0)
   final int id;
-  @override
+  @HiveField(1)
   final LicienseType licienseType;
-  @override
+  @HiveField(2)
   final int examCode;
-  @override
+  @HiveField(3)
   final String image;
-  @override
+  @HiveField(4)
   final NoOfQuestions noOfQuestions;
-  @override
+  @HiveField(5)
   final int noOfExamSet;
-  @override
+  @HiveField(6)
   final int questionsPerExam;
-  @override
+  @HiveField(7)
   final String description;
 
   const Liciense({
@@ -50,34 +50,34 @@ class Liciense with _$Liciense {
   //Map<String, Object?> toJson() => _$LicienseToJson(this);
 }
 
-class LicienseAdapter extends TypeAdapter<Liciense> {
-  @override
-  final typeId = 0;
+// class LicienseAdapter extends TypeAdapter<Liciense> {
+//   @override
+//   final typeId = 0;
 
-  @override
-  Liciense read(BinaryReader reader) {
-    return Liciense(
-      id: reader.read(),
-      licienseType: reader.read(),
-      examCode: reader.read(),
-      image: reader.read(),
-      noOfQuestions: reader.read(),
-      questionsPerExam: reader.read(),
-      noOfExamSet: reader.read(),
-      description: reader.read(),
-    );
-  }
+//   @override
+//   Liciense read(BinaryReader reader) {
+//     return Liciense(
+//       id: reader.read(),
+//       licienseType: reader.read(),
+//       examCode: reader.read(),
+//       image: reader.read(),
+//       noOfQuestions: reader.read(),
+//       questionsPerExam: reader.read(),
+//       noOfExamSet: reader.read(),
+//       description: reader.read(),
+//     );
+//   }
 
-  @override
-  void write(BinaryWriter writer, Liciense obj) {
-    writer.write(obj.id);
-    writer.write(obj.licienseType);
-    writer.write(obj.examCode);
-    writer.write(obj.image);
+//   @override
+//   void write(BinaryWriter writer, Liciense obj) {
+//     writer.write(obj.id);
+//     writer.write(obj.licienseType);
+//     writer.write(obj.examCode);
+//     writer.write(obj.image);
 
-    writer.write(obj.noOfQuestions);
-    writer.write(obj.questionsPerExam);
-    writer.write(obj.noOfExamSet);
-    writer.write(obj.description);
-  }
-}
+//     writer.write(obj.noOfQuestions);
+//     writer.write(obj.questionsPerExam);
+//     writer.write(obj.noOfExamSet);
+//     writer.write(obj.description);
+//   }
+// }

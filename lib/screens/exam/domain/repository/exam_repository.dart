@@ -1,9 +1,12 @@
 import 'package:sathachlaixe/commons/model/exam.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
 
 abstract class ExamRepository {
-  Stream<Exam> getExam();
+  Stream<ExamInfo> getExam();
 
-  List<Exam> getAllExamsByExamCode(int examCode);
+  Future<void> loadAllQuestionsFromCSV();
+
+  List<ExamInfo> getAllExamsByExamCode(int examCode);
 
   void getExamByExamCodeAndSetCode(int examCode, int examSet);
 

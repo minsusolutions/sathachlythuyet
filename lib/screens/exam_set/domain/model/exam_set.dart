@@ -1,22 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'exam_set.freezed.dart';
 part 'exam_set.g.dart';
 
-@freezed
 @JsonSerializable()
-class ExamSet with _$ExamSet {
-  @override
+class ExamSet {
   final int licienseId;
-  @override
   final int examCode;
-  @override
   final int setId;
-  @override
   final List<int> questionIds;
-  @override
   final int numberOfFailed;
-  @override
   final int numberOfSucceed;
 
   ExamSet({

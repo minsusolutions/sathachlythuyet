@@ -1,17 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'exam_bank.freezed.dart';
 part 'exam_bank.g.dart';
 
-@freezed
 @JsonSerializable()
-class ExamBank with _$ExamBank {
+@HiveType(typeId: 1)
+class ExamBank {
   static const examSetBoxKey = '_examSetBoxKey';
   static const allExamSetKey = '_allExamSet';
 
+  @HiveField(0)
   final int examSetID;
+  @HiveField(1)
   final int examCode;
+  @HiveField(2)
   final int questionId;
 
   const ExamBank({
@@ -26,23 +28,23 @@ class ExamBank with _$ExamBank {
   Map<String, dynamic> toJson() => _$ExamBankToJson(this);
 }
 
-class ExamBankAdapter extends TypeAdapter<ExamBank> {
-  @override
-  final typeId = 3;
+// class ExamBankAdapter extends TypeAdapter<ExamBank> {
+//   @override
+//   final typeId = 3;
 
-  @override
-  ExamBank read(BinaryReader reader) {
-    return ExamBank(
-      examCode: reader.read(),
-      examSetID: reader.read(),
-      questionId: reader.read(),
-    );
-  }
+//   @override
+//   ExamBank read(BinaryReader reader) {
+//     return ExamBank(
+//       examCode: reader.read(),
+//       examSetID: reader.read(),
+//       questionId: reader.read(),
+//     );
+//   }
 
-  @override
-  void write(BinaryWriter writer, ExamBank obj) {
-    writer.write(obj.examSetID);
-    writer.write(obj.examCode);
-    writer.write(obj.questionId);
-  }
-}
+//   @override
+//   void write(BinaryWriter writer, ExamBank obj) {
+//     writer.write(obj.examSetID);
+//     writer.write(obj.examCode);
+//     writer.write(obj.questionId);
+//   }
+// }

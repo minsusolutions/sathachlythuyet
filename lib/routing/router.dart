@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:sathachlaixe/screens/exam/exam.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
@@ -25,14 +27,14 @@ class AppRouter {
         path: PAGES.home.screenPath,
         name: PAGES.home.screenName,
         builder: (context, state) {
-          var shouldReloadPage = state.extra as bool? ?? false;
+          // var shouldReloadPage = state.extra as bool? ?? false;
 
           return BlocProvider(
             create:
                 (context) =>
                     HomeBloc(homeRepository: GetIt.I.get())
                       ..add(LoadHomeEvent()),
-            child: HomeScreen(shouldReloadPage: shouldReloadPage),
+            child: HomeScreen(shouldReloadPage: true),
           );
         },
         routes: [
@@ -60,9 +62,24 @@ class AppRouter {
                   child: ExamSetScreen(title: PAGES.exam_set.screenTitle),
                 ),
           ),
+          GoRoute(
+            path: PAGES.exam.screenPath,
+            name: PAGES.exam.name,
+            builder: (context, state) {
+              var examInfo = state.extra as ExamInfo;
+              return BlocProvider(
+                create:
+                    (context) =>
+                        ExamBloc(examRepository: GetIt.I.get())
+                          ..add(LoadExam(examInfo: examInfo)),
+                child: ExamScreen(),
+              );
+            },
+          ),
         ],
       ),
     ],
+    redirect: (context, state) {},
 
     errorBuilder: (context, state) => const NotFoundPage(),
   );
