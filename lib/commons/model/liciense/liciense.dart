@@ -4,11 +4,65 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'liciense.g.dart';
 
-enum LicienseType { a1, a, b1, b, c1, c, d1, d2, d, be, c1e, ce, d1e, d2e, de }
+@HiveType(typeId: 5)
+enum LicienseType {
+  @HiveField(0)
+  a1,
+  @HiveField(1)
+  a,
+  @HiveField(2)
+  b1,
+  @HiveField(3)
+  b,
+  @HiveField(4)
+  c1,
+  @HiveField(5)
+  c,
+  @HiveField(6)
+  d1,
+  @HiveField(7)
+  d2,
+  @HiveField(8)
+  d,
+  @HiveField(9)
+  be,
+  @HiveField(10)
+  c1e,
+  @HiveField(11)
+  ce,
+  @HiveField(12)
+  d1e,
+  @HiveField(13)
+  d2e,
+  @HiveField(14)
+  de,
+}
 
-enum VehicleType { motor, tricycle, sedan, truck, bus }
+@HiveType(typeId: 6)
+enum VehicleType {
+  @HiveField(0)
+  motor,
+  @HiveField(1)
+  tricycle,
+  @HiveField(2)
+  sedan,
+  @HiveField(3)
+  truck,
+  @HiveField(4)
+  bus,
+}
 
-enum NoOfQuestions { q200, q450, q500, q600 }
+@HiveType(typeId: 7)
+enum NoOfQuestions {
+  @HiveField(0)
+  q200,
+  @HiveField(1)
+  q450,
+  @HiveField(2)
+  q500,
+  @HiveField(3)
+  q600,
+}
 
 @JsonSerializable()
 @HiveType(typeId: 0)

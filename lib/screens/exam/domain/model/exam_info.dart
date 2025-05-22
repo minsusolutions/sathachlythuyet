@@ -41,6 +41,26 @@ class ExamInfo extends Equatable {
   List<Object?> get props => [examCode, examTitle, examType, questions];
 }
 
-enum ExamType { exam, revise, wrong, death }
+@HiveType(typeId: 8)
+enum ExamType {
+  @HiveField(0)
+  exam,
+  @HiveField(1)
+  revise,
+  @HiveField(2)
+  wrong,
+  @HiveField(3)
+  death,
+}
 
-enum ExamStatus { initial, deadFailed, failed, passed }
+@HiveType(typeId: 9)
+enum ExamStatus {
+  @HiveField(0)
+  initial,
+  @HiveField(1)
+  deadFailed,
+  @HiveField(2)
+  failed,
+  @HiveField(3)
+  passed,
+}

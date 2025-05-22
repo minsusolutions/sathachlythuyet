@@ -51,15 +51,15 @@ class AppRouter {
                 ),
           ),
           GoRoute(
-            path: PAGES.exam_set.screenPath,
-            name: PAGES.exam_set.name,
+            path: PAGES.examSet.screenPath,
+            name: PAGES.examSet.name,
             builder:
                 (context, state) => BlocProvider(
                   create:
                       (context) =>
                           ExamSetBloc(examSetRepository: GetIt.I.get())
                             ..add(LoadExamSetEvent()),
-                  child: ExamSetScreen(title: PAGES.exam_set.screenTitle),
+                  child: ExamSetScreen(title: PAGES.examSet.screenTitle),
                 ),
           ),
           GoRoute(

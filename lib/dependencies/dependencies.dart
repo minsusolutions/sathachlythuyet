@@ -3,7 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sathachlaixe/commons/model/exam_bank/exam_bank.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/screens/exam/data/repository/local_exam_repository.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 import 'package:sathachlaixe/screens/exam_set/data/repository/local_exam_set_repository.dart';
 import 'package:sathachlaixe/screens/exam_set/domain/repository/exam_set_repository.dart';
@@ -72,5 +74,11 @@ class HiveLocator {
     Hive.registerAdapter(LicienseAdapter());
     Hive.registerAdapter(ExamBankAdapter());
     Hive.registerAdapter(QuestionAdapter());
+    Hive.registerAdapter(LicienseTypeAdapter());
+    Hive.registerAdapter(VehicleTypeAdapter());
+    Hive.registerAdapter(NoOfQuestionsAdapter());
+    Hive.registerAdapter(ExamTypeAdapter());
+    Hive.registerAdapter(ExamStatusAdapter());
+    Hive.registerAdapter(QuestionStatusAdapter());
   }
 }

@@ -12,4 +12,12 @@ class QuestionData {
   QuestionData({required this.questionId, required this.questionStatus});
 }
 
-enum QuestionStatus { unanswer, incorrect, correct }
+@HiveType(typeId: 10)
+enum QuestionStatus {
+  @HiveField(0)
+  unanswer,
+  @HiveField(1)
+  incorrect,
+  @HiveField(2)
+  correct,
+}

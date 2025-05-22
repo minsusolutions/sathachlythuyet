@@ -63,3 +63,101 @@ class ExamInfoAdapter extends TypeAdapter<ExamInfo> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class ExamTypeAdapter extends TypeAdapter<ExamType> {
+  @override
+  final int typeId = 8;
+
+  @override
+  ExamType read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return ExamType.exam;
+      case 1:
+        return ExamType.revise;
+      case 2:
+        return ExamType.wrong;
+      case 3:
+        return ExamType.death;
+      default:
+        return ExamType.exam;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, ExamType obj) {
+    switch (obj) {
+      case ExamType.exam:
+        writer.writeByte(0);
+        break;
+      case ExamType.revise:
+        writer.writeByte(1);
+        break;
+      case ExamType.wrong:
+        writer.writeByte(2);
+        break;
+      case ExamType.death:
+        writer.writeByte(3);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ExamTypeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class ExamStatusAdapter extends TypeAdapter<ExamStatus> {
+  @override
+  final int typeId = 9;
+
+  @override
+  ExamStatus read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return ExamStatus.initial;
+      case 1:
+        return ExamStatus.deadFailed;
+      case 2:
+        return ExamStatus.failed;
+      case 3:
+        return ExamStatus.passed;
+      default:
+        return ExamStatus.initial;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, ExamStatus obj) {
+    switch (obj) {
+      case ExamStatus.initial:
+        writer.writeByte(0);
+        break;
+      case ExamStatus.deadFailed:
+        writer.writeByte(1);
+        break;
+      case ExamStatus.failed:
+        writer.writeByte(2);
+        break;
+      case ExamStatus.passed:
+        writer.writeByte(3);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ExamStatusAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

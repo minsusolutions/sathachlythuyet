@@ -42,3 +42,47 @@ class QuestionDataAdapter extends TypeAdapter<QuestionData> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class QuestionStatusAdapter extends TypeAdapter<QuestionStatus> {
+  @override
+  final int typeId = 10;
+
+  @override
+  QuestionStatus read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return QuestionStatus.unanswer;
+      case 1:
+        return QuestionStatus.incorrect;
+      case 2:
+        return QuestionStatus.correct;
+      default:
+        return QuestionStatus.unanswer;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, QuestionStatus obj) {
+    switch (obj) {
+      case QuestionStatus.unanswer:
+        writer.writeByte(0);
+        break;
+      case QuestionStatus.incorrect:
+        writer.writeByte(1);
+        break;
+      case QuestionStatus.correct:
+        writer.writeByte(2);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is QuestionStatusAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
