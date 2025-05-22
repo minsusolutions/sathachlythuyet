@@ -5,21 +5,25 @@ class HomeState extends Equatable {
     required this.homeItems,
     required this.loadingResult,
     required this.currentLiciense,
+    this.examInfo,
   });
 
   final List<HomeItem> homeItems;
   final DelayedResult<void> loadingResult;
   final Liciense currentLiciense;
+  final ExamInfo? examInfo;
 
   HomeState copyWith({
     List<HomeItem>? homeItems,
     DelayedResult<void>? loadingResult,
     Liciense? currentLiciense,
+    ExamInfo? examInfo,
   }) {
     return HomeState(
       homeItems: homeItems ?? this.homeItems,
       loadingResult: loadingResult ?? this.loadingResult,
       currentLiciense: currentLiciense ?? this.currentLiciense,
+      examInfo: examInfo ?? this.examInfo,
     );
   }
 

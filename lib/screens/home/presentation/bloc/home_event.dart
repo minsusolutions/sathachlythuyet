@@ -9,5 +9,6 @@ final class LoadHomeEvent extends HomeEvent {
 }
 
 final class ItemToggleHomeEvent extends HomeEvent {
-  const ItemToggleHomeEvent();
+  const ItemToggleHomeEvent({required this.homeItem});
+  final HomeItem homeItem;
 }

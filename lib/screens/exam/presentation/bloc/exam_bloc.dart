@@ -36,12 +36,12 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
   final ExamRepository _examRepository;
 
   Future<void> _onLoadExam(LoadExam event, Emitter<ExamState> emit) async {
-    var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
-      event.examInfo.questions,
-    );
+    // var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
+    //   event.examInfo.questions,
+    // );
 
-    _logger.info(listQuestions);
-    emit(state.copyWith(examInfo: event.examInfo, listQuestion: listQuestions));
+    // _logger.info(listQuestions);
+    // emit(state.copyWith(examInfo: event.examInfo, listQuestion: listQuestions));
   }
 
   Future<void> _onAnswerChanged(

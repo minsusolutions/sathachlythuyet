@@ -1,9 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'exam_bank.g.dart';
 
-@JsonSerializable()
+// @JsonSerializable()
 @HiveType(typeId: 1)
 class ExamBank {
   static const examSetBoxKey = '_examSetBoxKey';
@@ -22,10 +21,10 @@ class ExamBank {
     required this.questionId,
   });
 
-  factory ExamBank.fromJson(Map<String, dynamic> json) =>
-      _$ExamBankFromJson(json);
+  // factory ExamBank.fromJson(Map<String, dynamic> json) =>
+  //     _$ExamBankFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ExamBankToJson(this);
+  // Map<String, dynamic> toJson() => _$ExamBankToJson(this);
 }
 
 // class ExamBankAdapter extends TypeAdapter<ExamBank> {

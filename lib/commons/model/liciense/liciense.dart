@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'liciense.g.dart';
 
@@ -64,7 +62,7 @@ enum NoOfQuestions {
   q600,
 }
 
-@JsonSerializable()
+// @JsonSerializable()
 @HiveType(typeId: 0)
 class Liciense {
   static const settingBoxKey = '_settingBoxKey';

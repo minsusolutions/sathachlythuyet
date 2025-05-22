@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
@@ -10,6 +9,8 @@ import 'package:sathachlaixe/screens/home/home.dart';
 
 import 'package:sathachlaixe/routing/router_utils.dart';
 import 'package:sathachlaixe/routing/screen/not_found_page.dart';
+import 'package:sathachlaixe/screens/revise/presentation/bloc/revise_bloc.dart';
+import 'package:sathachlaixe/screens/revise/presentation/view/revise_screen.dart';
 
 import '../screens/setting/setting.dart';
 
@@ -66,20 +67,29 @@ class AppRouter {
             path: PAGES.exam.screenPath,
             name: PAGES.exam.name,
             builder: (context, state) {
-              var examInfo = state.extra as ExamInfo;
+              var jobCode = state.extra as int;
               return BlocProvider(
                 create:
                     (context) =>
                         ExamBloc(examRepository: GetIt.I.get())
-                          ..add(LoadExam(examInfo: examInfo)),
+                          ..add(LoadExam(jobCode: jobCode)),
                 child: ExamScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: PAGES.revise.screenPath,
+            name: PAGES.revise.name,
+            builder: (context, state) {
+              return BlocProvider(
+                create: (context) => ReviseBloc(),
+                child: ReviseScreen(),
               );
             },
           ),
         ],
       ),
     ],
-    redirect: (context, state) {},
 
     errorBuilder: (context, state) => const NotFoundPage(),
   );

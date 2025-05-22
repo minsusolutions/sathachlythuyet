@@ -22,9 +22,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appTitle =
+        ('Ôn thi lý thuyết hạng ${context.read<HomeBloc>().state.currentLiciense.licienseType.name.toUpperCase()}');
+
     return Scaffold(
       appBar: BaseAppBar(
-        title: Text('Sat hach lai xe'),
+        title: Text(appTitle),
         appBar: AppBar(),
         widgets: [
           IconButton(

@@ -1,9 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'question.g.dart';
 
-@JsonSerializable()
+// @JsonSerializable()
 @HiveType(typeId: 3)
 class Question {
   static const questionBoxKey = '__questionBoxKey';
@@ -74,5 +73,4 @@ class Question {
   String toString() {
     return 'Question(qNumber: $qNumber, title: $title, answer1: $answer1,answer2: $answer2, answer3: $answer3, answer4: $answer4)';
   }
-
 }

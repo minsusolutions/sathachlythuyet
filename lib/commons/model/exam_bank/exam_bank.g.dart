@@ -45,19 +45,3 @@ class ExamBankAdapter extends TypeAdapter<ExamBank> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-ExamBank _$ExamBankFromJson(Map<String, dynamic> json) => ExamBank(
-      examSetID: (json['examSetID'] as num).toInt(),
-      examCode: (json['examCode'] as num).toInt(),
-      questionId: (json['questionId'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$ExamBankToJson(ExamBank instance) => <String, dynamic>{
-      'examSetID': instance.examSetID,
-      'examCode': instance.examCode,
-      'questionId': instance.questionId,
-    };

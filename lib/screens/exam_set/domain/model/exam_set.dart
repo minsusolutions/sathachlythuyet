@@ -1,8 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+// part 'exam_set.g.dart';
 
-part 'exam_set.g.dart';
-
-@JsonSerializable()
+// @JsonSerializable()
 class ExamSet {
   final int licienseId;
   final int examCode;

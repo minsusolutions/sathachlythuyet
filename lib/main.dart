@@ -16,7 +16,7 @@ class SatHachLaiXeApp extends StatelessWidget {
       routeInformationParser: AppRouter.router.routeInformationParser,
       routeInformationProvider: AppRouter.router.routeInformationProvider,
       routerDelegate: AppRouter.router.routerDelegate,
-      title: 'Sat hach lai xe',
+      title: 'Ôn thi lý thuyết',
       debugShowCheckedModeBanner: false,
     );
   }
