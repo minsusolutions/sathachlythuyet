@@ -117,7 +117,7 @@ class LocalHomeRepository implements HomeRepository {
       (examSet) => examSet.examCode == currLiciense.examCode,
     );
     for (int i = 1; i <= currLiciense.noOfExamSet; i++) {
-      var examInfoKey = '${currLiciense.id}__key__$i';
+      var examInfoKey = currLiciense.getExamInfoKey(i);
       if (examInfoBox.get(examInfoKey) != null) continue;
       var listIds =
           listByExamCode

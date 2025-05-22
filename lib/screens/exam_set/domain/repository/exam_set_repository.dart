@@ -3,5 +3,5 @@ import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 
 abstract interface class ExamSetRepository {
   Future<Liciense> get currentLiciense;
-  Future<List<ExamInfo>> getExamSetByExamCode(int examCode, int numberOfSet);
+  Future<List<ExamInfo?>> getExamSetByExamCode(int examCode, int numberOfSet);
 }

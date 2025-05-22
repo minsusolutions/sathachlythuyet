@@ -13,9 +13,9 @@ class LocalExamRepository implements ExamRepository {
 
   @override
   Future<List<Question>> loadQuestionsFromExamInfoByIds(
-    List<QuestionData> listData,
+    List<QuestionData>? listData,
   ) async {
-    _logger.info('data: ${listData.length}');
+    _logger.info('data: ${listData?.length}');
     List<Question> allQuestions = questionBox.values.toList();
     try {
       _logger.info('questions count: ${allQuestions.length}');
@@ -23,7 +23,10 @@ class LocalExamRepository implements ExamRepository {
           allQuestions
               .where(
                 (question) =>
-                    listData.any((data) => data.questionId == question.qNumber),
+                    listData?.any(
+                      (data) => data.questionId == question.qNumber,
+                    ) ??
+                    false,
               )
               .toList();
 

@@ -20,11 +20,11 @@ class ExamSetBloc extends Bloc<ExamSetEvent, ExamSetState> {
   _loadExamSet(LoadExamSetEvent event, Emitter<ExamSetState> emit) async {
     _logger.info('_loadExamSet called');
     var currentLiciense = await _examSetRepository.currentLiciense;
-    var listExamSet = await _examSetRepository.getExamSetByExamCode(
+    var listExamInfo = await _examSetRepository.getExamSetByExamCode(
       currentLiciense.examCode,
       currentLiciense.noOfExamSet,
     );
 
-    emit(state.copyWith(listExamInfo: listExamSet));
+    emit(state.copyWith(listExamInfo: listExamInfo));
   }
 }

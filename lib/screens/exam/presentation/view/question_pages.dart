@@ -41,7 +41,7 @@ class _QuestionPagesState extends State<QuestionPages>
                 isScrollable: true,
                 tabs: List.generate(state.listQuestion.length, (index) {
                   return Text(
-                    'Câu ${state.listQuestion[index].qNumber}',
+                    'Câu ${index + 1}',
                     style: TextStyle(color: Colors.red),
                   );
                   // return Tab(height: 50, text: 'Cau ${index + 1}',);

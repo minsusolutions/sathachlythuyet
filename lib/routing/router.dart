@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
@@ -67,14 +68,24 @@ class AppRouter {
             path: PAGES.exam.screenPath,
             name: PAGES.exam.name,
             builder: (context, state) {
-              var jobCode = state.extra as int;
-              return BlocProvider(
-                create:
-                    (context) =>
-                        ExamBloc(examRepository: GetIt.I.get())
-                          ..add(LoadExam(jobCode: jobCode)),
-                child: ExamScreen(),
-              );
+              if (state.extra is ExamInfo) {
+                return BlocProvider(
+                  create:
+                      (context) => ExamBloc(examRepository: GetIt.I.get())..add(
+                        LoadExam(jobCode: 0, examInfo: state.extra as ExamInfo),
+                      ),
+                  child: ExamScreen(),
+                );
+              } else {
+                var jobCode = state.extra as int;
+                return BlocProvider(
+                  create:
+                      (context) =>
+                          ExamBloc(examRepository: GetIt.I.get())
+                            ..add(LoadExam(jobCode: jobCode)),
+                  child: ExamScreen(),
+                );
+              }
             },
           ),
           GoRoute(

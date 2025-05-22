@@ -96,3 +96,8 @@ class Liciense {
     required this.description,
   });
 }
+
+extension LicienseX on Liciense {
+  String getExamInfoKey(int setCode) =>
+      ('${licienseType.name}__key__${examCode}__$setCode');
+}

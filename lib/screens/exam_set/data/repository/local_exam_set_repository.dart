@@ -20,35 +20,25 @@ class LocalExamSetRepository implements ExamSetRepository {
   });
 
   @override
-  Future<List<ExamInfo>> getExamSetByExamCode(int examCode, int numberOfSet) {
+  Future<List<ExamInfo?>> getExamSetByExamCode(
+    int examCode,
+    int numberOfSet,
+  ) async {
     try {
-      List<ExamBank>? allExams = examBankBox.values.toList();
-      if (allExams.isNotEmpty == true) {
-        var listByExamCode = allExams.where(
-          (examSet) => examSet.examCode == examCode,
-        );
+      var currentLiciense =
+          await settingBox.get(
+                Liciense.currentLicienseKey,
+                defaultValue: LiciensesData.licienses.first,
+              )
+              as Liciense;
+      List<ExamInfo?> result = [];
 
-        List<ExamInfo> result = [];
-        for (int i = 1; i <= numberOfSet; i++) {
-          var listIds =
-              listByExamCode
-                  .where((exam) => exam.examSetID == i)
-                  .map((exem) => exem.questionId)
-                  .toList();
-
-          // var setItem = ExamSet(
-          //   examCode: examCode,
-          //   setId: i,
-          //   questionIds: listIds,
-          //   numberOfFailed: 0,
-          //   numberOfSucceed: 0,
-          //   licienseId: 1,
-          // );
-          // result.add(setItem);
-          //print('setItem with examSetId = $i is $setItem');
-        }
-        return Future.value(result);
+      for (int i = 1; i <= currentLiciense.noOfExamSet; i++) {
+        var examInfoKey = currentLiciense.getExamInfoKey(i);
+        result.add(examInfoBox.get(examInfoKey));
       }
+
+      return Future.value(result);
     } on Exception {
       print('co loi');
     }

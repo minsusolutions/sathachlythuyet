@@ -5,8 +5,9 @@ sealed class ExamEvent {
 }
 
 final class LoadExam extends ExamEvent {
-  const LoadExam({required this.jobCode});
+  const LoadExam({required this.jobCode, this.examInfo});
   final int jobCode;
+  final ExamInfo? examInfo;
 }
 
 final class ExamChangeAnswer extends ExamEvent {
