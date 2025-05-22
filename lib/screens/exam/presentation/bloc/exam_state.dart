@@ -1,20 +1,30 @@
 part of 'exam_bloc.dart';
 
-enum ExamStatus { initial, loading, success, failure }
+enum ExamStateStatus { initial, loading, success, failure }
 
 final class ExamState extends Equatable {
-  final ExamStatus status;
+  final ExamStateStatus status;
   final ExamInfo examInfo;
+  final List<Question> listQuestion;
 
-  const ExamState({this.status = ExamStatus.initial, required this.examInfo});
+  const ExamState({
+    this.status = ExamStateStatus.initial,
+    required this.examInfo,
+    required this.listQuestion,
+  });
 
-  ExamState copyWith({ExamStatus? status, ExamInfo? examInfo}) {
+  ExamState copyWith({
+    ExamStateStatus? status,
+    ExamInfo? examInfo,
+    List<Question>? listQuestion,
+  }) {
     return ExamState(
       status: status ?? this.status,
       examInfo: examInfo ?? this.examInfo,
+      listQuestion: listQuestion ?? this.listQuestion,
     );
   }
 
   @override
-  List<Object?> get props => [status, examInfo];
+  List<Object?> get props => [status, examInfo, listQuestion];
 }

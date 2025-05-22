@@ -45,6 +45,8 @@ class Question {
   bool isDeadQuestion;
   @HiveField(17)
   String hint;
+  @HiveField(18)
+  int selectedAnswer;
 
   Question({
     required this.qNumber,
@@ -65,5 +67,12 @@ class Question {
     required this.extra4,
     required this.isDeadQuestion,
     required this.hint,
+    required this.selectedAnswer,
   });
+
+  @override
+  String toString() {
+    return 'Question(qNumber: $qNumber, title: $title, answer1: $answer1,answer2: $answer2, answer3: $answer3, answer4: $answer4)';
+  }
+
 }

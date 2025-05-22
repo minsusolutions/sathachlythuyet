@@ -18,32 +18,11 @@ class ExamScreenState extends State<ExamScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
-  final List<Widget> _list = <Widget>[
-    new Center(child: new SingleQuestionPage(text: "Page 1")),
-    new Center(child: new SingleQuestionPage(text: "Page 2")),
-    new Center(child: new SingleQuestionPage(text: "Page 3")),
-    new Center(child: new SingleQuestionPage(text: "Page 4")),
-
-    new Center(child: new SingleQuestionPage(text: "Page 5")),
-    new Center(child: new SingleQuestionPage(text: "Page 6")),
-    new Center(child: new SingleQuestionPage(text: "Page 7")),
-    new Center(child: new SingleQuestionPage(text: "Page 8")),
-
-    new Center(child: new SingleQuestionPage(text: "Page 9")),
-    new Center(child: new SingleQuestionPage(text: "Page 10")),
-    new Center(child: new SingleQuestionPage(text: "Page 11")),
-    new Center(child: new SingleQuestionPage(text: "Page 12")),
-
-    new Center(child: new SingleQuestionPage(text: "Page 13")),
-    new Center(child: new SingleQuestionPage(text: "Page 14")),
-    new Center(child: new SingleQuestionPage(text: "Page 15")),
-    new Center(child: new SingleQuestionPage(text: "Page 16")),
-  ];
   @override
   void initState() {
-    tabController = TabController(length: _list.length, vsync: this);
+    tabController = TabController(length: 8, vsync: this);
     tabController.addListener(() {
-      setState(() {});
+      //setState(() {});
     });
     super.initState();
   }
@@ -80,7 +59,7 @@ class ExamScreenState extends State<ExamScreen>
                       child: ExamTopView(),
                     )
                     : Container(),
-                Expanded(child: QuestionPages(tabController: tabController)),
+                Expanded(child: QuestionPages()),
               ],
             );
           },

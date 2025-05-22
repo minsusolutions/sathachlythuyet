@@ -4,6 +4,7 @@ import 'package:sathachlaixe/commons/base_app_bar.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,10 +22,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (shouldReloadPage) {
-      context.read<HomeBloc>().add(LoadHomeEvent());
-    }
-
     return Scaffold(
       appBar: BaseAppBar(
         title: Text('Sat hach lai xe'),

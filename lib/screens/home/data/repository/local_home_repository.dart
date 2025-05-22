@@ -55,7 +55,7 @@ class LocalHomeRepository implements HomeRepository {
       }
       // examSetBox.put(ExamSet.allExamSetKey, allExams);
       settingBox.put(_examCSVLoaded, true);
-      _logger.info(allExams.toString());
+      _logger.info('${allExams.length} exams added');
     } else {
       _logger.info('CSV Loaded');
     }
@@ -91,15 +91,15 @@ class LocalHomeRepository implements HomeRepository {
           extra4: row[15],
           isDeadQuestion: row[16].toString() == '1' ? true : false,
           hint: row[17],
+          selectedAnswer: 0,
         ),
       );
 
       for (var question in allQuestions) {
         questionBox.add(question);
       }
-      // examSetBox.put(ExamSet.allExamSetKey, allExams);
       settingBox.put(_questionsCSVLoaded, true);
-      _logger.info(allQuestions.toString());
+      _logger.info('${allQuestions.length} questions added');
     } else {
       _logger.info('CSV Questions Loaded');
     }

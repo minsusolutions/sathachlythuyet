@@ -35,13 +35,14 @@ class QuestionAdapter extends TypeAdapter<Question> {
       extra4: fields[15] as int,
       isDeadQuestion: fields[16] as bool,
       hint: fields[17] as String,
+      selectedAnswer: fields[18] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Question obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.qNumber)
       ..writeByte(1)
@@ -77,7 +78,9 @@ class QuestionAdapter extends TypeAdapter<Question> {
       ..writeByte(16)
       ..write(obj.isDeadQuestion)
       ..writeByte(17)
-      ..write(obj.hint);
+      ..write(obj.hint)
+      ..writeByte(18)
+      ..write(obj.selectedAnswer);
   }
 
   @override
@@ -114,6 +117,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) => Question(
       extra4: (json['extra4'] as num).toInt(),
       isDeadQuestion: json['isDeadQuestion'] as bool,
       hint: json['hint'] as String,
+      selectedAnswer: (json['selectedAnswer'] as num).toInt(),
     );
 
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
@@ -135,4 +139,5 @@ Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'extra4': instance.extra4,
       'isDeadQuestion': instance.isDeadQuestion,
       'hint': instance.hint,
+      'selectedAnswer': instance.selectedAnswer,
     };

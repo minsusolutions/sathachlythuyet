@@ -66,26 +66,26 @@ class LicienseAdapter extends TypeAdapter<Liciense> {
 // **************************************************************************
 
 Liciense _$LicienseFromJson(Map<String, dynamic> json) => Liciense(
-  id: (json['id'] as num).toInt(),
-  licienseType: $enumDecode(_$LicienseTypeEnumMap, json['licienseType']),
-  examCode: (json['examCode'] as num).toInt(),
-  image: json['image'] as String,
-  noOfQuestions: $enumDecode(_$NoOfQuestionsEnumMap, json['noOfQuestions']),
-  questionsPerExam: (json['questionsPerExam'] as num).toInt(),
-  noOfExamSet: (json['noOfExamSet'] as num).toInt(),
-  description: json['description'] as String,
-);
+      id: (json['id'] as num).toInt(),
+      licienseType: $enumDecode(_$LicienseTypeEnumMap, json['licienseType']),
+      examCode: (json['examCode'] as num).toInt(),
+      image: json['image'] as String,
+      noOfQuestions: $enumDecode(_$NoOfQuestionsEnumMap, json['noOfQuestions']),
+      questionsPerExam: (json['questionsPerExam'] as num).toInt(),
+      noOfExamSet: (json['noOfExamSet'] as num).toInt(),
+      description: json['description'] as String,
+    );
 
 Map<String, dynamic> _$LicienseToJson(Liciense instance) => <String, dynamic>{
-  'id': instance.id,
-  'licienseType': _$LicienseTypeEnumMap[instance.licienseType]!,
-  'examCode': instance.examCode,
-  'image': instance.image,
-  'noOfQuestions': _$NoOfQuestionsEnumMap[instance.noOfQuestions]!,
-  'noOfExamSet': instance.noOfExamSet,
-  'questionsPerExam': instance.questionsPerExam,
-  'description': instance.description,
-};
+      'id': instance.id,
+      'licienseType': _$LicienseTypeEnumMap[instance.licienseType]!,
+      'examCode': instance.examCode,
+      'image': instance.image,
+      'noOfQuestions': _$NoOfQuestionsEnumMap[instance.noOfQuestions]!,
+      'noOfExamSet': instance.noOfExamSet,
+      'questionsPerExam': instance.questionsPerExam,
+      'description': instance.description,
+    };
 
 const _$LicienseTypeEnumMap = {
   LicienseType.a1: 'a1',

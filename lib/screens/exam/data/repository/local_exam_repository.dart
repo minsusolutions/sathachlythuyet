@@ -1,40 +1,38 @@
 import 'package:hive/hive.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:logging/logging.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 
 class LocalExamRepository implements ExamRepository {
-  //final Box<Question> questionBox;
+  final Box<Question> questionBox;
 
-  // LocalExamRepository({required this.questionBox});
-  LocalExamRepository();
+  LocalExamRepository({required this.questionBox});
 
-  @override
-  Future<void> loadAllQuestionsFromCSV() {
-    // TODO: implement loadAllQuestionsFromCSV
-    throw UnimplementedError();
-  }
+  final _logger = Logger('LocalExamRepository');
 
   @override
-  List<ExamInfo> getAllExamsByExamCode(int examCode) {
-    // TODO: implement getAllExamsByExamCode
-    throw UnimplementedError();
-  }
+  Future<List<Question>> loadQuestionsFromExamInfoByIds(
+    List<QuestionData> listData,
+  ) async {
+    _logger.info('data: ${listData.length}');
+    List<Question> allQuestions = questionBox.values.toList();
+    try {
+      _logger.info('questions count: ${allQuestions.length}');
+      var listQuestions =
+          allQuestions
+              .where(
+                (question) =>
+                    listData.any((data) => data.questionId == question.qNumber),
+              )
+              .toList();
 
-  @override
-  Stream<ExamInfo> getExam() {
-    // TODO: implement getExam
-    throw UnimplementedError();
-  }
+      _logger.info('List Questions: $listQuestions');
 
-  @override
-  void getExamByExamCodeAndSetCode(int examCode, int examSet) {
-    // TODO: implement getExamByExamCodeAndSetCode
-  }
-
-  @override
-  Future<void> close() {
-    // TODO: implement close
-    throw UnimplementedError();
+      return Future.value(listQuestions);
+    } on Exception {
+      print('co loi');
+      return Future.value([]);
+    }
   }
 }

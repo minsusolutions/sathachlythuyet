@@ -12,8 +12,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _logger.info('initState');
-    context.read<HomeBloc>().add(LoadHomeEvent());
     super.initState();
   }
 

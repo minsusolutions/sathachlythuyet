@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logging/logging.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/exam_bloc.dart';
 
 class MiniMapView extends StatelessWidget {
-  final _logger = Logger('_MiniMapView');
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ExamBloc, ExamState, Map<int, bool?>>(
+    return BlocSelector<ExamBloc, ExamState, List<QuestionData>>(
       selector: (state) => state.examInfo.questions,
       builder: (context, lists) {
-        var listValues = lists.values.toList();
-
         return Row(
           children: [
             GridView.count(
@@ -21,15 +18,17 @@ class MiniMapView extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: List.generate(lists.length, (index) {
-                var itemColor = Colors.blue;
-                if (listValues[index] != null) {
-                  itemColor = listValues[index]! ? Colors.green : Colors.red;
-                }
                 return SizedBox(
                   width: 13,
                   height: 13,
                   child: DecoratedBox(
-                    decoration: BoxDecoration(color: itemColor),
+                    decoration: BoxDecoration(
+                      color: switch (lists[index].questionStatus) {
+                        QuestionStatus.unanswer => Colors.blue,
+                        QuestionStatus.incorrect => Colors.red,
+                        QuestionStatus.correct => Colors.green,
+                      },
+                    ),
                   ),
                 );
               }),

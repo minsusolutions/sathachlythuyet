@@ -44,8 +44,8 @@ Future<void> setupDependencies() async {
 
   getIt.registerSingletonAsync<ExamRepository>(() async {
     // await Hive.openBox<dynamic>(Liciense.settingBoxKey);
-    // await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
-    return LocalExamRepository();
+    await Hive.openBox<Question>(Question.questionBoxKey);
+    return LocalExamRepository(questionBox: HiveLocator.getQuestionBox());
   });
   await getIt.allReady();
 }

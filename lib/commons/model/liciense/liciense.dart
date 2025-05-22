@@ -43,41 +43,4 @@ class Liciense {
     required this.noOfExamSet,
     required this.description,
   });
-
-  //factory Liciense.fromJson(Map<String, Object> json) =>
-  //    _$LicienseFromJson(json);
-
-  //Map<String, Object?> toJson() => _$LicienseToJson(this);
 }
-
-// class LicienseAdapter extends TypeAdapter<Liciense> {
-//   @override
-//   final typeId = 0;
-
-//   @override
-//   Liciense read(BinaryReader reader) {
-//     return Liciense(
-//       id: reader.read(),
-//       licienseType: reader.read(),
-//       examCode: reader.read(),
-//       image: reader.read(),
-//       noOfQuestions: reader.read(),
-//       questionsPerExam: reader.read(),
-//       noOfExamSet: reader.read(),
-//       description: reader.read(),
-//     );
-//   }
-
-//   @override
-//   void write(BinaryWriter writer, Liciense obj) {
-//     writer.write(obj.id);
-//     writer.write(obj.licienseType);
-//     writer.write(obj.examCode);
-//     writer.write(obj.image);
-
-//     writer.write(obj.noOfQuestions);
-//     writer.write(obj.questionsPerExam);
-//     writer.write(obj.noOfExamSet);
-//     writer.write(obj.description);
-//   }
-// }
