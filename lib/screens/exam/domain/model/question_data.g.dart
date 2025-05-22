@@ -8,7 +8,7 @@ part of 'question_data.dart';
 
 class QuestionDataAdapter extends TypeAdapter<QuestionData> {
   @override
-  final int typeId = 5;
+  final int typeId = 11;
 
   @override
   QuestionData read(BinaryReader reader) {

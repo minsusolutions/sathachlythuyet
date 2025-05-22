@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/exam_bloc.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/exam_drawer.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/exam_top_view.dart';

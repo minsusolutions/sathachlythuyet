@@ -4,7 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/delayed_result.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/commons/model/liciense/licienses_data.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
 
@@ -43,6 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     await Future.wait([
       _homeRepository.loadExamSetFromCsv(),
       _homeRepository.loadQuestionsFromCsv(),
+      _homeRepository.generateExamInfoByLicienseAndExamCode(),
     ]);
 
     // _homeRepository.loadExamSetFromCsv();

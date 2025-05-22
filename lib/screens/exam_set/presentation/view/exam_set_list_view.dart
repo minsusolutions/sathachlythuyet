@@ -15,8 +15,8 @@ class ExamSetListView extends StatelessWidget {
             crossAxisCount: 3,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-            children: List.generate(state.listExamSet.length, (index) {
-              return ExamSetItem(examSet: state.listExamSet[index]);
+            children: List.generate(state.listExamInfo.length, (index) {
+              return ExamSetItem(examSet: state.listExamInfo[index]);
             }),
           ),
     );

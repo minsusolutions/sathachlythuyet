@@ -6,6 +6,8 @@ part 'exam_info.g.dart';
 
 @HiveType(typeId: 4)
 class ExamInfo extends Equatable {
+  static const examInfoBoxKey = '_examInfoBoxKey';
+
   @HiveField(0)
   final int licienseId;
   @HiveField(1)
@@ -39,6 +41,11 @@ class ExamInfo extends Equatable {
 
   @override
   List<Object?> get props => [examCode, examTitle, examType, questions];
+
+  @override
+  String toString() {
+    return 'licienseId: $licienseId, examCode: $examCode, questions: $questions, examTitle: $examTitle';
+  }
 }
 
 @HiveType(typeId: 8)

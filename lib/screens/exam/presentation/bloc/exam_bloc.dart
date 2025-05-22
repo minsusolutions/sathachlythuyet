@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 
@@ -42,6 +42,8 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
 
     // _logger.info(listQuestions);
     // emit(state.copyWith(examInfo: event.examInfo, listQuestion: listQuestions));
+
+    _logger.info(event.jobCode);
   }
 
   Future<void> _onAnswerChanged(

@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/exam_bank/exam_bank.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/commons/model/liciense/licienses_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/home/data/home_list.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
@@ -19,11 +21,13 @@ class LocalHomeRepository implements HomeRepository {
   final Box<dynamic> settingBox;
   final Box<ExamBank> examBankBox;
   final Box<Question> questionBox;
+  final Box<ExamInfo> examInfoBox;
 
   LocalHomeRepository({
     required this.settingBox,
     required this.examBankBox,
     required this.questionBox,
+    required this.examInfoBox,
   });
 
   @override
@@ -53,7 +57,6 @@ class LocalHomeRepository implements HomeRepository {
       for (var exam in allExams) {
         examBankBox.add(exam);
       }
-      // examSetBox.put(ExamSet.allExamSetKey, allExams);
       settingBox.put(_examCSVLoaded, true);
       _logger.info('${allExams.length} exams added');
     } else {
@@ -102,6 +105,47 @@ class LocalHomeRepository implements HomeRepository {
       _logger.info('${allQuestions.length} questions added');
     } else {
       _logger.info('CSV Questions Loaded');
+    }
+  }
+
+  @override
+  Future<void> generateExamInfoByLicienseAndExamCode() async {
+    List<ExamBank>? allExams = examBankBox.values.toList();
+
+    var currLiciense = await currentLiciense;
+    var listByExamCode = allExams.where(
+      (examSet) => examSet.examCode == currLiciense.examCode,
+    );
+    for (int i = 1; i <= currLiciense.noOfExamSet; i++) {
+      var examInfoKey = '${currLiciense.id}__key__$i';
+      if (examInfoBox.get(examInfoKey) != null) continue;
+      var listIds =
+          listByExamCode
+              .where((exam) => exam.examSetID == i)
+              .map((exem) => exem.questionId)
+              .toList();
+      var examInfo = ExamInfo(
+        licienseId: currLiciense.id,
+        examCode: currLiciense.examCode,
+        examSetId: i,
+        questions:
+            listIds
+                .map(
+                  (ids) => QuestionData(
+                    questionId: ids,
+                    questionStatus: QuestionStatus.unanswer,
+                  ),
+                )
+                .toList(),
+        examTitle: 'Đề số $i',
+        status: ExamStatus.initial,
+        examType: ExamType.exam,
+        duration: 20 * 60,
+        minCorrQuestion: 20,
+      );
+
+      _logger.info(examInfo);
+      examInfoBox.put(examInfoKey, examInfo);
     }
   }
 }

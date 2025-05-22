@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sathachlaixe/screens/exam_set/domain/model/exam_set.dart';
-import 'package:sathachlaixe/screens/exam_set/presentation/widget/status_count_view.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
+import 'package:sathachlaixe/routing/router.dart';
 
 class ExamSetItem extends StatelessWidget {
-  final ExamSet examSet;
+  final ExamInfo examSet;
 
   const ExamSetItem({super.key, required this.examSet});
 
@@ -15,21 +15,23 @@ class ExamSetItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          AppRouter.router.push(PAGES.exam.screenPath, extra: examSet);
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Đề thi số'),
             Text(
-              '${examSet.setId}',
+              '${examSet.examSetId}',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                statusCoundView(examSet.numberOfFailed, false),
-                SizedBox(width: 30),
-                statusCoundView(examSet.numberOfSucceed, true),
+                // statusCoundView(examSet., false),
+                // SizedBox(width: 30),
+                // statusCoundView(examSet.numberOfSucceed, true),
               ],
             ),
           ],

@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sathachlaixe/commons/model/exam_bank/exam_bank.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/screens/exam/data/repository/local_exam_repository.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
+import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
@@ -28,19 +28,23 @@ Future<void> setupDependencies() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
     await Hive.openBox<Question>(Question.questionBoxKey);
+    await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
     return LocalHomeRepository(
       settingBox: HiveLocator.getSettingLicienseBox(),
       examBankBox: HiveLocator.getExamBankBox(),
       questionBox: HiveLocator.getQuestionBox(),
+      examInfoBox: HiveLocator.getExamInfoBox(),
     );
   });
 
   getIt.registerSingletonAsync<ExamSetRepository>(() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
+    await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
     return LocalExamSetRepository(
       examBankBox: HiveLocator.getExamBankBox(),
       settingBox: HiveLocator.getSettingLicienseBox(),
+      examInfoBox: HiveLocator.getExamInfoBox(),
     );
   });
 
@@ -70,6 +74,10 @@ class HiveLocator {
     return Hive.box<Question>(Question.questionBoxKey);
   }
 
+  static Box<ExamInfo> getExamInfoBox() {
+    return Hive.box<ExamInfo>(ExamInfo.examInfoBoxKey);
+  }
+
   static void _registerAdapter() {
     Hive.registerAdapter(LicienseAdapter());
     Hive.registerAdapter(ExamBankAdapter());
@@ -80,5 +88,7 @@ class HiveLocator {
     Hive.registerAdapter(ExamTypeAdapter());
     Hive.registerAdapter(ExamStatusAdapter());
     Hive.registerAdapter(QuestionStatusAdapter());
+    Hive.registerAdapter(ExamInfoAdapter());
+    Hive.registerAdapter(QuestionDataAdapter());
   }
 }

@@ -1,7 +1,7 @@
 part of '../view/home_screen.dart';
 
-class HomeItemCard extends StatelessWidget {
-  const HomeItemCard({super.key, required this.homeItem});
+class HomeItemTile extends StatelessWidget {
+  const HomeItemTile({super.key, required this.homeItem});
   final HomeItem homeItem;
 
   @override

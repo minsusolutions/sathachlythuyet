@@ -6,9 +6,7 @@ class HomeItemListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state.homeItems.isEmpty) {
           return Container(decoration: BoxDecoration(color: Colors.purple));
@@ -20,7 +18,7 @@ class HomeItemListView extends StatelessWidget {
           mainAxisSpacing: 8,
           childAspectRatio: 3 / 2,
           children: List.generate(state.homeItems.length, (index) {
-            return HomeItemCard(homeItem: state.homeItems[index]);
+            return HomeItemTile(homeItem: state.homeItems[index]);
           }),
         );
       },

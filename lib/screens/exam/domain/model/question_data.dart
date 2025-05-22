@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'question_data.g.dart';
 
-@HiveType(typeId: 5)
+@HiveType(typeId: 11)
 class QuestionData {
   @HiveField(0)
   final int questionId;
@@ -10,6 +10,12 @@ class QuestionData {
   final QuestionStatus questionStatus;
 
   QuestionData({required this.questionId, required this.questionStatus});
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return 'questionId $questionId, questionStatus: ${questionStatus.name}';
+  }
 }
 
 @HiveType(typeId: 10)
