@@ -3,8 +3,6 @@ import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/base_app_bar.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/exam_info.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,8 +29,15 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(),
         widgets: [
           IconButton(
-            onPressed: () {
-              AppRouter.router.go(PAGES.setting.screenPath);
+            onPressed: () async {
+              final bool? result = await AppRouter.router.push(
+                PAGES.setting.screenPath,
+              );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (result ?? false) {
+                  context.read<HomeBloc>().add(LoadHomeEvent());
+                }
+              });
             },
             icon: Icon(Icons.settings),
           ),
