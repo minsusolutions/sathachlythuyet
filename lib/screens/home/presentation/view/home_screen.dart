@@ -20,30 +20,45 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appTitle =
-        ('Ôn thi lý thuyết hạng ${context.read<HomeBloc>().state.currentLiciense.licienseType.name.toUpperCase()}');
-
-    return Scaffold(
-      appBar: BaseAppBar(
-        title: Text(appTitle),
-        appBar: AppBar(),
-        widgets: [
-          IconButton(
-            onPressed: () async {
-              final bool? result = await AppRouter.router.push(
-                PAGES.setting.screenPath,
-              );
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (result ?? false) {
-                  context.read<HomeBloc>().add(LoadHomeEvent());
-                }
-              });
+    return BlocListener(
+      bloc: context.read<HomeBloc>(),
+      listener: (context, state) {
+        print('cu emit la toi nhan');
+      },
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(56),
+          child: BlocSelector<HomeBloc, HomeState, String>(
+            selector: (state) {
+              return state.currentLiciense.licienseType.name;
             },
-            icon: Icon(Icons.settings),
+            builder: (context, licienseName) {
+              return BaseAppBar(
+                title: Text(
+                  'Ôn thi lý thuyết hạng ${licienseName.toUpperCase()}',
+                ),
+                appBar: AppBar(),
+                widgets: [
+                  IconButton(
+                    onPressed: () async {
+                      final bool? result = await AppRouter.router.push(
+                        PAGES.setting.screenPath,
+                      );
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (result ?? false) {
+                          context.read<HomeBloc>().add(LoadHomeEvent());
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.settings),
+                  ),
+                ],
+              );
+            },
           ),
-        ],
+        ),
+        body: HomePage(),
       ),
-      body: HomePage(),
     );
   }
 }

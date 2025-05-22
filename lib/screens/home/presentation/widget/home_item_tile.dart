@@ -1,9 +1,8 @@
 part of '../view/home_screen.dart';
 
 class HomeItemCard extends StatelessWidget {
-  const HomeItemCard({super.key, required this.homeItem, required this.onTap});
+  const HomeItemCard({super.key, required this.homeItem});
   final HomeItem homeItem;
-  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,8 @@ class HomeItemCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap: () => onTap.call(),
+        onTap:
+            () => AppRouter.router.go(homeItem.route, extra: homeItem.jobCode),
         splashColor: Colors.grey.withValues(alpha: 0.8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
