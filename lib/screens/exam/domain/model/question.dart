@@ -1,53 +1,54 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
 part 'question.g.dart';
 
 // @JsonSerializable()
 @HiveType(typeId: 3)
-class Question {
+class Question extends Equatable {
   static const questionBoxKey = '__questionBoxKey';
   static const isQuestionsLoadedFromCsv = '__isQuestionsLoadedFromCsv';
 
   @HiveField(0)
-  int qNumber;
+  final int qNumber;
   @HiveField(1)
-  String title;
+  final String title;
   @HiveField(2)
-  String answer1;
+  final String answer1;
   @HiveField(3)
-  String answer2;
+  final String answer2;
   @HiveField(4)
-  String answer3;
+  final String answer3;
   @HiveField(5)
-  String answer4;
+  final String answer4;
   @HiveField(6)
-  String qImage;
+  final String qImage;
   @HiveField(7)
-  int correctAnswer;
+  final int correctAnswer;
   @HiveField(8)
-  int qCategory;
+  final int qCategory;
   @HiveField(9)
-  int qNumberIn200;
+  final int qNumberIn200;
   @HiveField(10)
-  int qNumberIn450;
+  final int qNumberIn450;
   @HiveField(11)
-  int qNumberIn500;
+  final int qNumberIn500;
   @HiveField(12)
-  int extra1;
+  final int extra1;
   @HiveField(13)
-  int extra2;
+  final int extra2;
   @HiveField(14)
-  int extra3;
+  final int extra3;
   @HiveField(15)
-  int extra4;
+  final int extra4;
   @HiveField(16)
-  bool isDeadQuestion;
+  final bool isDeadQuestion;
   @HiveField(17)
-  String hint;
+  final String hint;
   @HiveField(18)
-  int selectedAnswer;
+  final int selectedAnswer;
 
-  Question({
+  const Question({
     required this.qNumber,
     required this.title,
     required this.answer1,
@@ -69,8 +70,35 @@ class Question {
     required this.selectedAnswer,
   });
 
+  Question copyWith({required int? selectedAnswer}) {
+    return Question(
+      qNumber: qNumber,
+      title: title,
+      answer1: answer1,
+      answer2: answer2,
+      answer3: answer3,
+      answer4: answer4,
+      qImage: qImage,
+      correctAnswer: correctAnswer,
+      qCategory: qCategory,
+      qNumberIn200: qNumberIn200,
+      qNumberIn450: qNumberIn450,
+      qNumberIn500: qNumberIn500,
+      extra1: extra1,
+      extra2: extra2,
+      extra3: extra3,
+      extra4: extra4,
+      isDeadQuestion: isDeadQuestion,
+      hint: hint,
+      selectedAnswer: selectedAnswer ?? this.selectedAnswer,
+    );
+  }
+
   @override
   String toString() {
-    return 'Question(qNumber: $qNumber, title: $title, answer1: $answer1,answer2: $answer2, answer3: $answer3, answer4: $answer4)';
+    return 'Question(qNumber: $qNumber, title: $title, answer1: $answer1,answer2: $answer2, answer3: $answer3, answer4: $answer4), selectedAnswer: $selectedAnswer';
   }
+
+  @override
+  List<Object?> get props => [qNumber, selectedAnswer];
 }

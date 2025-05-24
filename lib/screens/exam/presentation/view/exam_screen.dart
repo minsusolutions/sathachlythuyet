@@ -5,7 +5,6 @@ import 'package:sathachlaixe/screens/exam/presentation/bloc/exam_bloc.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/exam_drawer.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/exam_top_view.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/question_pages.dart';
-import 'package:sathachlaixe/screens/exam/presentation/view/single_question_page.dart';
 
 class ExamScreen extends StatefulWidget {
   const ExamScreen({super.key});
@@ -34,7 +33,10 @@ class ExamScreenState extends State<ExamScreen>
         preferredSize: const Size.fromHeight(56),
         child: BlocSelector<ExamBloc, ExamState, String>(
           selector: (state) {
-            return state.examInfo.examTitle;
+            return switch (state) {
+              ExamInitial _ => '',
+              ExamLoaded loadedState => loadedState.examInfo.examTitle,
+            };
           },
           builder: (context, state) {
             return AppBar(
@@ -51,17 +53,23 @@ class ExamScreenState extends State<ExamScreen>
       body: SafeArea(
         child: BlocBuilder<ExamBloc, ExamState>(
           builder: (context, state) {
-            return Column(
-              children: [
-                state.examInfo.examType == ExamType.exam
-                    ? Container(
-                      decoration: BoxDecoration(color: Colors.amber),
-                      child: ExamTopView(),
-                    )
-                    : Container(),
-                Expanded(child: QuestionPages()),
-              ],
-            );
+            return switch (state) {
+              ExamInitial _ =>
+                Container(), //TODO: hanhnv should implement loading screen
+              ExamLoaded loaded => Column(
+                children: [
+                  loaded.examInfo.examType == ExamType.exam
+                      ? Container(
+                        decoration: BoxDecoration(color: Colors.amber),
+                        child: ExamTopView(
+                          listData: loaded.examInfo.questionsData,
+                        ),
+                      )
+                      : Container(),
+                  Expanded(child: QuestionPages()),
+                ],
+              ),
+            };
           },
         ),
       ),

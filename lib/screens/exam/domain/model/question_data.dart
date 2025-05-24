@@ -1,21 +1,24 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'question_data.g.dart';
 
 @HiveType(typeId: 11)
-class QuestionData {
+class QuestionData extends Equatable {
   @HiveField(0)
   final int questionId;
   @HiveField(1)
   final QuestionStatus questionStatus;
 
-  QuestionData({required this.questionId, required this.questionStatus});
+  const QuestionData({required this.questionId, required this.questionStatus});
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'questionId $questionId, questionStatus: ${questionStatus.name}';
   }
+
+  @override
+  List<Object?> get props => [questionId, questionStatus];
 }
 
 @HiveType(typeId: 10)
@@ -26,4 +29,6 @@ enum QuestionStatus {
   incorrect,
   @HiveField(2)
   correct,
+  @HiveField(3)
+  current,
 }

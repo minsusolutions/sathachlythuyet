@@ -15,7 +15,7 @@ class ExamInfo extends Equatable {
   @HiveField(2)
   final int? examSetId;
   @HiveField(3)
-  final List<QuestionData> questions;
+  final List<QuestionData> questionsData;
   @HiveField(4)
   final String examTitle;
   @HiveField(5)
@@ -31,7 +31,7 @@ class ExamInfo extends Equatable {
     required this.licienseId,
     required this.examCode,
     required this.examSetId,
-    required this.questions,
+    required this.questionsData,
     required this.examTitle,
     required this.status,
     required this.examType,
@@ -39,12 +39,26 @@ class ExamInfo extends Equatable {
     required this.minCorrQuestion,
   });
 
+  ExamInfo copyWith({List<QuestionData>? questionsData, ExamStatus? status}) {
+    return ExamInfo(
+      licienseId: licienseId,
+      examCode: examCode,
+      examSetId: examSetId,
+      questionsData: questionsData ?? this.questionsData,
+      examTitle: examTitle,
+      status: status ?? this.status,
+      examType: examType,
+      duration: duration,
+      minCorrQuestion: minCorrQuestion,
+    );
+  }
+
   @override
-  List<Object?> get props => [examCode, examTitle, examType, questions];
+  List<Object?> get props => [examCode, examTitle, examType, questionsData];
 
   @override
   String toString() {
-    return 'licienseId: $licienseId, examCode: $examCode, questions: $questions, examTitle: $examTitle';
+    return 'licienseId: $licienseId, examCode: $examCode, questions: $questionsData, examTitle: $examTitle';
   }
 }
 

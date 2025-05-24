@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/exam_bloc.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/single_question_page.dart';
-import 'package:sathachlaixe/screens/home/home.dart';
 
 class QuestionPages extends StatefulWidget {
   const QuestionPages({super.key});
@@ -14,56 +14,75 @@ class QuestionPages extends StatefulWidget {
 class _QuestionPagesState extends State<QuestionPages>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  final _logger = Logger('_QuestionPagesState');
 
   @override
   void initState() {
     super.initState();
   }
 
+  void _setActiveTabIndex() {
+    var _activeTabIndex = _tabController.index;
+    _logger.info('currentActive tab index: $_activeTabIndex');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExamBloc, ExamState>(
+    return BlocConsumer<ExamBloc, ExamState>(
+      listener: (context, state) {
+        print('BlocConsumer listener');
+      },
       builder: (context, state) {
-        print('list question lenght: ${state.listQuestion.length}');
-        _tabController = TabController(
-          vsync: this,
-          length: state.listQuestion.length,
-        );
+        if (state is ExamInitial) {
+          return Center(child: Text('Đang tải dữ liệu...'));
+        }
+        var finalState = state;
+        if (finalState is ExamLoaded) {
+          print('list question lenght: ${finalState.listQuestion.length}');
+          _tabController = TabController(
+            vsync: this,
+            length: finalState.listQuestion.length,
+          );
+          _tabController.addListener(_setActiveTabIndex);
 
-        return Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(color: Colors.amber),
-              height: 50,
-              child: TabBar(
-                padding: EdgeInsets.zero,
-                controller: _tabController,
-                isScrollable: true,
-                tabs: List.generate(state.listQuestion.length, (index) {
-                  return Text(
-                    'Câu ${index + 1}',
-                    style: TextStyle(color: Colors.red),
-                  );
-                  // return Tab(height: 50, text: 'Cau ${index + 1}',);
-                }),
-              ),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(color: Colors.grey),
-                height: 100,
-                child: TabBarView(
+          return Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(color: Colors.amber),
+                height: 50,
+                child: TabBar(
+                  padding: EdgeInsets.zero,
                   controller: _tabController,
-                  children: List<SingleQuestionPage>.generate(
-                    state.listQuestion.length,
-                    (i) => SingleQuestionPage(question: state.listQuestion[i]),
+                  isScrollable: true,
+                  tabs: List.generate(finalState.listQuestion.length, (index) {
+                    return Text(
+                      'Câu ${index + 1}',
+                      style: TextStyle(color: Colors.red),
+                    );
+                    // return Tab(height: 50, text: 'Cau ${index + 1}',);
+                  }),
+                ),
+              ),
+              SizedBox(height: 10),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(color: Colors.grey),
+                  height: 100,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: List<SingleQuestionPage>.generate(
+                      finalState.listQuestion.length,
+                      (index) => SingleQuestionPage(
+                        question: finalState.listQuestion[index],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        );
+            ],
+          );
+        }
+        return Center(child: Text('Đang tải dữ liệu'));
       },
     );
   }

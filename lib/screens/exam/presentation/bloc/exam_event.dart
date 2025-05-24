@@ -10,8 +10,7 @@ final class LoadExam extends ExamEvent {
   final ExamInfo? examInfo;
 }
 
-final class ExamChangeAnswer extends ExamEvent {
-  const ExamChangeAnswer({required this.question, required this.answer});
+final class UpdateQuestionStatus extends ExamEvent {
   final Question question;
-  final int answer;
+  const UpdateQuestionStatus({required this.question});
 }

@@ -20,7 +20,7 @@ class ExamInfoAdapter extends TypeAdapter<ExamInfo> {
       licienseId: fields[0] as int,
       examCode: fields[1] as int,
       examSetId: fields[2] as int?,
-      questions: (fields[3] as List).cast<QuestionData>(),
+      questionsData: (fields[3] as List).cast<QuestionData>(),
       examTitle: fields[4] as String,
       status: fields[5] as ExamStatus,
       examType: fields[6] as ExamType,
@@ -40,7 +40,7 @@ class ExamInfoAdapter extends TypeAdapter<ExamInfo> {
       ..writeByte(2)
       ..write(obj.examSetId)
       ..writeByte(3)
-      ..write(obj.questions)
+      ..write(obj.questionsData)
       ..writeByte(4)
       ..write(obj.examTitle)
       ..writeByte(5)

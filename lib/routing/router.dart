@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
+import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
@@ -69,11 +70,20 @@ class AppRouter {
             name: PAGES.exam.name,
             builder: (context, state) {
               if (state.extra is ExamInfo) {
-                return BlocProvider(
-                  create:
-                      (context) => ExamBloc(examRepository: GetIt.I.get())..add(
-                        LoadExam(jobCode: 0, examInfo: state.extra as ExamInfo),
-                      ),
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create:
+                          (context) => ExamBloc(examRepository: GetIt.I.get())
+                            ..add(
+                              LoadExam(
+                                jobCode: 0,
+                                examInfo: state.extra as ExamInfo,
+                              ),
+                            ),
+                    ),
+                    BlocProvider(create: (context) => MiniMapBloc()),
+                  ],
                   child: ExamScreen(),
                 );
               } else {
