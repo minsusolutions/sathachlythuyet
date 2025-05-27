@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
+import 'package:sathachlaixe/screens/exam/data/ticker/ticker.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
+import 'package:sathachlaixe/screens/exam/presentation/bloc/timer/timer_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
@@ -83,6 +85,9 @@ class AppRouter {
                             ),
                     ),
                     BlocProvider(create: (context) => MiniMapBloc()),
+                    BlocProvider(
+                      create: (context) => TimerBloc(ticker: Ticker()),
+                    ),
                   ],
                   child: ExamScreen(),
                 );

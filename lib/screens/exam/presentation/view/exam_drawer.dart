@@ -1,37 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
+import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
 
 class ExamDrawer extends StatefulWidget {
   final TabController tabController;
 
-  ExamDrawer({super.key, required this.tabController});
-  final List<int> listItem = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-  ];
+  const ExamDrawer({super.key, required this.tabController});
+
   @override
   State<StatefulWidget> createState() => _ExamDrawerState();
 }
@@ -39,54 +15,92 @@ class ExamDrawer extends StatefulWidget {
 class _ExamDrawerState extends State<ExamDrawer> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 400,
-      child: Drawer(
-        child: Column(
-          children: [
-            SizedBox(height: 75),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(color: Colors.orange),
-                child: GridView.count(
-                  crossAxisCount: widget.listItem.length >= 30 ? 5 : 4,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                  childAspectRatio: 1 / 1,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: List.generate(widget.listItem.length, (index) {
-                    return QuestionCircle(
-                      onTap: () => {widget.tabController.animateTo(0)},
-                    );
-                  }),
-                ),
+    return BlocBuilder<MiniMapBloc, MiniMapState>(
+      builder: (context, state) {
+        return switch (state) {
+          MiniMapInitial _ => Center(child: Text('loading data')),
+          MiniMapLoaded loadedState => SizedBox(
+            width: 400,
+            child: Drawer(
+              child: Column(
+                children: [
+                  SizedBox(height: 75),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(color: Colors.orange),
+                      child: GridView.count(
+                        crossAxisCount:
+                            loadedState.questionData.length >= 30 ? 5 : 4,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 1 / 1,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: List.generate(
+                          loadedState.questionData.length,
+                          (index) {
+                            return QuestionCircle(
+                              questionData: loadedState.questionData[index],
+                              questionIndexInExamSet: index,
+                              onTap: () {
+                                context.read<MiniMapBloc>().add(
+                                  MiniMapSelectCurrentIndexFromTab(
+                                    currentIndex: index,
+                                  ),
+                                );
+
+                                if (Scaffold.of(context).isDrawerOpen) {
+                                  Scaffold.of(context).closeDrawer();
+                                }
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 75),
+                ],
               ),
             ),
-            SizedBox(height: 75),
-          ],
-        ),
-      ),
+          ),
+        };
+      },
     );
   }
 }
 
 class QuestionCircle extends StatelessWidget {
-  final Function onTap;
+  final VoidCallback onTap;
+  final QuestionData questionData;
+  final int questionIndexInExamSet;
 
-  const QuestionCircle({super.key, required this.onTap});
+  const QuestionCircle({
+    super.key,
+    required this.questionData,
+    required this.questionIndexInExamSet,
+    required this.onTap,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 30,
       height: 30,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: switch (questionData.questionStatus) {
+          QuestionStatus.correct => Colors.green,
+          QuestionStatus.incorrect => Colors.red,
+          QuestionStatus.unanswer => Colors.blueGrey,
+          QuestionStatus.current => Colors.blueAccent,
+        },
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
-      child: InkWell(onTap: () => onTap.call, child: Center(child: Text('1'))),
+      child: InkWell(
+        onTap: onTap,
+        child: Center(child: Text('Câu ${questionIndexInExamSet + 1}')),
+      ),
     );
   }
 }

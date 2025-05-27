@@ -1,41 +1,36 @@
-part of 'mini_map_bloc.dart';
+part of 'draw_bloc.dart';
 
 enum LoadingStatus { loading, loaed }
 
-sealed class MiniMapState extends Equatable {
-  const MiniMapState();
+sealed class DrawState extends Equatable {
+  const DrawState();
 
   @override
   List<Object> get props => [];
 }
 
-final class MiniMapInitial extends MiniMapState {}
+final class DrawInitial extends DrawState {}
 
-final class MiniMapLoaded extends MiniMapState {
-  const MiniMapLoaded({
+final class DrawLoaded extends DrawState {
+  const DrawLoaded({
     required this.questionData,
     required this.loadingStatus,
     required this.currentQuestion,
-    required this.updateTabControllerIndicator,
   });
 
   final List<QuestionData> questionData;
   final LoadingStatus loadingStatus;
   final int currentQuestion;
-  final bool updateTabControllerIndicator;
 
-  MiniMapLoaded copyWith({
+  DrawLoaded copyWith({
     List<QuestionData>? questionData,
     LoadingStatus? loadingStatus,
     int? currentQuestion,
-    bool? updateTabControllerIndicator,
   }) {
-    return MiniMapLoaded(
+    return DrawLoaded(
       questionData: questionData ?? this.questionData,
       loadingStatus: loadingStatus ?? this.loadingStatus,
       currentQuestion: currentQuestion ?? this.currentQuestion,
-      updateTabControllerIndicator:
-          updateTabControllerIndicator ?? this.updateTabControllerIndicator,
     );
   }
 

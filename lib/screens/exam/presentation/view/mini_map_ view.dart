@@ -57,7 +57,9 @@ class _MiniMapViewState extends State<MiniMapView> {
                 }),
               ),
               SizedBox(width: 10),
-              Text('15/ ${loadedState.questionData.length}'),
+              Text(
+                '${loadedState.currentQuestion + 1}/ ${loadedState.questionData.length}',
+              ),
             ],
           ),
         };

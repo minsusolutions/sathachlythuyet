@@ -17,3 +17,15 @@ final class MiniMapUpdateStatus extends MiniMapEvent {
   final int questionId;
   const MiniMapUpdateStatus({required this.questionId, required this.correct});
 }
+
+final class MiniMapUpdateCurrentIndex extends MiniMapEvent {
+  final int currentIndex;
+
+  const MiniMapUpdateCurrentIndex({required this.currentIndex});
+}
+
+final class MiniMapSelectCurrentIndexFromTab extends MiniMapEvent {
+  final int currentIndex;
+
+  const MiniMapSelectCurrentIndexFromTab({required this.currentIndex});
+}

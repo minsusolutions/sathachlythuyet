@@ -19,6 +19,16 @@ class QuestionData extends Equatable {
 
   @override
   List<Object?> get props => [questionId, questionStatus];
+
+  QuestionData copyWith({
+    required int? questionId,
+    required QuestionStatus? questionStatus,
+  }) {
+    return QuestionData(
+      questionId: questionId ?? this.questionId,
+      questionStatus: questionStatus ?? this.questionStatus,
+    );
+  }
 }
 
 @HiveType(typeId: 10)

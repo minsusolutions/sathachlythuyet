@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
+import 'package:sathachlaixe/screens/exam/presentation/view/exam_timer.dart';
 import 'package:sathachlaixe/screens/exam/presentation/view/mini_map_%20view.dart';
 
 class ExamTopView extends StatelessWidget {
@@ -25,7 +26,7 @@ class ExamTopView extends StatelessWidget {
         Container(
           padding: EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
-          child: Text('19:33'),
+          child: ExamTimerView(),
         ),
       ],
     );
