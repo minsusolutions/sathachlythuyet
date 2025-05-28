@@ -44,7 +44,7 @@ class _SettingPageState extends State<SettingPage> {
         }
         if (state.loadingResult.isError) {
           return const Text('Something went wrong');
-      }
+        }
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: ListView.separated(

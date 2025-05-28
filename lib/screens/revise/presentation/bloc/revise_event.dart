@@ -6,3 +6,5 @@ sealed class ReviseEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class ReviseStarted extends ReviseEvent {}

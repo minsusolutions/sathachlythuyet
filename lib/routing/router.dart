@@ -100,7 +100,10 @@ class AppRouter {
             name: PAGE.revise.name,
             builder: (context, state) {
               return BlocProvider(
-                create: (context) => ReviseBloc(),
+                create:
+                    (context) =>
+                        ReviseBloc(reviseRepository: GetIt.I.get())
+                          ..add(ReviseStarted()),
                 child: ReviseScreen(),
               );
             },

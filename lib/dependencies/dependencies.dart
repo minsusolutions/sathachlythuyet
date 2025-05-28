@@ -11,6 +11,8 @@ import 'package:sathachlaixe/screens/exam_set/data/repository/local_exam_set_rep
 import 'package:sathachlaixe/screens/exam_set/domain/repository/exam_set_repository.dart';
 import 'package:sathachlaixe/screens/home/data/repository/local_home_repository.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
+import 'package:sathachlaixe/screens/revise/data/repository/local_revise_repository.dart';
+import 'package:sathachlaixe/screens/revise/domain/repository/revise_repository.dart';
 import 'package:sathachlaixe/screens/setting/setting.dart';
 
 Future<void> setupDependencies() async {
@@ -37,7 +39,7 @@ Future<void> setupDependencies() async {
     );
   });
 
-  getIt.registerSingletonAsync<ExamSetRepository>(() async {
+  getIt.registerLazySingletonAsync<ExamSetRepository>(() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
     await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
@@ -48,7 +50,7 @@ Future<void> setupDependencies() async {
     );
   });
 
-  getIt.registerSingletonAsync<ExamRepository>(() async {
+  getIt.registerLazySingletonAsync<ExamRepository>(() async {
     // await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<Question>(Question.questionBoxKey);
     await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
@@ -60,6 +62,8 @@ Future<void> setupDependencies() async {
       examInfoBox: HiveLocator.getExamInfoBox(),
     );
   });
+
+  getIt.registerLazySingleton<ReviseRepository>(() => LocalReviseRepository());
   await getIt.allReady();
 }
 
