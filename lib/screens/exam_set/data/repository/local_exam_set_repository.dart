@@ -34,8 +34,7 @@ class LocalExamSetRepository implements ExamSetRepository {
       List<ExamInfo?> result = [];
 
       for (int i = 1; i <= currentLiciense.noOfExamSet; i++) {
-        var examInfoKey = currentLiciense.getExamInfoKey(i);
-        result.add(examInfoBox.get(examInfoKey));
+        result.add(examInfoBox.get(currentLiciense.getExamInfoKey(i)));
       }
 
       return Future.value(result);

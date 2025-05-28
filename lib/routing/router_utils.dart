@@ -1,4 +1,4 @@
-enum PAGES {
+enum PAGE {
   home,
   exam,
   setting,
@@ -11,103 +11,103 @@ enum PAGES {
   revise,
 }
 
-extension AppPageExtension on PAGES {
+extension AppPageExtension on PAGE {
   String get screenPath {
     switch (this) {
-      case PAGES.home:
+      case PAGE.home:
         return '/';
-      case PAGES.setting:
+      case PAGE.setting:
         return '/setting';
-      case PAGES.exam:
+      case PAGE.exam:
         return '/exam';
-      case PAGES.examSet:
+      case PAGE.examSet:
         return '/exam_set';
-      case PAGES.signs:
+      case PAGE.signs:
         return "/exam";
-      case PAGES.tips:
+      case PAGE.tips:
         return "/tip";
-      case PAGES.dead:
+      case PAGE.dead:
         return "/exam";
-      case PAGES.top50:
+      case PAGE.top50:
         return "/exam";
-      case PAGES.wrong:
+      case PAGE.wrong:
         return "/exam";
-      case PAGES.revise:
+      case PAGE.revise:
         return "/revise";
     }
   }
 
   String get screenName {
     switch (this) {
-      case PAGES.home:
+      case PAGE.home:
         return "HOME";
-      case PAGES.exam:
+      case PAGE.exam:
         return "EXAM";
-      case PAGES.setting:
+      case PAGE.setting:
         return "SETTING";
-      case PAGES.examSet:
+      case PAGE.examSet:
         return "EXAMSET";
-      case PAGES.signs:
+      case PAGE.signs:
         return "SIGNS";
-      case PAGES.tips:
+      case PAGE.tips:
         return "TIPS";
-      case PAGES.dead:
+      case PAGE.dead:
         return "DEAD";
-      case PAGES.top50:
+      case PAGE.top50:
         return "TOP50";
-      case PAGES.wrong:
+      case PAGE.wrong:
         return "WRONG";
-      case PAGES.revise:
+      case PAGE.revise:
         return "REVISE";
     }
   }
 
   String get screenTitle {
     switch (this) {
-      case PAGES.home:
+      case PAGE.home:
         return "Sát hạch lái xe";
-      case PAGES.setting:
+      case PAGE.setting:
         return "Đổi hạng giấy phép";
-      case PAGES.exam:
+      case PAGE.exam:
         return "Đề thi ngẫu nhiên";
-      case PAGES.examSet:
+      case PAGE.examSet:
         return "Bộ đề thi";
-      case PAGES.signs:
+      case PAGE.signs:
         return "Các biển báo";
-      case PAGES.tips:
+      case PAGE.tips:
         return "Mẹo đi thi";
-      case PAGES.dead:
+      case PAGE.dead:
         return "Các câu điểm liệt";
-      case PAGES.top50:
+      case PAGE.top50:
         return "Top 50 câu sai";
-      case PAGES.wrong:
+      case PAGE.wrong:
         return "Các câu sai";
-      case PAGES.revise:
+      case PAGE.revise:
         return "Ôn tập";
     }
   }
 
   int get extraValue {
     switch (this) {
-      case PAGES.home:
+      case PAGE.home:
         return 0;
-      case PAGES.setting:
+      case PAGE.setting:
         return 1;
-      case PAGES.exam:
+      case PAGE.exam:
         return 2;
-      case PAGES.examSet:
+      case PAGE.examSet:
         return 3;
-      case PAGES.tips:
+      case PAGE.tips:
         return 4;
-      case PAGES.signs:
+      case PAGE.signs:
         return 5;
-      case PAGES.dead:
+      case PAGE.dead:
         return 6;
-      case PAGES.top50:
+      case PAGE.top50:
         return 7;
-      case PAGES.wrong:
+      case PAGE.wrong:
         return 8;
-      case PAGES.revise:
+      case PAGE.revise:
         return 9;
     }
   }

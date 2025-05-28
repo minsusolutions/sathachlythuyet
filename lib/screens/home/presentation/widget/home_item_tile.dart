@@ -13,7 +13,10 @@ class HomeItemTile extends StatelessWidget {
       ),
       child: InkWell(
         onTap:
-            () => AppRouter.router.go(homeItem.route, extra: homeItem.jobCode),
+            () => AppRouter.router.go(
+              homeItem.page.screenPath,
+              extra: homeItem.page,
+            ),
         splashColor: Colors.grey.withValues(alpha: 0.8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +27,10 @@ class HomeItemTile extends StatelessWidget {
               colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
             ),
             const SizedBox(height: 10),
-            Text(homeItem.itemTitle, style: TextStyle(color: Colors.white)),
+            Text(
+              homeItem.page.screenTitle,
+              style: TextStyle(color: Colors.white),
+            ),
           ],
         ),
       ),

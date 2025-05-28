@@ -84,6 +84,10 @@ class Liciense {
   final int questionsPerExam;
   @HiveField(7)
   final String description;
+  @HiveField(8)
+  final int duration;
+  @HiveField(9)
+  final int minPass;
 
   const Liciense({
     required this.id,
@@ -94,6 +98,8 @@ class Liciense {
     required this.questionsPerExam,
     required this.noOfExamSet,
     required this.description,
+    required this.duration,
+    required this.minPass,
   });
 }
 

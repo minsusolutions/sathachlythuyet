@@ -25,13 +25,15 @@ class LicienseAdapter extends TypeAdapter<Liciense> {
       questionsPerExam: fields[6] as int,
       noOfExamSet: fields[5] as int,
       description: fields[7] as String,
+      duration: fields[8] as int,
+      minPass: fields[9] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Liciense obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +49,11 @@ class LicienseAdapter extends TypeAdapter<Liciense> {
       ..writeByte(6)
       ..write(obj.questionsPerExam)
       ..writeByte(7)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(8)
+      ..write(obj.duration)
+      ..writeByte(9)
+      ..write(obj.minPass);
   }
 
   @override

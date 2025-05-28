@@ -140,8 +140,8 @@ class LocalHomeRepository implements HomeRepository {
         examTitle: 'Đề số $i',
         status: ExamStatus.initial,
         examType: ExamType.exam,
-        duration: 20 * 60,
-        minCorrQuestion: 20,
+        duration: currLiciense.duration,
+        minCorrQuestion: currLiciense.minPass,
       );
 
       _logger.info(examInfo);

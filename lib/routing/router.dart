@@ -29,8 +29,8 @@ class AppRouter {
     navigatorKey: _rootNavigationiKey,
     routes: [
       GoRoute(
-        path: PAGES.home.screenPath,
-        name: PAGES.home.screenName,
+        path: PAGE.home.screenPath,
+        name: PAGE.home.screenName,
         builder: (context, state) {
           // var shouldReloadPage = state.extra as bool? ?? false;
 
@@ -44,68 +44,60 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-            path: PAGES.setting.screenPath,
-            name: PAGES.setting.name,
+            path: PAGE.setting.screenPath,
+            name: PAGE.setting.name,
             builder:
                 (context, state) => BlocProvider(
                   create:
                       (context) =>
                           SettingBloc(settingRepository: GetIt.I.get())
                             ..add(LoadSettingEvent()),
-                  child: SettingScreen(title: PAGES.setting.screenTitle),
+                  child: SettingScreen(title: PAGE.setting.screenTitle),
                 ),
           ),
           GoRoute(
-            path: PAGES.examSet.screenPath,
-            name: PAGES.examSet.name,
+            path: PAGE.examSet.screenPath,
+            name: PAGE.examSet.name,
             builder:
                 (context, state) => BlocProvider(
                   create:
                       (context) =>
                           ExamSetBloc(examSetRepository: GetIt.I.get())
                             ..add(LoadExamSetEvent()),
-                  child: ExamSetScreen(title: PAGES.examSet.screenTitle),
+                  child: ExamSetScreen(title: PAGE.examSet.screenTitle),
                 ),
           ),
           GoRoute(
-            path: PAGES.exam.screenPath,
-            name: PAGES.exam.name,
+            path: PAGE.exam.screenPath,
+            name: PAGE.exam.name,
             builder: (context, state) {
-              if (state.extra is ExamInfo) {
-                return MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                      create:
-                          (context) => ExamBloc(examRepository: GetIt.I.get())
-                            ..add(
-                              LoadExam(
-                                jobCode: 0,
-                                examInfo: state.extra as ExamInfo,
-                              ),
-                            ),
-                    ),
-                    BlocProvider(create: (context) => MiniMapBloc()),
-                    BlocProvider(
-                      create: (context) => TimerBloc(ticker: Ticker()),
-                    ),
-                  ],
-                  child: ExamScreen(),
-                );
-              } else {
-                var jobCode = state.extra as int;
-                return BlocProvider(
-                  create:
-                      (context) =>
-                          ExamBloc(examRepository: GetIt.I.get())
-                            ..add(LoadExam(jobCode: jobCode)),
-                  child: ExamScreen(),
-                );
-              }
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            ExamBloc(examRepository: GetIt.I.get())
+                              ..add(switch (state.extra) {
+                                PAGE page => LoadExamFromHomePage(page: page),
+                                ExamInfo info => LoadExamFromExamSetPage(
+                                  examInfo: info,
+                                ),
+                                Object() => FooEvent(),
+                                null => throw UnimplementedError(),
+                              }),
+                  ),
+                  BlocProvider(create: (context) => MiniMapBloc()),
+                  BlocProvider(
+                    create: (context) => TimerBloc(ticker: Ticker()),
+                  ),
+                ],
+                child: ExamScreen(),
+              );
             },
           ),
           GoRoute(
-            path: PAGES.revise.screenPath,
-            name: PAGES.revise.name,
+            path: PAGE.revise.screenPath,
+            name: PAGE.revise.name,
             builder: (context, state) {
               return BlocProvider(
                 create: (context) => ReviseBloc(),

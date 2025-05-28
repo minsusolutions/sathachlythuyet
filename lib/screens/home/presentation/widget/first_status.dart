@@ -54,6 +54,7 @@ Widget getRadialGauge() {
 
 Widget getLinearGauge() {
   return Container(
+    margin: EdgeInsets.all(10),
     child: SfLinearGauge(
       minimum: 0.0,
       maximum: 100.0,
@@ -67,6 +68,5 @@ Widget getLinearGauge() {
         borderColor: Colors.grey,
       ),
     ),
-    margin: EdgeInsets.all(10),
   );
 }

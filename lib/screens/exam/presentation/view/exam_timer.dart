@@ -18,7 +18,8 @@ class _ExamTimerView extends State<ExamTimerView> {
       ExamLoaded loaded => loaded.examInfo.duration,
       ExamInitial _ => 20 * 60,
     };
-    context.read<TimerBloc>().add(TimerStarted(duration: duration * 60));
+    print('duration is: ${duration / 60} mins');
+    context.read<TimerBloc>().add(TimerStarted(duration: duration));
     super.initState();
   }
 

@@ -8,18 +8,21 @@ class HomeStatusView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       buildWhen: (previous, current) {
-        _logger.info(
-          'build: ${previous.currentLiciense.id != current.currentLiciense.id}',
-        );
-        return previous.currentLiciense.id != current.currentLiciense.id;
+        if (current is HomeLoaded && previous is HomeLoaded) {
+          _logger.info(
+            'build: ${previous.currentLiciense.id != current.currentLiciense.id}',
+          );
+          return previous.currentLiciense.id != current.currentLiciense.id;
+        }
+        return false;
       },
       listener: (context, state) {},
       builder: (context, state) {
         return Column(
           children: [
-            Text(
-              'Hanh trinh chinh phuc hang ${state.currentLiciense.licienseType.name.toUpperCase()}',
-            ),
+            // Text(
+            //   'Hanh trinh chinh phuc hang ${state.currentLiciense.licienseType.name.toUpperCase()}',
+            // ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

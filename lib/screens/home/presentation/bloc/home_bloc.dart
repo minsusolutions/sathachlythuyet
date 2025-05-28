@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/delayed_result.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
-import 'package:sathachlaixe/commons/model/liciense/licienses_data.dart';
 import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/home/domain/model/home_item.dart';
 import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart';
@@ -16,14 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc({required HomeRepository homeRepository})
     : _homeRepository = homeRepository,
-      super(
-        HomeState(
-          homeItems: [],
-          loadingResult: DelayedResult.idle(),
-          currentLiciense: LiciensesData.licienses.first,
-          examInfo: null,
-        ),
-      ) {
+      super(HomeInitial()) {
     on<LoadHomeEvent>(_loadHome);
     on<ItemToggleHomeEvent>(_itemToggle);
   }
@@ -34,9 +26,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     _logger.info('_loadHome called');
     // emit(state.copyWith(loadingResult: const DelayedResult.inProgress()));
     emit(
-      state.copyWith(
+      HomeLoaded(
         homeItems: await _homeRepository.listHomeItems,
         currentLiciense: await _homeRepository.currentLiciense,
+        shouldGoToOtherScreen: false,
       ),
     );
 
@@ -52,6 +45,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _itemToggle(ItemToggleHomeEvent event, Emitter<HomeState> emit) {
     var homeItem = event.homeItem;
-    if (homeItem.jobCode == 0) {}
   }
 }

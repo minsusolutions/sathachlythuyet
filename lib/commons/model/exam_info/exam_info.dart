@@ -39,13 +39,17 @@ class ExamInfo extends Equatable {
     required this.minCorrQuestion,
   });
 
-  ExamInfo copyWith({List<QuestionData>? questionsData, ExamStatus? status}) {
+  ExamInfo copyWith({
+    List<QuestionData>? questionsData,
+    ExamStatus? status,
+    String? examTitle,
+  }) {
     return ExamInfo(
       licienseId: licienseId,
       examCode: examCode,
       examSetId: examSetId,
       questionsData: questionsData ?? this.questionsData,
-      examTitle: examTitle,
+      examTitle: examTitle ?? this.examTitle,
       status: status ?? this.status,
       examType: examType,
       duration: duration,

@@ -1,32 +1,41 @@
 part of 'home_bloc.dart';
 
-class HomeState extends Equatable {
-  const HomeState({
+sealed class HomeState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class HomeInitial extends HomeState {}
+
+class HomeLoaded extends HomeState {
+  HomeLoaded({
     required this.homeItems,
-    required this.loadingResult,
     required this.currentLiciense,
     this.examInfo,
+    required shouldGoToOtherScreen,
   });
 
   final List<HomeItem> homeItems;
-  final DelayedResult<void> loadingResult;
   final Liciense currentLiciense;
   final ExamInfo? examInfo;
+  final bool shouldGoToOtherScreen = false;
 
   HomeState copyWith({
     List<HomeItem>? homeItems,
     DelayedResult<void>? loadingResult,
     Liciense? currentLiciense,
     ExamInfo? examInfo,
+    bool? shouldGoToOtherScreen,
   }) {
-    return HomeState(
+    return HomeLoaded(
       homeItems: homeItems ?? this.homeItems,
-      loadingResult: loadingResult ?? this.loadingResult,
       currentLiciense: currentLiciense ?? this.currentLiciense,
       examInfo: examInfo ?? this.examInfo,
+      shouldGoToOtherScreen:
+          shouldGoToOtherScreen ?? this.shouldGoToOtherScreen,
     );
   }
 
   @override
-  List<Object> get props => [homeItems, loadingResult, currentLiciense];
+  List<Object> get props => [homeItems, currentLiciense];
 }

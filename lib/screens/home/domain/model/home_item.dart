@@ -1,14 +1,12 @@
+import 'package:sathachlaixe/routing/router.dart';
+
 class HomeItem {
-  final String itemTitle;
-  final String route;
   final String imgUrl;
   final int backgroundColor;
-  final int jobCode;
+  final PAGE page;
 
   const HomeItem({
-    required this.jobCode,
-    required this.itemTitle,
-    required this.route,
+    required this.page,
     required this.imgUrl,
     required this.backgroundColor,
   });

@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sathachlaixe/screens/home/presentation/bloc/home_bloc.dart';
 import 'package:sathachlaixe/screens/home/presentation/widget/first_status.dart';
 
-part 'home_page.dart';
 part '../widget/home_item_tile.dart';
 part 'home_status_view.dart';
 part '../widget/home_item_list_view.dart';
@@ -20,17 +19,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
-      bloc: context.read<HomeBloc>(),
-      listener: (context, state) {
-        print('cu emit la toi nhan');
+    return BlocListener<HomeBloc, HomeState>(
+      listenWhen: (previous, current) {
+        if (current is HomeLoaded) {
+          return current.shouldGoToOtherScreen;
+        }
+        return false;
       },
+      listener: (context, state) {},
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: BlocSelector<HomeBloc, HomeState, String>(
             selector: (state) {
-              return state.currentLiciense.licienseType.name;
+              if (state is HomeLoaded) {
+                return state.currentLiciense.licienseType.name;
+              }
+              return '';
             },
             builder: (context, licienseName) {
               return BaseAppBar(
@@ -42,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                   IconButton(
                     onPressed: () async {
                       final bool? result = await AppRouter.router.push(
-                        PAGES.setting.screenPath,
+                        PAGE.setting.screenPath,
                       );
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (result ?? false) {
@@ -57,7 +62,12 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ),
-        body: HomePage(),
+        body: Column(
+          children: [
+            Container(height: 150, child: HomeStatusView()),
+            Expanded(child: HomeItemListView()),
+          ],
+        ),
       ),
     );
   }

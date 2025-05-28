@@ -23,6 +23,8 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
             questionsPerExam: -1,
             noOfExamSet: -1,
             description: '-',
+            minPass: 0,
+            duration: 0,
           ),
           loadingResult: DelayedResult.inProgress(),
         ),

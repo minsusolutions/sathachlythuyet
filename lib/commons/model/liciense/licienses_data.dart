@@ -12,6 +12,8 @@ class LiciensesData {
       noOfExamSet: 8,
       description:
           "Lái xe mô tô hai bánh có dung tích xi-lanh đến 125cm3 hoặc có công suất động cơ điện đến 11kW.",
+      minPass: 20,
+      duration: 19 * 60,
     ),
     Liciense(
       id: 2,
@@ -23,6 +25,8 @@ class LiciensesData {
       noOfExamSet: 18,
       description:
           "Lái xe mô tô hai bánh có dung tích xi-lanh trên 125cm3 hoặc có công suất động cơ điện trên 11kw và lái xe hạng A1.",
+      minPass: 20,
+      duration: 19 * 60,
     ),
     Liciense(
       id: 3,
@@ -33,6 +37,8 @@ class LiciensesData {
       questionsPerExam: 25,
       noOfExamSet: 20,
       description: "Lái xe mô tô ba bánh và lái xe hạng A1.",
+      minPass: 20,
+      duration: 19 * 60,
     ),
     Liciense(
       id: 4,
@@ -44,6 +50,8 @@ class LiciensesData {
       noOfExamSet: 20,
       description:
           "Lái xe ô tô chở người đến 8 chỗ ngồi (không kể chỗ lái xe); xe ô tô tải và chuyên dùng đến 3.500km; xe có kéo rơ moóc đến 750kg.",
+      minPass: 20,
+      duration: 20 * 60,
     ),
     Liciense(
       id: 5,
@@ -55,6 +63,8 @@ class LiciensesData {
       noOfExamSet: 18,
       description:
           "Lái xe ô tô tải và chuyên dùng trên 3.500kg đến 7.500kg; xe có kéo rơ moóc đến 750kg; và lái xe hạng B.",
+      minPass: 20,
+      duration: 22 * 60,
     ),
     Liciense(
       id: 6,
@@ -66,6 +76,8 @@ class LiciensesData {
       noOfExamSet: 15,
       description:
           "Lái xe ô tô tải và chuyên dùng trên 7.500kg; xe có kéo rơ moóc đến 750kg; và lái xe hạng B và C1.",
+      minPass: 20,
+      duration: 24 * 60,
     ),
     Liciense(
       id: 7,
@@ -77,6 +89,8 @@ class LiciensesData {
       noOfExamSet: 14,
       description:
           "Lái xe ô tô chở người trên 08 chỗ đến 16 chỗ (không kể chỗ lãi xe), xe kéo rơ moóc đến 750kg; và lái xe các hạng B, C1, C.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 8,
@@ -88,6 +102,8 @@ class LiciensesData {
       noOfExamSet: 14,
       description:
           "Lái xe ô tô chở người (kể cả xe buýt) trên 16 chỗ đến 29 chỗ (không kể chỗ lái xe), xe kéo rơ moóc đến 750kg; và lái xe các hạng B, C1, C, D1.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 9,
@@ -99,6 +115,8 @@ class LiciensesData {
       noOfExamSet: 14,
       description:
           "Lái xe ô tô chở người (kể cả xe buýt) trên 29 chỗ (không kể chỗ lái xe); xe giường nằm; xe kéo rơ moóc đến 750kg; và lái xe các hạng B, C1, C, D1, D2.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 10,
@@ -109,6 +127,8 @@ class LiciensesData {
       questionsPerExam: 45,
       noOfExamSet: 14,
       description: "Lái xe hạng B kéo rơ moóc trên 750kg.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 11,
@@ -119,6 +139,8 @@ class LiciensesData {
       questionsPerExam: 45,
       noOfExamSet: 14,
       description: "Lái xe hạng C1 kéo rơ moóc trên 750kg.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 12,
@@ -130,6 +152,8 @@ class LiciensesData {
       noOfExamSet: 14,
       description:
           "Lái xe hạng C kéo rơ moóc trên 750kg, xe ô tô đầu kéo kéo sơ mi rơ moóc.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 13,
@@ -140,6 +164,8 @@ class LiciensesData {
       questionsPerExam: 45,
       noOfExamSet: 14,
       description: "Lái xe hạng D1 kéo rơ moóc trên 750kg.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 14,
@@ -150,6 +176,8 @@ class LiciensesData {
       questionsPerExam: 45,
       noOfExamSet: 14,
       description: "Lái xe hạng D2 kéo rơ moóc trên 750kg.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
     Liciense(
       id: 15,
@@ -161,6 +189,8 @@ class LiciensesData {
       noOfExamSet: 14,
       description:
           "Lái xe hạng D kéo rơ moóc trên 750kg; xe ô tô chở khách nối toa.",
+      minPass: 20,
+      duration: 26 * 60,
     ),
   ];
 }

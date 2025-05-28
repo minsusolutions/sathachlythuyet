@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sathachlaixe/dependencies/dependencies.dart';
 import 'package:sathachlaixe/routing/router.dart';
+import 'package:sathachlaixe/styles/styles.dart';
 
 Future<void> main() async {
   await setupDependencies();
@@ -18,6 +19,9 @@ class SatHachLaiXeApp extends StatelessWidget {
       routerDelegate: AppRouter.router.routerDelegate,
       title: 'Ôn thi lý thuyết',
       debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
     );
   }
 }
