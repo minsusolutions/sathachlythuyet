@@ -22,22 +22,22 @@ class _SingleQuestionPageState extends State<SingleQuestionPage>
                 ..add(SingleQuestionLoadEvent(question: widget.question)),
       child: BlocConsumer<SingleQuestionBloc, SingleQuestionState>(
         listener: (context, state) {
-          final currentState = state;
-          if (currentState is SingleQuestionLoaded) {
-            if (currentState.question.selectedAnswer > 0) {
-              var correct =
-                  currentState.question.correctAnswer ==
-                  currentState.question.selectedAnswer;
-              print('Tra loi: $correct');
-              //context.read<HomeBloc>().add(Update)
-              context.read<MiniMapBloc>().add(
-                MiniMapUpdateStatus(
-                  questionId: currentState.question.qNumber,
-                  correct: correct,
-                ),
-              );
-            }
-          }
+          // final currentState = state;
+          // if (currentState is SingleQuestionLoaded) {
+          //   if (currentState.question.selectedAnswer > 0) {
+          //     var correct =
+          //         currentState.question.correctAnswer ==
+          //         currentState.question.selectedAnswer;
+          //     print('Tra loi: $correct');
+          //     //context.read<HomeBloc>().add(Update)
+          //     context.read<MiniMapBloc>().add(
+          //       MiniMapUpdateStatus(
+          //         questionId: currentState.question.qNumber,
+          //         correct: correct,
+          //       ),
+          //     );
+          //   }
+          // }
         },
         builder:
             (context, state) => switch (state) {
@@ -96,7 +96,6 @@ class _SingleQuestionPageState extends State<SingleQuestionPage>
           value: 1,
           groupValue: selectedAnswer,
           onChanged: (value) {
-            if (selectedAnswer! > 0) return;
             selectedAnswer = value;
             context.read<SingleQuestionBloc>().add(
               SelectAnswerEvent(answer: value!),
@@ -125,7 +124,6 @@ class _SingleQuestionPageState extends State<SingleQuestionPage>
           value: 2,
           groupValue: selectedAnswer,
           onChanged: (value) {
-            if (selectedAnswer! > 0) return;
             selectedAnswer = value;
             context.read<SingleQuestionBloc>().add(
               SelectAnswerEvent(answer: value!),
@@ -154,8 +152,6 @@ class _SingleQuestionPageState extends State<SingleQuestionPage>
           value: 4,
           groupValue: selectedAnswer,
           onChanged: (value) {
-            if (selectedAnswer! > 0) return;
-
             selectedAnswer = value;
             context.read<SingleQuestionBloc>().add(
               SelectAnswerEvent(answer: value!),
@@ -184,8 +180,6 @@ class _SingleQuestionPageState extends State<SingleQuestionPage>
           value: 8,
           groupValue: selectedAnswer,
           onChanged: (value) {
-            if (selectedAnswer! > 0) return;
-
             selectedAnswer = value;
             context.read<SingleQuestionBloc>().add(
               SelectAnswerEvent(answer: value!),

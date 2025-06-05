@@ -7,6 +7,9 @@ import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
+import 'package:sathachlaixe/screens/exam_result/data/repository/local_exam_result_repository.dart';
+import 'package:sathachlaixe/screens/exam_result/domain/repository/exam_result_repository.dart';
+import 'package:sathachlaixe/screens/exam_result/presentation/bloc/exam_result_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/data/repository/local_exam_set_repository.dart';
 import 'package:sathachlaixe/screens/exam_set/domain/repository/exam_set_repository.dart';
 import 'package:sathachlaixe/screens/home/data/repository/local_home_repository.dart';
@@ -39,7 +42,7 @@ Future<void> setupDependencies() async {
     );
   });
 
-  getIt.registerLazySingletonAsync<ExamSetRepository>(() async {
+  getIt.registerSingletonAsync<ExamSetRepository>(() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
     await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
@@ -50,7 +53,7 @@ Future<void> setupDependencies() async {
     );
   });
 
-  getIt.registerLazySingletonAsync<ExamRepository>(() async {
+  getIt.registerSingletonAsync<ExamRepository>(() async {
     // await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     await Hive.openBox<Question>(Question.questionBoxKey);
     await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
@@ -64,6 +67,14 @@ Future<void> setupDependencies() async {
   });
 
   getIt.registerLazySingleton<ReviseRepository>(() => LocalReviseRepository());
+
+  getIt.registerLazySingleton<ExamResultRepository>(
+    () => LocalExamResultRepository(),
+  ); // Đăng ký mới
+  getIt.registerFactory<ExamResultBloc>(
+    () => ExamResultBloc(getIt<ExamResultRepository>()),
+  ); // Đăng ký mới
+
   await getIt.allReady();
 }
 

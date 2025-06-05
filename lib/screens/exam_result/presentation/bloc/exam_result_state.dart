@@ -1,10 +1,17 @@
 part of 'exam_result_bloc.dart';
 
-sealed class ExamResultState extends Equatable {
-  const ExamResultState();
-  
-  @override
-  List<Object> get props => [];
+abstract class ExamResultState {}
+
+class ExamResultLoading extends ExamResultState {}
+
+class ExamResultLoaded extends ExamResultState {
+  final ExamInfo examInfo;
+
+  ExamResultLoaded(this.examInfo);
 }
 
-final class ExamResultInitial extends ExamResultState {}
+class ExamResultError extends ExamResultState {
+  final String message;
+
+  ExamResultError(this.message);
+}

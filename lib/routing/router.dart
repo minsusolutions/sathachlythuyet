@@ -7,6 +7,8 @@ import 'package:sathachlaixe/screens/exam/data/ticker/ticker.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/timer/timer_bloc.dart';
+import 'package:sathachlaixe/screens/exam_result/presentation/bloc/exam_result_bloc.dart';
+import 'package:sathachlaixe/screens/exam_result/presentation/view/exam_result_screen.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/bloc/exam_set_bloc.dart';
 import 'package:sathachlaixe/screens/exam_set/presentation/view/exam_set_screen.dart';
 import 'package:sathachlaixe/screens/home/home.dart';
@@ -105,6 +107,36 @@ class AppRouter {
                         ReviseBloc(reviseRepository: GetIt.I.get())
                           ..add(ReviseStarted()),
                 child: ReviseScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path:
+                '/exam_result_view/:licienseId/:examCode/:examSetId', // Thêm examCode vào path
+            builder: (BuildContext context, GoRouterState state) {
+              final licenseId = int.parse(state.pathParameters['licienseId']!);
+              final examCode = int.parse(
+                state.pathParameters['examCode']!,
+              ); // Lấy examCode
+              final examSetId = int.tryParse(
+                state.pathParameters['examSetId']!,
+              ); // examSetId có thể null
+
+              return BlocProvider(
+                create:
+                    (context) =>
+                        GetIt.instance<ExamResultBloc>()..add(
+                          LoadExamResultEvent(
+                            licenseId: licenseId,
+                            examCode: examCode,
+                            examSetId: examSetId,
+                          ),
+                        ),
+                child: ExamResultView(
+                  licenseId: licenseId,
+                  examCode: examCode,
+                  examSetId: examSetId,
+                ),
               );
             },
           ),

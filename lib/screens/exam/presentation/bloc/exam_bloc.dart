@@ -68,13 +68,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
       event.examInfo.questionsData,
     );
-    emit(
-      ExamLoaded(
-        status: ExamStateStatus.loaded,
-        examInfo: event.examInfo!,
-        listQuestion: listQuestions,
-      ),
-    );
+    emit(ExamLoaded(examInfo: event.examInfo, listQuestion: listQuestions));
   }
 
   Future<void> _onUpdateSingleQuestionAnswer(
@@ -102,12 +96,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
         );
 
         _logger.info(questionData);
-        emit(
-          currentState.copyWith(
-            status: ExamStateStatus.loaded,
-            examInfo: newExamInfo,
-          ),
-        );
+        emit(currentState.copyWith(examInfo: newExamInfo));
       }
     }
   }

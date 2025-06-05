@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logging/logging.dart';
+// import 'package:logging/logging.dart';
 import 'package:sathachlaixe/routing/router.dart';
 import 'package:sathachlaixe/screens/setting/presentation/bloc/setting_bloc.dart';
 import 'package:sathachlaixe/screens/setting/presentation/widget/liciense_tile.dart';
@@ -17,8 +15,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   final ScrollController scrollController = ScrollController();
 
-  late final SettingBloc _settingBloc;
-  final _logger = Logger('SettingPage');
+  // final _logger = Logger('SettingPage');
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +72,7 @@ class _SettingPageState extends State<SettingPage> {
                 isSelected:
                     state.currentLiciense.id == state.licienses[position].id,
                 onTap: () {
-                  if (state.currentLiciense?.id !=
+                  if (state.currentLiciense.id !=
                       state.licienses[position].id) {
                     context.read<SettingBloc>().add(
                       SelectLicienseEvent(liciense: state.licienses[position]),
