@@ -16,7 +16,9 @@ class ExamSetItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          AppRouter.router.push(PAGE.exam.screenPath, extra: examSet);
+          AppRouter.router.push(
+            '${PAGE.exam.screenPath}?examInfoKey=${examSet.getExamInfoKey()}',
+          );
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

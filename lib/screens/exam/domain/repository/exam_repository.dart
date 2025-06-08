@@ -8,6 +8,7 @@ abstract class ExamRepository {
   );
 
   Future<ExamInfo> loadExamInfoRandomlyBaseOnLicienseID();
+  Future<ExamInfo> loadExamInfoByExamInfoKey(String examInfoKey);
   Future<ExamInfo> loadExamInfoBaseOnChapter();
   Future<ExamInfo> loadExamInfoBaseOnLiciense();
 }

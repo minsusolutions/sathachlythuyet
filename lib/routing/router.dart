@@ -58,96 +58,95 @@ class AppRouter {
             child: HomeScreen(shouldReloadPage: true),
           );
         },
-        routes: [
-          GoRoute(
-            path: PAGE.setting.screenPath,
-            name: PAGE.setting.name,
-            builder:
-                (context, state) => BlocProvider(
-                  create:
-                      (context) =>
-                          SettingBloc(settingRepository: GetIt.I.get())
-                            ..add(LoadSettingEvent()),
-                  child: SettingScreen(title: PAGE.setting.screenTitle),
-                ),
-          ),
-          GoRoute(
-            path: PAGE.examSet.screenPath,
-            name: PAGE.examSet.name,
-            builder:
-                (context, state) => BlocProvider(
-                  create:
-                      (context) =>
-                          ExamSetBloc(examSetRepository: GetIt.I.get())
-                            ..add(LoadExamSetEvent()),
-                  child: ExamSetScreen(title: PAGE.examSet.screenTitle),
-                ),
-          ),
-          GoRoute(
-            path: PAGE.exam.screenPath,
-            name: PAGE.exam.name,
-            builder: (context, state) {
-              return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create:
-                        (context) =>
-                            ExamBloc(examRepository: GetIt.I.get())
-                              ..add(LoadExam(data: state.extra)),
-                  ),
-                  BlocProvider(create: (context) => MiniMapBloc()),
-                  BlocProvider(
-                    create: (context) => TimerBloc(ticker: Ticker()),
-                  ),
-                ],
-                child: ExamScreen(),
-              );
-            },
-          ),
-          GoRoute(
-            path: PAGE.revise.screenPath,
-            name: PAGE.revise.name,
-            builder: (context, state) {
-              return BlocProvider(
-                create:
-                    (context) =>
-                        ReviseBloc(reviseRepository: GetIt.I.get())
-                          ..add(ReviseStarted()),
-                child: ReviseScreen(),
-              );
-            },
-          ),
-          GoRoute(
-            path:
-                '/exam_result_view/:licienseId/:examCode/:examSetId', // Thêm examCode vào path
-            builder: (BuildContext context, GoRouterState state) {
-              final licenseId = int.parse(state.pathParameters['licienseId']!);
-              final examCode = int.parse(
-                state.pathParameters['examCode']!,
-              ); // Lấy examCode
-              final examSetId = int.tryParse(
-                state.pathParameters['examSetId']!,
-              ); // examSetId có thể null
+      ),
+      GoRoute(
+        path: PAGE.setting.screenPath,
+        name: PAGE.setting.name,
+        builder:
+            (context, state) => BlocProvider(
+              create:
+                  (context) =>
+                      SettingBloc(settingRepository: GetIt.I.get())
+                        ..add(LoadSettingEvent()),
+              child: SettingScreen(title: PAGE.setting.screenTitle),
+            ),
+      ),
+      GoRoute(
+        path: PAGE.examSet.screenPath,
+        name: PAGE.examSet.name,
+        builder:
+            (context, state) => BlocProvider(
+              create:
+                  (context) =>
+                      ExamSetBloc(examSetRepository: GetIt.I.get())
+                        ..add(LoadExamSetEvent()),
+              child: ExamSetScreen(title: PAGE.examSet.screenTitle),
+            ),
+      ),
+      GoRoute(
+        path: PAGE.exam.screenPath,
+        name: PAGE.exam.name,
+        builder: (context, state) {
+          final String? examInfoKey = state.uri.queryParameters['examInfoKey'];
+          final String? extra = state.uri.queryParameters['extra'];
 
-              return BlocProvider(
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
                 create:
                     (context) =>
-                        GetIt.instance<ExamResultBloc>()..add(
-                          LoadExamResultEvent(
-                            licenseId: licenseId,
-                            examCode: examCode,
-                            examSetId: examSetId,
-                          ),
-                        ),
-                child: ExamResultView(
-                  licenseId: licenseId,
-                  examCode: examCode,
-                  examSetId: examSetId,
-                ),
-              );
-            },
-          ),
-        ],
+                        ExamBloc(examRepository: GetIt.I.get())
+                          ..add(LoadExam(examInfoKey, extra)),
+              ),
+              BlocProvider(create: (context) => MiniMapBloc()),
+              BlocProvider(create: (context) => TimerBloc(ticker: Ticker())),
+            ],
+            child: ExamScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: PAGE.revise.screenPath,
+        name: PAGE.revise.name,
+        builder: (context, state) {
+          return BlocProvider(
+            create:
+                (context) =>
+                    ReviseBloc(reviseRepository: GetIt.I.get())
+                      ..add(ReviseStarted()),
+            child: ReviseScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path:
+            '/exam_result_view/:licienseId/:examCode/:examSetId', // Thêm examCode vào path
+        builder: (BuildContext context, GoRouterState state) {
+          final licenseId = int.parse(state.pathParameters['licienseId']!);
+          final examCode = int.parse(
+            state.pathParameters['examCode']!,
+          ); // Lấy examCode
+          final examSetId = int.tryParse(
+            state.pathParameters['examSetId']!,
+          ); // examSetId có thể null
+
+          return BlocProvider(
+            create:
+                (context) =>
+                    GetIt.instance<ExamResultBloc>()..add(
+                      LoadExamResultEvent(
+                        licenseId: licenseId,
+                        examCode: examCode,
+                        examSetId: examSetId,
+                      ),
+                    ),
+            child: ExamResultView(
+              licenseId: licenseId,
+              examCode: examCode,
+              examSetId: examSetId,
+            ),
+          );
+        },
       ),
     ],
 

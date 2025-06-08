@@ -35,7 +35,6 @@ class SplashRepositoryImpl implements SplashRepository {
 
   @override
   Future<void> seedInitialData() async {
-    
     // // --- Tạo dữ liệu mẫu ---
 
     // // --- Lưu vào Hive ---
@@ -143,9 +142,11 @@ class SplashRepositoryImpl implements SplashRepository {
           minCorrQuestion: currLiciense.minPass,
         );
 
-        _logger.info(examInfo);
-        examInfoBox.put(examInfo.getExamInfoKey(), examInfo);
+        // _logger.info(examInfo);
+        examInfoBox.put(currLiciense.getExamInfoKey(i), examInfo);
       }
     }
+
+    _logger.info('Added ${examInfoBox.length} examInfos');
   }
 }

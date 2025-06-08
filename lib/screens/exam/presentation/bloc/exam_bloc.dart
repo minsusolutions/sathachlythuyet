@@ -16,8 +16,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
   ExamBloc({required ExamRepository examRepository})
     : _examRepository = examRepository,
       super(ExamInitial()) {
-    on<LoadExamFromHomePage>(_onLoadExamFromHomePage);
-    on<LoadExam>(_onLoadExamFromExamSetPage);
+    on<LoadExam>(_onLoadExam);
     on<UpdateQuestionStatus>(_onUpdateSingleQuestionAnswer);
     on<BackNavigationAttempted>(_onBackNavigationAttempted);
     on<ResetShowDialogEvent>(_onResetShowDialog);
@@ -25,56 +24,27 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
 
   final ExamRepository _examRepository;
 
-  Future<void> _onLoadExamFromHomePage(
-    LoadExamFromHomePage event,
-    Emitter<ExamState> emit,
-  ) async {
-    // var examInfo = switch (event.page) {
-    //   PAGE.exam => await _examRepository.loadExamInfoRandomlyBaseOnLicienseID(),
-    //   PAGE.wrong => await _examRepository.loadExamInfoBaseOnLiciense(),
-    //   // TODO: Handle this case.
-    //   null => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.home => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.setting => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.examSet => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.tips => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.dead => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.top50 => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.signs => throw UnimplementedError(),
-    //   // TODO: Handle this case.
-    //   PAGE.revise => throw UnimplementedError(),
-    // };
-    // _logger.info('examInfo: $examInfo');
-
-    // emit(
-    //   ExamLoaded(
-    //     examInfo: examInfo,
-    //     listQuestion: await _examRepository.loadQuestionsFromExamInfoByIds(
-    //       examInfo.questionsData,
-    //     ),
-    //   ),
-    // );
-  }
-
-  Future<void> _onLoadExamFromExamSetPage(
-    LoadExam event,
-    Emitter<ExamState> emit,
-  ) async {
-    var extra = event.data;
-
-    if (extra is ExamInfo) {
-      var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
-        extra.questionsData,
+  Future<void> _onLoadExam(LoadExam event, Emitter<ExamState> emit) async {
+    if (event.examInfoKey != null) {
+      var examInfo = await _examRepository.loadExamInfoByExamInfoKey(
+        event.examInfoKey!,
       );
-      emit(ExamLoaded(examInfo: extra, listQuestion: listQuestions));
-    } else {}
+      var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
+        examInfo.questionsData,
+      );
+
+      emit(ExamLoaded(examInfo: examInfo, listQuestion: listQuestions));
+    } else if (event.extra != null) {
+      if (event.extra == 'signs') {
+        //TODO: should show exam with sign
+
+        
+      } else if (event.extra == 'topWrong') {
+        //TODO: should show wrong
+      } else if (event.extra!.contains('chapter')) {
+        //TODO: should show wrong
+      }
+    }
   }
 
   Future<void> _onUpdateSingleQuestionAnswer(

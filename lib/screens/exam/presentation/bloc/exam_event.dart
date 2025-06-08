@@ -10,8 +10,9 @@ final class LoadExamFromHomePage extends ExamEvent {
 }
 
 final class LoadExam extends ExamEvent {
-  const LoadExam({this.data});
-  final Object? data;
+  const LoadExam(this.examInfoKey, this.extra);
+  final String? examInfoKey;
+  final String? extra;
 }
 
 final class UpdateQuestionStatus extends ExamEvent {

@@ -104,6 +104,5 @@ class Liciense {
 }
 
 extension LicienseX on Liciense {
-  String getExamInfoKey(int setCode) =>
-      ('${licienseType.name}__key__${examCode}__$setCode');
+  String getExamInfoKey(int setCode) => ('${id}__key__${examCode}__$setCode');
 }

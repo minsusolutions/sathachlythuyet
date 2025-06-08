@@ -12,11 +12,7 @@ class HomeItemTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap:
-            () => AppRouter.router.go(
-              homeItem.page.screenPath,
-              extra: homeItem.page,
-            ),
+        onTap: () => AppRouter.router.go(homeItem.page.screenPath),
         splashColor: Colors.grey.withValues(alpha: 0.8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

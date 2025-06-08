@@ -72,4 +72,9 @@ class LocalExamRepository implements ExamRepository {
     );
     return Future.value(examInfo?.copyWith(examTitle: 'Đề thi ngẫu nhiên số '));
   }
+
+  @override
+  Future<ExamInfo> loadExamInfoByExamInfoKey(String examInfoKey) {
+    return Future.value(examInfoBox.get(examInfoKey));
+  }
 }
