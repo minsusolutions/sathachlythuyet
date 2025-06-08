@@ -17,14 +17,10 @@ class ExamInfo extends Equatable {
   @HiveField(3)
   final List<QuestionData> questionsData;
   @HiveField(4)
-  final String examTitle;
-  @HiveField(5)
   final ExamStatus status;
-  @HiveField(6)
-  final ExamType examType;
-  @HiveField(7)
+  @HiveField(5)
   final int duration;
-  @HiveField(8)
+  @HiveField(6)
   final int minCorrQuestion;
 
   const ExamInfo({
@@ -32,9 +28,7 @@ class ExamInfo extends Equatable {
     required this.examCode,
     required this.examSetId,
     required this.questionsData,
-    required this.examTitle,
     required this.status,
-    required this.examType,
     required this.duration,
     required this.minCorrQuestion,
   });
@@ -49,33 +43,19 @@ class ExamInfo extends Equatable {
       examCode: examCode,
       examSetId: examSetId,
       questionsData: questionsData ?? this.questionsData,
-      examTitle: examTitle ?? this.examTitle,
       status: status ?? this.status,
-      examType: examType,
       duration: duration,
       minCorrQuestion: minCorrQuestion,
     );
   }
 
   @override
-  List<Object?> get props => [examCode, examTitle, examType, questionsData];
+  List<Object?> get props => [examCode, questionsData];
 
   @override
   String toString() {
-    return 'licienseId: $licienseId, examCode: $examCode, questions: $questionsData, examTitle: $examTitle';
+    return 'licienseId: $licienseId, examCode: $examCode, examSetId: $examSetId, questions: $questionsData';
   }
-}
-
-@HiveType(typeId: 8)
-enum ExamType {
-  @HiveField(0)
-  exam,
-  @HiveField(1)
-  revise,
-  @HiveField(2)
-  wrong,
-  @HiveField(3)
-  death,
 }
 
 @HiveType(typeId: 9)
@@ -83,9 +63,13 @@ enum ExamStatus {
   @HiveField(0)
   initial,
   @HiveField(1)
-  deadFailed,
+  criticalFailed,
   @HiveField(2)
   failed,
   @HiveField(3)
   passed,
+}
+
+extension ExamInfoX on ExamInfo {
+  String getExamInfoKey() => ('${licienseId}__key__${examCode}__$examSetId');
 }

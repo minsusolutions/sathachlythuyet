@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/screens/exam/data/ticker/ticker.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
@@ -17,6 +16,8 @@ import 'package:sathachlaixe/routing/router_utils.dart';
 import 'package:sathachlaixe/routing/screen/not_found_page.dart';
 import 'package:sathachlaixe/screens/revise/presentation/bloc/revise_bloc.dart';
 import 'package:sathachlaixe/screens/revise/presentation/view/revise_screen.dart';
+import 'package:sathachlaixe/screens/splash/presentation/bloc/app_start_bloc.dart';
+import 'package:sathachlaixe/screens/splash/presentation/view/splash_screen.dart';
 
 import '../screens/setting/setting.dart';
 
@@ -30,6 +31,19 @@ class AppRouter {
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigationiKey,
     routes: [
+      GoRoute(
+        path: PAGE.splash.screenPath,
+        name: PAGE.splash.screenName,
+        builder: (context, state) {
+          return BlocProvider(
+            create:
+                (context) =>
+                    AppStartBloc(splashRepository: GetIt.I.get())
+                      ..add(AppStarted()),
+            child: SplashScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: PAGE.home.screenPath,
         name: PAGE.home.screenName,
@@ -79,14 +93,7 @@ class AppRouter {
                     create:
                         (context) =>
                             ExamBloc(examRepository: GetIt.I.get())
-                              ..add(switch (state.extra) {
-                                PAGE page => LoadExamFromHomePage(page: page),
-                                ExamInfo info => LoadExamFromExamSetPage(
-                                  examInfo: info,
-                                ),
-                                Object() => FooEvent(),
-                                null => throw UnimplementedError(),
-                              }),
+                              ..add(LoadExam(data: state.extra)),
                   ),
                   BlocProvider(create: (context) => MiniMapBloc()),
                   BlocProvider(

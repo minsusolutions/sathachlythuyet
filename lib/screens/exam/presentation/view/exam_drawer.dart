@@ -93,7 +93,6 @@ class QuestionCircle extends StatelessWidget {
           QuestionStatus.correct => Colors.green,
           QuestionStatus.incorrect => Colors.red,
           QuestionStatus.unanswer => Colors.blueGrey,
-          QuestionStatus.current => Colors.blueAccent,
         },
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),

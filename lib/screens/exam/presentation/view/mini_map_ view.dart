@@ -46,7 +46,6 @@ class _MiniMapViewState extends State<MiniMapView> {
                         color: switch (loadedState
                             .questionData[index]
                             .questionStatus) {
-                          QuestionStatus.current => Colors.blue,
                           QuestionStatus.incorrect => Colors.red,
                           QuestionStatus.correct => Colors.green,
                           QuestionStatus.unanswer => Colors.grey,

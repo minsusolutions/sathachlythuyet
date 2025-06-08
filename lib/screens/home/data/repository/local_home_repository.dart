@@ -137,9 +137,7 @@ class LocalHomeRepository implements HomeRepository {
                   ),
                 )
                 .toList(),
-        examTitle: 'Đề số $i',
         status: ExamStatus.initial,
-        examType: ExamType.exam,
         duration: currLiciense.duration,
         minCorrQuestion: currLiciense.minPass,
       );

@@ -56,8 +56,6 @@ class QuestionStatusAdapter extends TypeAdapter<QuestionStatus> {
         return QuestionStatus.incorrect;
       case 2:
         return QuestionStatus.correct;
-      case 3:
-        return QuestionStatus.current;
       default:
         return QuestionStatus.unanswer;
     }
@@ -74,9 +72,6 @@ class QuestionStatusAdapter extends TypeAdapter<QuestionStatus> {
         break;
       case QuestionStatus.correct:
         writer.writeByte(2);
-        break;
-      case QuestionStatus.current:
-        writer.writeByte(3);
         break;
     }
   }

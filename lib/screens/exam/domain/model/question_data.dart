@@ -39,6 +39,4 @@ enum QuestionStatus {
   incorrect,
   @HiveField(2)
   correct,
-  @HiveField(3)
-  current,
 }

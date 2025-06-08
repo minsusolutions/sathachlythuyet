@@ -67,9 +67,6 @@ class _ExamResultViewState extends State<ExamResultView> {
         return Colors.red.shade400;
       case QuestionStatus.unanswer:
         return Colors.grey.shade400;
-      case QuestionStatus.current:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -82,9 +79,6 @@ class _ExamResultViewState extends State<ExamResultView> {
         return Icons.cancel;
       case QuestionStatus.unanswer:
         return Icons.help_outline;
-      case QuestionStatus.current:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -105,7 +99,7 @@ class _ExamResultViewState extends State<ExamResultView> {
         color = Colors.orange.shade700;
         icon = Icons.error_outline;
         break;
-      case ExamStatus.deadFailed:
+      case ExamStatus.criticalFailed:
         message = 'KẾT QUẢ: TRƯỢT (Sai câu hỏi quan trọng)';
         color = Colors.red.shade700;
         icon = Icons.dangerous;
@@ -152,25 +146,6 @@ class _ExamResultViewState extends State<ExamResultView> {
       appBar: AppBar(
         title: BlocBuilder<ExamResultBloc, ExamResultState>(
           builder: (context, state) {
-            if (state is ExamResultLoaded) {
-              // Hiển thị title theo examType
-              String titleText;
-              switch (state.examInfo.examType) {
-                case ExamType.exam:
-                  titleText = 'Kết Quả Thi';
-                  break;
-                case ExamType.revise:
-                  titleText = 'Kết Quả Ôn Tập';
-                  break;
-                case ExamType.wrong:
-                  titleText = 'Kết Quả Câu Sai';
-                  break;
-                case ExamType.death:
-                  titleText = 'Kết Quả Câu Điểm Liệt';
-                  break;
-              }
-              return Text(titleText);
-            }
             return const Text('Kết Quả Bài Thi'); // Tiêu đề mặc định
           },
         ),
@@ -195,7 +170,7 @@ class _ExamResultViewState extends State<ExamResultView> {
                 children: [
                   _buildOverallExamStatus(examInfo.status),
                   Text(
-                    'Tiêu đề: ${examInfo.examTitle}',
+                    'Tiêu đề: ${examInfo.examSetId}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

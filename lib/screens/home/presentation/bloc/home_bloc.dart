@@ -33,11 +33,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
     );
 
-    await Future.wait([
-      _homeRepository.loadExamSetFromCsv(),
-      _homeRepository.loadQuestionsFromCsv(),
-    ]);
-    await _homeRepository.generateExamInfoByLicienseAndExamCode();
+    // await Future.wait([
+    //   _homeRepository.loadExamSetFromCsv(),
+    //   _homeRepository.loadQuestionsFromCsv(),
+    // ]);
+    // await _homeRepository.generateExamInfoByLicienseAndExamCode();
     // _homeRepository.loadExamSetFromCsv();
     // _homeRepository.loadQuestionsFromCsv();
     // emit(state.copyWith(loadingResult: const DelayedResult.idle()));

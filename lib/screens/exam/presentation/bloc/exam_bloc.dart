@@ -17,8 +17,10 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     : _examRepository = examRepository,
       super(ExamInitial()) {
     on<LoadExamFromHomePage>(_onLoadExamFromHomePage);
-    on<LoadExamFromExamSetPage>(_onLoadExamFromExamSetPage);
+    on<LoadExam>(_onLoadExamFromExamSetPage);
     on<UpdateQuestionStatus>(_onUpdateSingleQuestionAnswer);
+    on<BackNavigationAttempted>(_onBackNavigationAttempted);
+    on<ResetShowDialogEvent>(_onResetShowDialog);
   }
 
   final ExamRepository _examRepository;
@@ -27,48 +29,52 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     LoadExamFromHomePage event,
     Emitter<ExamState> emit,
   ) async {
-    var examInfo = switch (event.page) {
-      PAGE.exam => await _examRepository.loadExamInfoRandomlyBaseOnLicienseID(),
-      PAGE.wrong => await _examRepository.loadExamInfoBaseOnLiciense(),
-      // TODO: Handle this case.
-      null => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.home => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.setting => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.examSet => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.tips => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.dead => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.top50 => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.signs => throw UnimplementedError(),
-      // TODO: Handle this case.
-      PAGE.revise => throw UnimplementedError(),
-    };
-    _logger.info('examInfo: $examInfo');
+    // var examInfo = switch (event.page) {
+    //   PAGE.exam => await _examRepository.loadExamInfoRandomlyBaseOnLicienseID(),
+    //   PAGE.wrong => await _examRepository.loadExamInfoBaseOnLiciense(),
+    //   // TODO: Handle this case.
+    //   null => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.home => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.setting => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.examSet => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.tips => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.dead => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.top50 => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.signs => throw UnimplementedError(),
+    //   // TODO: Handle this case.
+    //   PAGE.revise => throw UnimplementedError(),
+    // };
+    // _logger.info('examInfo: $examInfo');
 
-    emit(
-      ExamLoaded(
-        examInfo: examInfo,
-        listQuestion: await _examRepository.loadQuestionsFromExamInfoByIds(
-          examInfo.questionsData,
-        ),
-      ),
-    );
+    // emit(
+    //   ExamLoaded(
+    //     examInfo: examInfo,
+    //     listQuestion: await _examRepository.loadQuestionsFromExamInfoByIds(
+    //       examInfo.questionsData,
+    //     ),
+    //   ),
+    // );
   }
 
   Future<void> _onLoadExamFromExamSetPage(
-    LoadExamFromExamSetPage event,
+    LoadExam event,
     Emitter<ExamState> emit,
   ) async {
-    var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
-      event.examInfo.questionsData,
-    );
-    emit(ExamLoaded(examInfo: event.examInfo, listQuestion: listQuestions));
+    var extra = event.data;
+
+    if (extra is ExamInfo) {
+      var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
+        extra.questionsData,
+      );
+      emit(ExamLoaded(examInfo: extra, listQuestion: listQuestions));
+    } else {}
   }
 
   Future<void> _onUpdateSingleQuestionAnswer(
@@ -100,6 +106,27 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
       }
     }
   }
+
+  void _onBackNavigationAttempted(
+    BackNavigationAttempted event,
+    Emitter<ExamState> emit,
+  ) {
+    var currentState = state;
+    if (currentState is ExamLoaded) {
+      if (currentState.examInfo.duration > 0) {
+        emit(currentState.copyWith(shouldShowDialog: true));
+      } else {
+        emit(NavigateBackToHome());
+      }
+    }
+  }
+
+  void _onResetShowDialog(ResetShowDialogEvent event, Emitter<ExamState> emit) {
+    var currentState = state;
+    if (currentState is ExamLoaded) {
+      emit(currentState.copyWith(shouldShowDialog: null));
+    }
+  }
 }
 
 
@@ -121,4 +148,6 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
   //   _logger.info(qt);
   //   emit(state.copyWith(listQuestion: questions));
   // }
+
+
 

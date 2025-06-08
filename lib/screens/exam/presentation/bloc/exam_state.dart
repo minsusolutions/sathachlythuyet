@@ -13,15 +13,34 @@ final class ExamLoaded extends ExamState {
   final ExamInfo examInfo;
   final List<Question> listQuestion;
 
-  const ExamLoaded({required this.examInfo, required this.listQuestion});
+  final bool? shouldShowDialog;
 
-  ExamLoaded copyWith({ExamInfo? examInfo, List<Question>? listQuestion}) {
+  const ExamLoaded({
+    required this.examInfo,
+    required this.listQuestion,
+    this.shouldShowDialog,
+  });
+
+  ExamLoaded copyWith({
+    ExamInfo? examInfo,
+    List<Question>? listQuestion,
+    bool? shouldShowDialog,
+  }) {
     return ExamLoaded(
       examInfo: examInfo ?? this.examInfo,
       listQuestion: listQuestion ?? this.listQuestion,
+      shouldShowDialog: shouldShowDialog ?? this.shouldShowDialog,
     );
   }
 
   @override
   List<Object> get props => [examInfo, listQuestion];
+}
+
+final class NavigateBackToHome extends ExamState {}
+
+final class NavigateToResultScreen extends ExamState {
+  final ExamInfo examInfo;
+
+  const NavigateToResultScreen({required this.examInfo});
 }

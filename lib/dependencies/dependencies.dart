@@ -17,6 +17,8 @@ import 'package:sathachlaixe/screens/home/domain/repository/home_repository.dart
 import 'package:sathachlaixe/screens/revise/data/repository/local_revise_repository.dart';
 import 'package:sathachlaixe/screens/revise/domain/repository/revise_repository.dart';
 import 'package:sathachlaixe/screens/setting/setting.dart';
+import 'package:sathachlaixe/screens/splash/data/repository/splash_repository_impl.dart';
+import 'package:sathachlaixe/screens/splash/domain/splash_repository.dart';
 
 Future<void> setupDependencies() async {
   final getIt = GetIt.instance;
@@ -26,6 +28,19 @@ Future<void> setupDependencies() async {
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
     return LocalSettingRepository(
       settingBox: HiveLocator.getSettingLicienseBox(),
+    );
+  });
+
+  getIt.registerSingletonAsync<SplashRepository>(() async {
+    await Hive.openBox<dynamic>(Liciense.settingBoxKey);
+    await Hive.openBox<ExamBank>(ExamBank.examSetBoxKey);
+    await Hive.openBox<Question>(Question.questionBoxKey);
+    await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
+    return SplashRepositoryImpl(
+      settingBox: HiveLocator.getSettingLicienseBox(),
+      examBankBox: HiveLocator.getExamBankBox(),
+      questionBox: HiveLocator.getQuestionBox(),
+      examInfoBox: HiveLocator.getExamInfoBox(),
     );
   });
 
@@ -107,7 +122,6 @@ class HiveLocator {
     Hive.registerAdapter(LicienseTypeAdapter());
     Hive.registerAdapter(VehicleTypeAdapter());
     Hive.registerAdapter(NoOfQuestionsAdapter());
-    Hive.registerAdapter(ExamTypeAdapter());
     Hive.registerAdapter(ExamStatusAdapter());
     Hive.registerAdapter(QuestionStatusAdapter());
     Hive.registerAdapter(ExamInfoAdapter());

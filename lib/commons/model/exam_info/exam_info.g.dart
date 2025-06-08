@@ -21,18 +21,16 @@ class ExamInfoAdapter extends TypeAdapter<ExamInfo> {
       examCode: fields[1] as int,
       examSetId: fields[2] as int?,
       questionsData: (fields[3] as List).cast<QuestionData>(),
-      examTitle: fields[4] as String,
-      status: fields[5] as ExamStatus,
-      examType: fields[6] as ExamType,
-      duration: fields[7] as int,
-      minCorrQuestion: fields[8] as int,
+      status: fields[4] as ExamStatus,
+      duration: fields[5] as int,
+      minCorrQuestion: fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ExamInfo obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.licienseId)
       ..writeByte(1)
@@ -42,14 +40,10 @@ class ExamInfoAdapter extends TypeAdapter<ExamInfo> {
       ..writeByte(3)
       ..write(obj.questionsData)
       ..writeByte(4)
-      ..write(obj.examTitle)
-      ..writeByte(5)
       ..write(obj.status)
-      ..writeByte(6)
-      ..write(obj.examType)
-      ..writeByte(7)
+      ..writeByte(5)
       ..write(obj.duration)
-      ..writeByte(8)
+      ..writeByte(6)
       ..write(obj.minCorrQuestion);
   }
 
@@ -64,55 +58,6 @@ class ExamInfoAdapter extends TypeAdapter<ExamInfo> {
           typeId == other.typeId;
 }
 
-class ExamTypeAdapter extends TypeAdapter<ExamType> {
-  @override
-  final int typeId = 8;
-
-  @override
-  ExamType read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return ExamType.exam;
-      case 1:
-        return ExamType.revise;
-      case 2:
-        return ExamType.wrong;
-      case 3:
-        return ExamType.death;
-      default:
-        return ExamType.exam;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, ExamType obj) {
-    switch (obj) {
-      case ExamType.exam:
-        writer.writeByte(0);
-        break;
-      case ExamType.revise:
-        writer.writeByte(1);
-        break;
-      case ExamType.wrong:
-        writer.writeByte(2);
-        break;
-      case ExamType.death:
-        writer.writeByte(3);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ExamTypeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class ExamStatusAdapter extends TypeAdapter<ExamStatus> {
   @override
   final int typeId = 9;
@@ -123,7 +68,7 @@ class ExamStatusAdapter extends TypeAdapter<ExamStatus> {
       case 0:
         return ExamStatus.initial;
       case 1:
-        return ExamStatus.deadFailed;
+        return ExamStatus.criticalFailed;
       case 2:
         return ExamStatus.failed;
       case 3:
@@ -139,7 +84,7 @@ class ExamStatusAdapter extends TypeAdapter<ExamStatus> {
       case ExamStatus.initial:
         writer.writeByte(0);
         break;
-      case ExamStatus.deadFailed:
+      case ExamStatus.criticalFailed:
         writer.writeByte(1);
         break;
       case ExamStatus.failed:
