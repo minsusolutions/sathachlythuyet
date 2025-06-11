@@ -4,7 +4,8 @@ import 'package:sathachlaixe/screens/exam/domain/model/answer_status.dart';
 import 'package:sathachlaixe/screens/exam/exam.dart';
 
 class ExamDrawer extends StatelessWidget {
-  const ExamDrawer({super.key});
+  const ExamDrawer({super.key, required this.tabController});
+  final TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +13,15 @@ class ExamDrawer extends StatelessWidget {
       builder: (context, state) {
         if (state is ExamLoaded) {
           return SizedBox(
-            width: 400,
+            width: 250,
             child: Drawer(
               child: Column(
                 children: [
-                  SizedBox(height: 75),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(color: Colors.orange),
                       child: GridView.count(
-                        crossAxisCount: state.userAnswers.length >= 30 ? 5 : 4,
+                        crossAxisCount: state.userAnswers.length >= 30 ? 4 : 3,
                         mainAxisSpacing: 5,
                         crossAxisSpacing: 5,
                         childAspectRatio: 1 / 1,
@@ -39,11 +38,7 @@ class ExamDrawer extends StatelessWidget {
                                     .status,
                             questionIndexInExamSet: index,
                             onTap: () {
-                              // context.read<MiniMapBloc>().add(
-                              //   MiniMapSelectCurrentIndexFromTab(
-                              //     currentIndex: index,
-                              //   ),
-                              // );
+                              tabController.animateTo(index);
 
                               if (Scaffold.of(context).isDrawerOpen) {
                                 Scaffold.of(context).closeDrawer();
@@ -54,7 +49,6 @@ class ExamDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 75),
                 ],
               ),
             ),

@@ -69,6 +69,10 @@ class ExamScreenState extends State<ExamScreen>
           context.read<ExamBloc>().add(QuestionSubmitted(index: previousIndex));
         }
       }
+      setState(() {
+        // Cập nhật lại index hiện tại sau khi đã submit
+        _currentIndex = _tabController!.index;
+      });
     }
   }
 
@@ -134,7 +138,10 @@ class ExamScreenState extends State<ExamScreen>
                 },
               ),
             ),
-            drawer: ExamDrawer(),
+            drawer:
+                _tabController != null
+                    ? ExamDrawer(tabController: _tabController!)
+                    : null,
             body: SafeArea(
               child: Column(
                 children: [

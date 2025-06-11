@@ -32,6 +32,12 @@ final class HintRequested extends ExamEvent {
   HintRequested({required this.qNumber});
 }
 
+final class QuestionSelectedFromDrawer extends ExamEvent {
+  final int index;
+
+  QuestionSelectedFromDrawer({required this.index});
+}
+
 final class BackNavigationAttempted extends ExamEvent {}
 
 final class UserConfirmedEndExam extends ExamEvent {}

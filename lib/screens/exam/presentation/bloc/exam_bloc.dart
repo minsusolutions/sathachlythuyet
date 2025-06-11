@@ -21,6 +21,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     on<QuestionSubmitted>(_onQuestionSubbmited);
     on<AnswerSelected>(_onAnswerSelected);
     on<HintRequested>(_onHintRequested);
+    on<QuestionSelectedFromDrawer>(_onQuestionSelectedFromDrawer);
     on<BackNavigationAttempted>(_onBackNavigationAttempted);
     on<ResetShowDialogEvent>(_onResetShowDialog);
   }
@@ -159,6 +160,13 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
       // Phát ra state mới với danh sách gợi ý đã được cập nhật
       emit(currentState.copyWith(showHints: updatedShownHints));
     }
+  }
+
+  Future<void> _onQuestionSelectedFromDrawer(
+    QuestionSelectedFromDrawer event,
+    Emitter<ExamState> emit,
+  ) async {
+    _logger.info('Hay chuyen toi cau co index: ${event.index}');
   }
 
   void _onBackNavigationAttempted(
