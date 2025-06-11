@@ -82,9 +82,7 @@ class SingleQuestionPage extends StatelessWidget {
                   question.answer1,
                   userAnswer,
                   isSubmitted,
-                  state.licienseId,
-                  state.examCode,
-                  state.examSetId,
+                  question.qNumber,
                 ),
                 _buildOptionTile(
                   context,
@@ -92,9 +90,7 @@ class SingleQuestionPage extends StatelessWidget {
                   question.answer2,
                   userAnswer,
                   isSubmitted,
-                  state.licienseId,
-                  state.examCode,
-                  state.examSetId,
+                  question.qNumber,
                 ),
                 if (question.answer3.isNotEmpty)
                   _buildOptionTile(
@@ -103,9 +99,7 @@ class SingleQuestionPage extends StatelessWidget {
                     question.answer3,
                     userAnswer,
                     isSubmitted,
-                    state.licienseId,
-                    state.examCode,
-                    state.examSetId,
+                    question.qNumber,
                   ),
                 if (question.answer4.isNotEmpty)
                   _buildOptionTile(
@@ -114,9 +108,7 @@ class SingleQuestionPage extends StatelessWidget {
                     question.answer3,
                     userAnswer,
                     isSubmitted,
-                    state.licienseId,
-                    state.examCode,
-                    state.examSetId,
+                    question.qNumber,
                   ),
                 if (isSubmitted)
                   Padding(
@@ -191,9 +183,7 @@ class SingleQuestionPage extends StatelessWidget {
     String optionText,
     UserAnswer userAnswer,
     bool isSubmitted,
-    int licienseId,
-    int examCode,
-    int examSetId,
+    int qNumber,
   ) {
     Color? getTileColor() {
       if (!isSubmitted) return null;
@@ -240,14 +230,7 @@ class SingleQuestionPage extends StatelessWidget {
                 : (value) {
                   if (value != null) {
                     context.read<ExamBloc>().add(
-                      AnswerSelected(
-                        questionKey: question.buildQuestioniKeyBaseOn(
-                          licienseId,
-                          examCode,
-                          examSetId,
-                        ),
-                        answer: value,
-                      ),
+                      AnswerSelected(qNumber: qNumber, answer: value),
                     );
                   }
                 },

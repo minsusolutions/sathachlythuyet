@@ -3,21 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/exam_bloc.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/timer/timer_bloc.dart';
 
-class ExamTimerView extends StatefulWidget {
+class ExamTimerView extends StatelessWidget {
   const ExamTimerView({super.key});
 
-  @override
-  State<StatefulWidget> createState() => _ExamTimerView();
-}
-
-class _ExamTimerView extends State<ExamTimerView> {
-  @override
-  void initState() {
-    final state = context.read<ExamBloc>().state;
-    var duration = state is ExamLoaded ? state.duration : 20 * 60;
-    context.read<TimerBloc>().add(TimerStarted(duration: duration));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   final state = context.read<ExamBloc>().state;
+  //   var duration = state is ExamLoaded ? state.duration : 20 * 60;
+  //   context.read<TimerBloc>().add(TimerStarted(duration: duration));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

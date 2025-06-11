@@ -63,7 +63,12 @@ class ExamScreenState extends State<ExamScreen>
       _currentIndex = _tabController!.index;
 
       _logger.info('submit answer for question index $previousIndex');
-      context.read<ExamBloc>().add(QuestionSubmitted(index: previousIndex));
+      var state = context.read<ExamBloc>().state;
+      if (state is ExamLoaded) {
+        if (state.duration > 0) {
+          context.read<ExamBloc>().add(QuestionSubmitted(index: previousIndex));
+        }
+      }
     }
   }
 

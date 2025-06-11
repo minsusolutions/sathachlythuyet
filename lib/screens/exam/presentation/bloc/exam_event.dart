@@ -16,14 +16,13 @@ final class LoadExam extends ExamEvent {
 }
 
 final class AnswerSelected extends ExamEvent {
-  final String questionKey;
+  final int qNumber;
   final int answer;
-  const AnswerSelected({required this.questionKey, required this.answer});
+  const AnswerSelected({required this.qNumber, required this.answer});
 }
 
 final class QuestionSubmitted extends ExamEvent {
   final int index;
-
   QuestionSubmitted({required this.index});
 }
 

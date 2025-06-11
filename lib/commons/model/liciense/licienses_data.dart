@@ -13,7 +13,7 @@ class LiciensesData {
       description:
           "Lái xe mô tô hai bánh có dung tích xi-lanh đến 125cm3 hoặc có công suất động cơ điện đến 11kW.",
       minPass: 20,
-      duration: 19 * 60,
+      duration: 0 * 60,
     ),
     Liciense(
       id: 2,

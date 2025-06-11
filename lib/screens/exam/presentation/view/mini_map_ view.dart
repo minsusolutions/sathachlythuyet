@@ -1,69 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
-import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/answer_status.dart';
+import 'package:sathachlaixe/screens/exam/exam.dart';
 
-class MiniMapView extends StatefulWidget {
-  final List<QuestionData> listData;
-
-  const MiniMapView({super.key, required this.listData});
-
-  @override
-  State<StatefulWidget> createState() => _MiniMapViewState();
-}
-
-class _MiniMapViewState extends State<MiniMapView> {
-  @override
-  void initState() {
-    super.initState();
-    // BlocProvider.of<MiniMapBloc>(
-    //   context,
-    // ).add(MiniMapLoadEvent(listData: widget.listData));
-  }
+class MiniMapView extends StatelessWidget {
+  const MiniMapView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // return BlocBuilder<MiniMapBloc, MiniMapState>(
-    //   builder: (context, state) {
-    //     return switch (state) {
-    //       MiniMapInitial _ => Center(child: Text('Loading data...')),
-    //       MiniMapLoaded loadedState => Row(
-    //         children: [
-    //           GridView.count(
-    //             crossAxisCount: loadedState.questionData.length >= 30 ? 2 : 2,
-    //             mainAxisSpacing: 1,
-    //             crossAxisSpacing: 1,
-    //             shrinkWrap: true,
-    //             scrollDirection: Axis.horizontal,
-    //             children: List.generate(loadedState.questionData.length, (
-    //               index,
-    //             ) {
-    //               return SizedBox(
-    //                 width: 13,
-    //                 height: 13,
-    //                 child: DecoratedBox(
-    //                   decoration: BoxDecoration(
-    //                     color: switch (loadedState
-    //                         .questionData[index]
-    //                         .questionStatus) {
-    //                       QuestionStatus.incorrect => Colors.red,
-    //                       QuestionStatus.correct => Colors.green,
-    //                       QuestionStatus.unanswer => Colors.grey,
-    //                     },
-    //                   ),
-    //                 ),
-    //               );
-    //             }),
-    //           ),
-    //           SizedBox(width: 10),
-    //           Text(
-    //             '${loadedState.currentQuestion + 1}/ ${loadedState.questionData.length}',
-    //           ),
-    //         ],
-    //       ),
-    //     };
-    //   },
-    // );
+    return BlocBuilder<ExamBloc, ExamState>(
+      buildWhen: (previous, current) {
+        return true;
+      },
+      builder: (context, state) {
+        if (state is ExamLoaded) {
+          return Row(
+            children: [
+              GridView.count(
+                crossAxisCount: state.userAnswers.length >= 30 ? 2 : 2,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: List.generate(state.userAnswers.length, (index) {
+                  return SizedBox(
+                    width: 13,
+                    height: 13,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: switch (state.userAnswers.values
+                            .elementAt(index)
+                            .status) {
+                          AnswerStatus.incorrect => Colors.red,
+                          AnswerStatus.correct => Colors.green,
+                          AnswerStatus.unanswered => Colors.grey,
+                        },
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ],
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
   }
 }

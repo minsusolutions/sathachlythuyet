@@ -5,7 +5,6 @@ import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/routing/router_utils.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/answer_status.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/user_answer.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 
@@ -78,9 +77,12 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
 
     var currentState = state;
     if (currentState is ExamLoaded) {
+      _logger.info('duration: ${currentState.duration}');
+
       if (event.index < 0 || event.index >= currentState.listQuestion.length) {
         return;
       }
+
       var question = currentState.listQuestion[event.index];
       var questionKey = question.buildQuestioniKeyBaseOn(
         currentState.licienseId,
@@ -110,20 +112,37 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     AnswerSelected event,
     Emitter<ExamState> emit,
   ) async {
-    _logger.info('update status with question: ${event.questionKey}');
+    _logger.info('update status with question: ${event.qNumber}');
     var currentState = state;
     if (currentState is ExamLoaded) {
-      final currentAnswer = currentState.userAnswers[event.questionKey];
+      var question =
+          currentState.listQuestion
+              .where((q) => q.qNumber == event.qNumber)
+              .first;
+      var questionKey = question.buildQuestioniKeyBaseOn(
+        currentState.licienseId,
+        currentState.examCode,
+        currentState.examSetId,
+      );
+
+      final currentAnswer = currentState.userAnswers[questionKey];
       if (currentAnswer != null &&
           currentAnswer.status == AnswerStatus.unanswered) {
         final updatedAnswers = Map<String, UserAnswer>.from(
           currentState.userAnswers,
         );
-        updatedAnswers[event.questionKey] = UserAnswer(
+
+        updatedAnswers[questionKey] = UserAnswer(
           questionId: currentAnswer.questionId,
           selectedOptionValue: event.answer,
-          status: currentAnswer.status,
+          status:
+              currentState.duration > 0
+                  ? currentAnswer.status
+                  : (event.answer == question.correctAnswer
+                      ? AnswerStatus.correct
+                      : AnswerStatus.incorrect),
         );
+
         emit(currentState.copyWith(userAnswers: updatedAnswers));
       }
     }
