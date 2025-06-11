@@ -7,7 +7,6 @@ import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/commons/model/liciense/licienses_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/splash/domain/splash_repository.dart';
 
 class SplashRepositoryImpl implements SplashRepository {
@@ -128,15 +127,15 @@ class SplashRepositoryImpl implements SplashRepository {
           licienseId: currLiciense.id,
           examCode: currLiciense.examCode,
           examSetId: i,
-          questionsData:
-              listIds
-                  .map(
-                    (ids) => QuestionData(
-                      questionId: ids,
-                      questionStatus: QuestionStatus.unanswer,
-                    ),
-                  )
-                  .toList(),
+          questionIds: listIds,
+
+          // .map(
+          //   (ids) => QuestionData(
+          //     questionId: ids,
+          //     questionStatus: QuestionStatus.unanswer,
+          //   ),
+          // )
+          // .toList(),
           status: ExamStatus.initial,
           duration: currLiciense.duration,
           minCorrQuestion: currLiciense.minPass,

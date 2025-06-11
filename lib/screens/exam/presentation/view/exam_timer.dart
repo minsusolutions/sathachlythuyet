@@ -14,7 +14,7 @@ class _ExamTimerView extends State<ExamTimerView> {
   @override
   void initState() {
     final state = context.read<ExamBloc>().state;
-    var duration = state is ExamLoaded ? state.examInfo.duration : 20 * 60;
+    var duration = state is ExamLoaded ? state.duration : 20 * 60;
     context.read<TimerBloc>().add(TimerStarted(duration: duration));
     super.initState();
   }

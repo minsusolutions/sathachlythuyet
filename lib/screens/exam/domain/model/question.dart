@@ -102,3 +102,8 @@ class Question extends Equatable {
   @override
   List<Object?> get props => [qNumber, selectedAnswer];
 }
+
+extension QuestionX on Question {
+  String buildQuestioniKeyBaseOn(int licienseId, int examCode, int examSet) =>
+      ('${licienseId}__key__${examCode}__${examSet}__${qNumber}');
+}

@@ -4,9 +4,7 @@ import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 import 'package:sathachlaixe/screens/exam/presentation/bloc/mini_map/mini_map_bloc.dart';
 
 class ExamDrawer extends StatefulWidget {
-  final TabController tabController;
-
-  const ExamDrawer({super.key, required this.tabController});
+  const ExamDrawer({super.key});
 
   @override
   State<StatefulWidget> createState() => _ExamDrawerState();
@@ -15,60 +13,61 @@ class ExamDrawer extends StatefulWidget {
 class _ExamDrawerState extends State<ExamDrawer> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MiniMapBloc, MiniMapState>(
-      builder: (context, state) {
-        return switch (state) {
-          MiniMapInitial _ => Center(child: Text('loading data')),
-          MiniMapLoaded loadedState => SizedBox(
-            width: 400,
-            child: Drawer(
-              child: Column(
-                children: [
-                  SizedBox(height: 75),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(color: Colors.orange),
-                      child: GridView.count(
-                        crossAxisCount:
-                            loadedState.questionData.length >= 30 ? 5 : 4,
-                        mainAxisSpacing: 5,
-                        crossAxisSpacing: 5,
-                        childAspectRatio: 1 / 1,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: List.generate(
-                          loadedState.questionData.length,
-                          (index) {
-                            return QuestionCircle(
-                              questionData: loadedState.questionData[index],
-                              questionIndexInExamSet: index,
-                              onTap: () {
-                                context.read<MiniMapBloc>().add(
-                                  MiniMapSelectCurrentIndexFromTab(
-                                    currentIndex: index,
-                                  ),
-                                );
+    // return BlocBuilder<MiniMapBloc, MiniMapState>(
+    //   builder: (context, state) {
+    //     return switch (state) {
+    //       MiniMapInitial _ => Center(child: Text('loading data')),
+    //       MiniMapLoaded loadedState => SizedBox(
+    //         width: 400,
+    //         child: Drawer(
+    //           child: Column(
+    //             children: [
+    //               SizedBox(height: 75),
+    //               Expanded(
+    //                 child: Container(
+    //                   padding: EdgeInsets.symmetric(horizontal: 16),
+    //                   decoration: BoxDecoration(color: Colors.orange),
+    //                   child: GridView.count(
+    //                     crossAxisCount:
+    //                         loadedState.questionData.length >= 30 ? 5 : 4,
+    //                     mainAxisSpacing: 5,
+    //                     crossAxisSpacing: 5,
+    //                     childAspectRatio: 1 / 1,
+    //                     physics: NeverScrollableScrollPhysics(),
+    //                     shrinkWrap: true,
+    //                     scrollDirection: Axis.vertical,
+    //                     children: List.generate(
+    //                       loadedState.questionData.length,
+    //                       (index) {
+    //                         return QuestionCircle(
+    //                           questionData: loadedState.questionData[index],
+    //                           questionIndexInExamSet: index,
+    //                           onTap: () {
+    //                             context.read<MiniMapBloc>().add(
+    //                               MiniMapSelectCurrentIndexFromTab(
+    //                                 currentIndex: index,
+    //                               ),
+    //                             );
 
-                                if (Scaffold.of(context).isDrawerOpen) {
-                                  Scaffold.of(context).closeDrawer();
-                                }
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 75),
-                ],
-              ),
-            ),
-          ),
-        };
-      },
-    );
+    //                             if (Scaffold.of(context).isDrawerOpen) {
+    //                               Scaffold.of(context).closeDrawer();
+    //                             }
+    //                           },
+    //                         );
+    //                       },
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //               SizedBox(height: 75),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     };
+    //   },
+    // );
+    return Container();
   }
 }
 

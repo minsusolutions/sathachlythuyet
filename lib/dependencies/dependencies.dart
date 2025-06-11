@@ -4,8 +4,10 @@ import 'package:sathachlaixe/commons/model/exam_bank/exam_bank.dart';
 import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/screens/exam/data/repository/local_exam_repository.dart';
 import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/answer_status.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/user_answer.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 import 'package:sathachlaixe/screens/exam_result/data/repository/local_exam_result_repository.dart';
 import 'package:sathachlaixe/screens/exam_result/domain/repository/exam_result_repository.dart';
@@ -73,11 +75,13 @@ Future<void> setupDependencies() async {
     await Hive.openBox<Question>(Question.questionBoxKey);
     await Hive.openBox<ExamInfo>(ExamInfo.examInfoBoxKey);
     await Hive.openBox<dynamic>(Liciense.settingBoxKey);
+    await Hive.openBox<UserAnswer>(UserAnswer.userAnswerBoxKey);
 
     return LocalExamRepository(
       questionBox: HiveLocator.getQuestionBox(),
       settingBox: HiveLocator.getSettingLicienseBox(),
       examInfoBox: HiveLocator.getExamInfoBox(),
+      userAnswerBox: HiveLocator.getUserAnswerBox(),
     );
   });
 
@@ -115,6 +119,10 @@ class HiveLocator {
     return Hive.box<ExamInfo>(ExamInfo.examInfoBoxKey);
   }
 
+  static Box<UserAnswer> getUserAnswerBox() {
+    return Hive.box<UserAnswer>(UserAnswer.userAnswerBoxKey);
+  }
+
   static void _registerAdapter() {
     Hive.registerAdapter(LicienseAdapter());
     Hive.registerAdapter(ExamBankAdapter());
@@ -126,5 +134,7 @@ class HiveLocator {
     Hive.registerAdapter(QuestionStatusAdapter());
     Hive.registerAdapter(ExamInfoAdapter());
     Hive.registerAdapter(QuestionDataAdapter());
+    Hive.registerAdapter(UserAnswerAdapter());
+    Hive.registerAdapter(AnswerStatusAdapter());
   }
 }

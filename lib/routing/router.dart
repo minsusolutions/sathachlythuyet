@@ -98,7 +98,7 @@ class AppRouter {
                         ExamBloc(examRepository: GetIt.I.get())
                           ..add(LoadExam(examInfoKey, extra)),
               ),
-              BlocProvider(create: (context) => MiniMapBloc()),
+              // BlocProvider(create: (context) => MiniMapBloc()),
               BlocProvider(create: (context) => TimerBloc(ticker: Ticker())),
             ],
             child: ExamScreen(),
@@ -140,11 +140,7 @@ class AppRouter {
                         examSetId: examSetId,
                       ),
                     ),
-            child: ExamResultView(
-              licenseId: licenseId,
-              examCode: examCode,
-              examSetId: examSetId,
-            ),
+            child: Container(),
           );
         },
       ),

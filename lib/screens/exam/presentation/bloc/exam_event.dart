@@ -15,9 +15,22 @@ final class LoadExam extends ExamEvent {
   final String? extra;
 }
 
-final class UpdateQuestionStatus extends ExamEvent {
-  final Question question;
-  const UpdateQuestionStatus({required this.question});
+final class AnswerSelected extends ExamEvent {
+  final String questionKey;
+  final int answer;
+  const AnswerSelected({required this.questionKey, required this.answer});
+}
+
+final class QuestionSubmitted extends ExamEvent {
+  final int index;
+
+  QuestionSubmitted({required this.index});
+}
+
+final class HintRequested extends ExamEvent {
+  final int qNumber;
+
+  HintRequested({required this.qNumber});
 }
 
 final class BackNavigationAttempted extends ExamEvent {}

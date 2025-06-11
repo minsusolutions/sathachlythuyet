@@ -16,53 +16,54 @@ class _MiniMapViewState extends State<MiniMapView> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MiniMapBloc>(
-      context,
-    ).add(MiniMapLoadEvent(listData: widget.listData));
+    // BlocProvider.of<MiniMapBloc>(
+    //   context,
+    // ).add(MiniMapLoadEvent(listData: widget.listData));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MiniMapBloc, MiniMapState>(
-      builder: (context, state) {
-        return switch (state) {
-          MiniMapInitial _ => Center(child: Text('Loading data...')),
-          MiniMapLoaded loadedState => Row(
-            children: [
-              GridView.count(
-                crossAxisCount: loadedState.questionData.length >= 30 ? 2 : 2,
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                children: List.generate(loadedState.questionData.length, (
-                  index,
-                ) {
-                  return SizedBox(
-                    width: 13,
-                    height: 13,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: switch (loadedState
-                            .questionData[index]
-                            .questionStatus) {
-                          QuestionStatus.incorrect => Colors.red,
-                          QuestionStatus.correct => Colors.green,
-                          QuestionStatus.unanswer => Colors.grey,
-                        },
-                      ),
-                    ),
-                  );
-                }),
-              ),
-              SizedBox(width: 10),
-              Text(
-                '${loadedState.currentQuestion + 1}/ ${loadedState.questionData.length}',
-              ),
-            ],
-          ),
-        };
-      },
-    );
+    return Container();
+    // return BlocBuilder<MiniMapBloc, MiniMapState>(
+    //   builder: (context, state) {
+    //     return switch (state) {
+    //       MiniMapInitial _ => Center(child: Text('Loading data...')),
+    //       MiniMapLoaded loadedState => Row(
+    //         children: [
+    //           GridView.count(
+    //             crossAxisCount: loadedState.questionData.length >= 30 ? 2 : 2,
+    //             mainAxisSpacing: 1,
+    //             crossAxisSpacing: 1,
+    //             shrinkWrap: true,
+    //             scrollDirection: Axis.horizontal,
+    //             children: List.generate(loadedState.questionData.length, (
+    //               index,
+    //             ) {
+    //               return SizedBox(
+    //                 width: 13,
+    //                 height: 13,
+    //                 child: DecoratedBox(
+    //                   decoration: BoxDecoration(
+    //                     color: switch (loadedState
+    //                         .questionData[index]
+    //                         .questionStatus) {
+    //                       QuestionStatus.incorrect => Colors.red,
+    //                       QuestionStatus.correct => Colors.green,
+    //                       QuestionStatus.unanswer => Colors.grey,
+    //                     },
+    //                   ),
+    //                 ),
+    //               );
+    //             }),
+    //           ),
+    //           SizedBox(width: 10),
+    //           Text(
+    //             '${loadedState.currentQuestion + 1}/ ${loadedState.questionData.length}',
+    //           ),
+    //         ],
+    //       ),
+    //     };
+    //   },
+    // );
   }
 }

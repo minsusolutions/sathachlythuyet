@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:sathachlaixe/commons/model/exam_info/exam_info.dart';
 import 'package:sathachlaixe/routing/router_utils.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/answer_status.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/user_answer.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 
 part 'exam_event.dart';
@@ -17,7 +19,9 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     : _examRepository = examRepository,
       super(ExamInitial()) {
     on<LoadExam>(_onLoadExam);
-    on<UpdateQuestionStatus>(_onUpdateSingleQuestionAnswer);
+    on<QuestionSubmitted>(_onQuestionSubbmited);
+    on<AnswerSelected>(_onAnswerSelected);
+    on<HintRequested>(_onHintRequested);
     on<BackNavigationAttempted>(_onBackNavigationAttempted);
     on<ResetShowDialogEvent>(_onResetShowDialog);
   }
@@ -30,15 +34,34 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
         event.examInfoKey!,
       );
       var listQuestions = await _examRepository.loadQuestionsFromExamInfoByIds(
-        examInfo.questionsData,
+        examInfo.questionIds,
       );
 
-      emit(ExamLoaded(examInfo: examInfo, listQuestion: listQuestions));
+      Map<String, UserAnswer> userAnswers = {
+        for (var q in listQuestions)
+          q.buildQuestioniKeyBaseOn(
+            examInfo.licienseId,
+            examInfo.examCode,
+            examInfo.examSetId,
+          ): UserAnswer(questionId: q.qNumber),
+      };
+
+      _logger.info('userAnswers ${userAnswers} ');
+      _logger.info('emit ${listQuestions.length} questions');
+      emit(
+        ExamLoaded(
+          licienseId: examInfo.licienseId,
+          examSetId: examInfo.examSetId,
+          examCode: examInfo.examCode,
+          listQuestion: listQuestions,
+          userAnswers: userAnswers,
+          duration: examInfo.duration,
+          showHints: {},
+        ),
+      );
     } else if (event.extra != null) {
       if (event.extra == 'signs') {
         //TODO: should show exam with sign
-
-        
       } else if (event.extra == 'topWrong') {
         //TODO: should show wrong
       } else if (event.extra!.contains('chapter')) {
@@ -47,33 +70,75 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     }
   }
 
-  Future<void> _onUpdateSingleQuestionAnswer(
-    UpdateQuestionStatus event,
+  Future<void> _onQuestionSubbmited(
+    QuestionSubmitted event,
     Emitter<ExamState> emit,
   ) async {
-    _logger.info('update status with question: ${event.question}');
-    final currentState = state;
-    if (currentState is ExamLoaded) {
-      var correct =
-          event.question.correctAnswer == event.question.selectedAnswer
-              ? QuestionStatus.correct
-              : QuestionStatus.incorrect;
-      if (event.question.selectedAnswer > 0) {
-        // emit(currentState.copyWith(status: ExamStateStatus.loading)); // occurs page rebuild
-        var questionData = currentState.examInfo.questionsData;
-        questionData[questionData.indexWhere(
-          (element) => element.questionId == event.question.qNumber,
-        )] = QuestionData(
-          questionId: event.question.qNumber,
-          questionStatus: correct,
-        );
-        var newExamInfo = currentState.examInfo.copyWith(
-          questionsData: questionData,
-        );
+    _logger.info('update status with question: ${event.index}');
 
-        _logger.info(questionData);
-        emit(currentState.copyWith(examInfo: newExamInfo));
+    var currentState = state;
+    if (currentState is ExamLoaded) {
+      if (event.index < 0 || event.index >= currentState.listQuestion.length) {
+        return;
       }
+      var question = currentState.listQuestion[event.index];
+      var questionKey = question.buildQuestioniKeyBaseOn(
+        currentState.licienseId,
+        currentState.examCode,
+        currentState.examSetId,
+      );
+      final userAnswer = currentState.userAnswers[questionKey];
+      if (userAnswer?.selectedOptionValue == null) return;
+
+      final isCorrect =
+          userAnswer?.selectedOptionValue! == question.correctAnswer;
+      final submittedAnswer = userAnswer?.copyWith(
+        status: isCorrect ? AnswerStatus.correct : AnswerStatus.incorrect,
+      );
+      await _examRepository.saveUserAnswer(questionKey, submittedAnswer!);
+
+      final updatedAnswers = Map<String, UserAnswer>.from(
+        currentState.userAnswers,
+      );
+      updatedAnswers[questionKey] = submittedAnswer!;
+
+      emit(currentState.copyWith(userAnswers: updatedAnswers));
+    }
+  }
+
+  Future<void> _onAnswerSelected(
+    AnswerSelected event,
+    Emitter<ExamState> emit,
+  ) async {
+    _logger.info('update status with question: ${event.questionKey}');
+    var currentState = state;
+    if (currentState is ExamLoaded) {
+      final currentAnswer = currentState.userAnswers[event.questionKey];
+      if (currentAnswer != null &&
+          currentAnswer.status == AnswerStatus.unanswered) {
+        final updatedAnswers = Map<String, UserAnswer>.from(
+          currentState.userAnswers,
+        );
+        updatedAnswers[event.questionKey] = UserAnswer(
+          questionId: currentAnswer.questionId,
+          selectedOptionValue: event.answer,
+          status: currentAnswer.status,
+        );
+        emit(currentState.copyWith(userAnswers: updatedAnswers));
+      }
+    }
+  }
+
+  Future<void> _onHintRequested(
+    HintRequested event,
+    Emitter<ExamState> emit,
+  ) async {
+    var currentState = state;
+    if (currentState is ExamLoaded) {
+      final updatedShownHints = Set<int>.from(currentState.showHints)
+        ..add(event.qNumber);
+      // Phát ra state mới với danh sách gợi ý đã được cập nhật
+      emit(currentState.copyWith(showHints: updatedShownHints));
     }
   }
 
@@ -81,21 +146,21 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     BackNavigationAttempted event,
     Emitter<ExamState> emit,
   ) {
-    var currentState = state;
-    if (currentState is ExamLoaded) {
-      if (currentState.examInfo.duration > 0) {
-        emit(currentState.copyWith(shouldShowDialog: true));
-      } else {
-        emit(NavigateBackToHome());
-      }
-    }
+    // var currentState = state;
+    // if (currentState is ExamLoaded) {
+    //   if (currentState.examInfo.duration > 0) {
+    //     emit(currentState.copyWith(shouldShowDialog: true));
+    //   } else {
+    //     emit(NavigateBackToHome());
+    //   }
+    // }
   }
 
   void _onResetShowDialog(ResetShowDialogEvent event, Emitter<ExamState> emit) {
-    var currentState = state;
-    if (currentState is ExamLoaded) {
-      emit(currentState.copyWith(shouldShowDialog: null));
-    }
+    // var currentState = state;
+    // if (currentState is ExamLoaded) {
+    //   emit(currentState.copyWith(shouldShowDialog: null));
+    // }
   }
 }
 

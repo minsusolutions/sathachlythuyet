@@ -5,7 +5,7 @@ abstract interface class HomeRepository {
   Future<List<HomeItem>> get listHomeItems;
 
   Future<Liciense> get currentLiciense;
-  Future<void> loadExamSetFromCsv();
-  Future<void> loadQuestionsFromCsv();
-  Future<void> generateExamInfoByLicienseAndExamCode();
+  // Future<void> loadExamSetFromCsv();
+  // Future<void> loadQuestionsFromCsv();
+  // Future<void> generateExamInfoByLicienseAndExamCode();
 }

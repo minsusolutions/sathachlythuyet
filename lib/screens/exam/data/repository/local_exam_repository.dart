@@ -7,26 +7,29 @@ import 'package:sathachlaixe/commons/model/liciense/liciense.dart';
 import 'package:sathachlaixe/commons/model/liciense/licienses_data.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question.dart';
 import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
+import 'package:sathachlaixe/screens/exam/domain/model/user_answer.dart';
 import 'package:sathachlaixe/screens/exam/domain/repository/exam_repository.dart';
 
 class LocalExamRepository implements ExamRepository {
   final Box<Question> questionBox;
   final Box<dynamic> settingBox;
   final Box<ExamInfo> examInfoBox;
+  final Box<UserAnswer> userAnswerBox;
 
   LocalExamRepository({
     required this.questionBox,
     required this.examInfoBox,
     required this.settingBox,
+    required this.userAnswerBox,
   });
 
   final _logger = Logger('LocalExamRepository');
 
   @override
   Future<List<Question>> loadQuestionsFromExamInfoByIds(
-    List<QuestionData>? listData,
+    List<int>? listIDs,
   ) async {
-    _logger.info('data: ${listData?.length}');
+    _logger.info('data: ${listIDs?.length}');
     List<Question> allQuestions = questionBox.values.toList();
     try {
       _logger.info('questions count: ${allQuestions.length}');
@@ -34,17 +37,18 @@ class LocalExamRepository implements ExamRepository {
           allQuestions
               .where(
                 (question) =>
-                    listData?.any(
-                      (data) => data.questionId == question.qNumber,
-                    ) ??
-                    false,
+                    listIDs?.any((id) => id == question.qNumber) ?? false,
               )
               .toList();
       return Future.value(listQuestions);
     } on Exception {
-      print('co loi');
       return Future.value([]);
     }
+  }
+
+  @override
+  Future<Map<String, UserAnswer>> getUserAnswerBaseOnKeys(List<String> keys) {
+    throw UnimplementedError();
   }
 
   @override
@@ -76,5 +80,10 @@ class LocalExamRepository implements ExamRepository {
   @override
   Future<ExamInfo> loadExamInfoByExamInfoKey(String examInfoKey) {
     return Future.value(examInfoBox.get(examInfoKey));
+  }
+
+  @override
+  Future<void> saveUserAnswer(String questionKey, UserAnswer userAnswer) async {
+    await userAnswerBox.put(questionKey, userAnswer);
   }
 }

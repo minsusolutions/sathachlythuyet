@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:sathachlaixe/screens/exam/domain/model/question_data.dart';
 
 part 'exam_info.g.dart';
 
@@ -13,9 +12,9 @@ class ExamInfo extends Equatable {
   @HiveField(1)
   final int examCode;
   @HiveField(2)
-  final int? examSetId;
+  final int examSetId;
   @HiveField(3)
-  final List<QuestionData> questionsData;
+  final List<int> questionIds;
   @HiveField(4)
   final ExamStatus status;
   @HiveField(5)
@@ -27,34 +26,39 @@ class ExamInfo extends Equatable {
     required this.licienseId,
     required this.examCode,
     required this.examSetId,
-    required this.questionsData,
+    required this.questionIds,
     required this.status,
     required this.duration,
     required this.minCorrQuestion,
   });
 
   ExamInfo copyWith({
-    List<QuestionData>? questionsData,
+    int? licienseId,
+    int? examCode,
+    int? examSetId,
+    List<int>? questionIds,
     ExamStatus? status,
     String? examTitle,
+    int? duration,
+    int? minCorrQuestion,
   }) {
     return ExamInfo(
-      licienseId: licienseId,
-      examCode: examCode,
-      examSetId: examSetId,
-      questionsData: questionsData ?? this.questionsData,
+      licienseId: licienseId ?? this.licienseId,
+      examCode: examCode ?? this.examCode,
+      examSetId: examSetId ?? this.examSetId,
+      questionIds: questionIds ?? this.questionIds,
       status: status ?? this.status,
-      duration: duration,
-      minCorrQuestion: minCorrQuestion,
+      duration: duration ?? this.duration,
+      minCorrQuestion: minCorrQuestion ?? this.minCorrQuestion,
     );
   }
 
   @override
-  List<Object?> get props => [examCode, questionsData];
+  List<Object?> get props => [examCode, questionIds];
 
   @override
   String toString() {
-    return 'licienseId: $licienseId, examCode: $examCode, examSetId: $examSetId, questions: $questionsData';
+    return 'licienseId: $licienseId, examCode: $examCode, examSetId: $examSetId, questions: $questionIds';
   }
 }
 
