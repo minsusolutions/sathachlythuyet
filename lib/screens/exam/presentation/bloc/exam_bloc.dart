@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -21,12 +23,24 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     on<QuestionSubmitted>(_onQuestionSubbmited);
     on<AnswerSelected>(_onAnswerSelected);
     on<HintRequested>(_onHintRequested);
-    on<QuestionSelectedFromDrawer>(_onQuestionSelectedFromDrawer);
+    on<_ExamTimerTicked>(_onExamTimerTicked);
+
     on<BackNavigationAttempted>(_onBackNavigationAttempted);
     on<ResetShowDialogEvent>(_onResetShowDialog);
   }
 
   final ExamRepository _examRepository;
+  StreamSubscription<int>? _timerSubcription;
+
+  @override
+  Future<void> close() {
+    _timerSubcription?.cancel();
+    return super.close();
+  }
+
+  Stream<int> _tick(int ticks) {
+    return Stream.periodic(const Duration(seconds: 1), (x) => ticks - x - 1).take(ticks);
+  }
 
   Future<void> _onLoadExam(LoadExam event, Emitter<ExamState> emit) async {
     if (event.examInfoKey != null) {
@@ -57,6 +71,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
           userAnswers: userAnswers,
           duration: examInfo.duration,
           showHints: {},
+          remainingDuration: examInfo.duration - 1,
         ),
       );
     } else if (event.extra != null) {
@@ -162,11 +177,25 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     }
   }
 
-  Future<void> _onQuestionSelectedFromDrawer(
-    QuestionSelectedFromDrawer event,
-    Emitter<ExamState> emit,
-  ) async {
-    _logger.info('Hay chuyen toi cau co index: ${event.index}');
+  void _onExamTimerTicked(_ExamTimerTicked event, Emitter<ExamState> emit) {
+    var currentState = state;
+    if (currentState is ExamLoaded) {
+      if (event.newDuration > 0) {
+        emit(currentState.copyWith(remainingDuration: event.newDuration));
+      } else {
+        //   final newAnswers = _autoSubmitRemainingQuestions();
+        // final (correct, incorrect, unanswered) = _calculateStats(state.questions, newAnswers);
+
+        // emit(state.copyWith(
+        //   remainingDuration: 0,
+        //   status: ExamStatus.timesUp, // Chuyển sang trạng thái hết giờ
+        //   userAnswers: newAnswers,
+        //   correctCount: correct,
+        //   incorrectCount: incorrect,
+        //   unansweredCount: unanswered,
+        // ));
+      }
+    }
   }
 
   void _onBackNavigationAttempted(
@@ -189,6 +218,24 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     //   emit(currentState.copyWith(shouldShowDialog: null));
     // }
   }
+
+  //   Map<int, UserAnswer> _autoSubmitRemainingQuestions() {
+  //   final newAnswers = Map<int, UserAnswer>.from(state.userAnswers);
+  //   for (var question in state.questions) {
+  //     final answer = newAnswers[question.id];
+  //     if (answer != null && answer.status == AnswerStatus.unanswered) {
+  //       // Đánh dấu câu chưa trả lời là sai
+  //       final submittedAnswer = UserAnswer(
+  //         questionId: question.id,
+  //         selectedOptionIndex: answer.selectedOptionIndex,
+  //         status: AnswerStatus.incorrect,
+  //       );
+  //       newAnswers[question.id] = submittedAnswer;
+  //       _examRepository.saveUserAnswer(submittedAnswer);
+  //     }
+  //   }
+  //   return newAnswers;
+  // }
 }
 
 

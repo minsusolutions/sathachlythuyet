@@ -4,6 +4,8 @@ import 'package:sathachlaixe/routing/router.dart';
 import 'package:sathachlaixe/styles/styles.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await setupDependencies();
   runApp(const SatHachLaiXeApp());
 }

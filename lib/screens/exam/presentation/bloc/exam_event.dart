@@ -1,7 +1,8 @@
 part of 'exam_bloc.dart';
 
-sealed class ExamEvent {
+abstract class ExamEvent extends Equatable {
   const ExamEvent();
+  List<Object?> get props => [];
 }
 
 final class LoadExamFromHomePage extends ExamEvent {
@@ -32,10 +33,11 @@ final class HintRequested extends ExamEvent {
   HintRequested({required this.qNumber});
 }
 
-final class QuestionSelectedFromDrawer extends ExamEvent {
-  final int index;
-
-  QuestionSelectedFromDrawer({required this.index});
+class _ExamTimerTicked extends ExamEvent {
+  final int newDuration;
+  const _ExamTimerTicked({required this.newDuration});
+  @override
+  List<Object> get props => [newDuration];
 }
 
 final class BackNavigationAttempted extends ExamEvent {}

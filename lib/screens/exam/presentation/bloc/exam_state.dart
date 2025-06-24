@@ -16,6 +16,7 @@ final class ExamLoaded extends ExamState {
   final List<Question> listQuestion;
   final Map<String, UserAnswer> userAnswers;
   final int duration;
+  final int remainingDuration;
 
   final Set<int> showHints;
   final bool? shouldShowDialog;
@@ -29,6 +30,7 @@ final class ExamLoaded extends ExamState {
     required this.duration,
     this.shouldShowDialog,
     required this.showHints,
+    required this.remainingDuration,
   });
 
   @override
@@ -40,11 +42,13 @@ final class ExamLoaded extends ExamState {
     userAnswers,
     showHints,
     duration,
+    remainingDuration,
   ];
 
   ExamLoaded copyWith({
     Map<String, UserAnswer>? userAnswers,
     Set<int>? showHints,
+    int? remainingDuration,
   }) {
     return ExamLoaded(
       licienseId: licienseId,
@@ -54,6 +58,7 @@ final class ExamLoaded extends ExamState {
       userAnswers: userAnswers ?? this.userAnswers,
       duration: duration,
       showHints: showHints ?? this.showHints,
+      remainingDuration: remainingDuration ?? this.remainingDuration,
     );
   }
 }
